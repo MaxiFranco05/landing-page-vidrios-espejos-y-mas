@@ -1,0 +1,15 @@
+{
+  "slug": "vitrina-de-vidrio",
+  "nombre": "Vitrina de vidrio",
+  "categoria": "muebles-de-vidrio",
+  "descripcion_corta": "Vitrina de vidrio con estantes para comercios, farmacias y hogares. Pedí tu presupuesto por WhatsApp.",
+  "fotos": [
+    {
+      "src": "/images/productos/vitrina-de-vidrio.svg",
+      "alt": "Imagen ilustrativa de una vitrina de vidrio en un comercio",
+      "ilustrativa": true
+    }
+  ],
+  "destacado": false,
+  "orden": 2
+}

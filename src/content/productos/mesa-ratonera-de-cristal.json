@@ -1,0 +1,15 @@
+{
+  "slug": "mesa-ratonera-de-cristal",
+  "nombre": "Mesa ratonera de cristal",
+  "categoria": "muebles-de-vidrio",
+  "descripcion_corta": "Mesa ratonera con tapa de cristal y base a elección, ideal para living. Consultanos por WhatsApp.",
+  "fotos": [
+    {
+      "src": "/images/productos/mesa-ratonera-de-cristal.svg",
+      "alt": "Imagen ilustrativa de una mesa ratonera de cristal en un living",
+      "ilustrativa": true
+    }
+  ],
+  "destacado": true,
+  "orden": 1
+}

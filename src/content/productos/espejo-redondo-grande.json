@@ -1,0 +1,15 @@
+{
+  "slug": "espejo-redondo-grande",
+  "nombre": "Espejo redondo grande",
+  "categoria": "espejos",
+  "descripcion_corta": "Espejo redondo de formato amplio para vestidores, locales y peluquerías. Pedí tu presupuesto por WhatsApp.",
+  "fotos": [
+    {
+      "src": "/images/productos/espejo-redondo-grande.svg",
+      "alt": "Imagen ilustrativa de un espejo redondo grande en un vestidor",
+      "ilustrativa": true
+    }
+  ],
+  "destacado": false,
+  "orden": 4
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img">
+  <title>Estante para vitrina — imagen ilustrativa</title>
+  <rect width="1200" height="800" fill="#fef3c7"/>
+  <rect x="80" y="80" width="1040" height="640" rx="24" fill="#ffffff" opacity="0.4"/>
+  <rect x="240" y="200" width="720" height="300" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="6"/>
+  <rect x="240" y="340" width="720" height="22" rx="11" fill="#fcd34d" stroke="#b45309" stroke-width="4"/>
+  <text x="600" y="600" text-anchor="middle" font-family="sans-serif" font-size="52" fill="#78350f">Estante para vitrina</text>
+  <text x="600" y="656" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#475569">Imagen ilustrativa</text>
+</svg>

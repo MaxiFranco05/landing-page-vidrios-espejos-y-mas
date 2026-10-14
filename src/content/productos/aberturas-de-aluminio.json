@@ -1,0 +1,15 @@
+{
+  "slug": "aberturas-de-aluminio",
+  "nombre": "Aberturas de aluminio",
+  "categoria": "instalaciones-y-aberturas",
+  "descripcion_corta": "Aberturas de aluminio con vidrio, con colocación incluida y asesoramiento personalizado. Escribinos por WhatsApp.",
+  "fotos": [
+    {
+      "src": "/images/productos/aberturas-de-aluminio.svg",
+      "alt": "Imagen ilustrativa de una abertura de aluminio con vidrio",
+      "ilustrativa": true
+    }
+  ],
+  "destacado": true,
+  "orden": 1
+}

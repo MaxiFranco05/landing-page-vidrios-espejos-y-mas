@@ -1,0 +1,15 @@
+{
+  "slug": "enmarcacion-de-logros-y-recuerdos",
+  "nombre": "Enmarcación de logros y recuerdos",
+  "categoria": "servicios-y-reparaciones",
+  "descripcion_corta": "Enmarcación de diplomas, medallas y recuerdos familiares con vidrio. Escribinos por WhatsApp.",
+  "fotos": [
+    {
+      "src": "/images/productos/enmarcacion-de-logros-y-recuerdos.svg",
+      "alt": "Imagen ilustrativa de una enmarcación de logros con vidrio",
+      "ilustrativa": true
+    }
+  ],
+  "destacado": true,
+  "orden": 3
+}

@@ -1,0 +1,12 @@
+{
+  "titulo": "Enmarcación de diploma universitario",
+  "categoria": "servicios-y-reparaciones",
+  "fotos": [
+    {
+      "src": "/images/trabajos/enmarcacion-diploma.svg",
+      "alt": "Imagen ilustrativa de un diploma enmarcado con vidrio",
+      "ilustrativa": true
+    }
+  ],
+  "descripcion": "Diploma enmarcado con vidrio y marco a elección."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "servicios-y-reparaciones",
+  "nombre": "Servicios y reparaciones",
+  "descripcion": "Reparación de vidrios y espejos de vehículos, y enmarcación de logros y recuerdos. Consultanos por WhatsApp.",
+  "imagen_portada": {
+    "src": "/images/categorias/servicios-y-reparaciones.svg",
+    "alt": "Imagen ilustrativa de un servicio de reparación de vidrios",
+    "ilustrativa": true
+  },
+  "orden": 4
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "muebles-de-vidrio",
+  "nombre": "Muebles de vidrio",
+  "descripcion": "Mesas ratoneras de cristal y vitrinas de vidrio para living y comercios. Pedí tu presupuesto por WhatsApp.",
+  "imagen_portada": {
+    "src": "/images/categorias/muebles-de-vidrio.svg",
+    "alt": "Imagen ilustrativa de muebles de vidrio en un living",
+    "ilustrativa": true
+  },
+  "orden": 2
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "espejo-redondo",
+  "nombre": "Espejo redondo",
+  "categoria": "espejos",
+  "descripcion_corta": "Espejo redondo pulido o con marco, un clásico que suma luz a cualquier ambiente. Consultanos por WhatsApp.",
+  "fotos": [
+    {
+      "src": "/images/productos/espejo-redondo.svg",
+      "alt": "Imagen ilustrativa de un espejo redondo en una pared",
+      "ilustrativa": true
+    }
+  ],
+  "destacado": true,
+  "orden": 3
+}

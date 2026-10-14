@@ -1,11 +1,11 @@
 {
   "slug": "espejos",
   "nombre": "Espejos",
-  "descripcion": "Espejos para baño, living y locales comerciales, con marco o pulidos, listos para colgar. Consultanos por WhatsApp y te asesoramos.",
+  "descripcion": "Espejos rectangulares, redondos, nube, con LED y panorámicos, listos para colgar. Consultanos por WhatsApp y te asesoramos.",
   "imagen_portada": {
     "src": "/images/categorias/espejos.svg",
     "alt": "Imagen ilustrativa de espejos instalados en un interior",
     "ilustrativa": true
   },
-  "orden": 2
+  "orden": 1
 }

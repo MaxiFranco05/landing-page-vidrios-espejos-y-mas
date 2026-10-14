@@ -23,9 +23,10 @@ Sin autenticación en v1. Si en v2 entra un admin o CMS externo, esta matriz se 
 
 Todas las rutas son públicas (no hay auth):
 
-- `/` — home (propuesta de valor, categorías, trabajos destacados, contacto, acceso a Maps).
-- `/categoria/vidrios-a-medida-dvh`
+- `/` — home (Hero, teaser Lo que hacemos, destacados con carousel, contacto, acceso a Maps).
+- `/catalogo` — catálogo completo dividido por categorías.
 - `/categoria/espejos`
-- `/categoria/estantes-comerciales`
-- `/categoria/mesas-ratoneras`
-- Secciones por ancla en home: `/#trabajos`, `/#contacto`, `/#ubicacion`.
+- `/categoria/muebles-de-vidrio`
+- `/categoria/instalaciones-y-aberturas`
+- `/categoria/servicios-y-reparaciones`
+- Secciones por ancla en home: `/#hacemos`, `/#destacados`, `/#contacto`, `/#ubicacion`.

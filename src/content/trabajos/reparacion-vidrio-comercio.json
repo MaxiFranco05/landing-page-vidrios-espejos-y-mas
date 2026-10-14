@@ -1,0 +1,12 @@
+{
+  "titulo": "Reparación de vidrio en local comercial",
+  "categoria": "servicios-y-reparaciones",
+  "fotos": [
+    {
+      "src": "/images/trabajos/reparacion-vidrio-comercio.svg",
+      "alt": "Imagen ilustrativa de una reparación de vidrio en un local comercial",
+      "ilustrativa": true
+    }
+  ],
+  "descripcion": "Recambio de vidrio en vidriera de un local céntrico de Gral. Alvear."
+}

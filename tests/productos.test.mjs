@@ -12,14 +12,36 @@ describe('productos (sin precio ni medidas, RN-CAT-02)', () => {
   const productos = loadJsonEntries('productos');
   const slugsCategoria = new Set(loadJsonEntries('categorias').map((e) => categoriaSchema.parse(e.data).slug));
 
-  test('cada categoría tiene al menos un producto (spec: Producto válido por categoría)', () => {
+  test('cada categoría tiene su conteo del catálogo real 6/2/2/3 (spec: Producto válido por categoría, DD-09)', () => {
     const porCategoria = new Map();
+    const nombres = new Map();
     for (const { data } of productos) {
       const p = productoSchema.parse(data);
       porCategoria.set(p.categoria, (porCategoria.get(p.categoria) ?? 0) + 1);
+      if (!nombres.has(p.categoria)) nombres.set(p.categoria, []);
+      nombres.get(p.categoria).push(p.nombre);
     }
-    for (const slug of slugsCategoria) {
-      assert.ok((porCategoria.get(slug) ?? 0) >= 1, `categoría sin productos: ${slug}`);
+    assert.equal(productos.length, 13);
+    const esperado = {
+      espejos: [
+        'Espejo rectangular',
+        'Espejo nube',
+        'Espejo redondo',
+        'Espejo redondo grande',
+        'Espejo con LED',
+        'Espejo panorámico',
+      ],
+      'muebles-de-vidrio': ['Mesa ratonera de cristal', 'Vitrina de vidrio'],
+      'instalaciones-y-aberturas': ['Aberturas de aluminio', 'Mampara para baño'],
+      'servicios-y-reparaciones': [
+        'Reparación de vidrios de ventanas',
+        'Reparación de espejos de vehículos',
+        'Enmarcación de logros y recuerdos',
+      ],
+    };
+    for (const [slug, lista] of Object.entries(esperado)) {
+      assert.equal(porCategoria.get(slug) ?? 0, lista.length, `conteo distinto en: ${slug}`);
+      assert.deepEqual([...(nombres.get(slug) ?? [])].sort(), [...lista].sort());
     }
   });
 

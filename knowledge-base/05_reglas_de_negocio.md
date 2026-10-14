@@ -4,7 +4,7 @@ Cada regla tiene un código único `RN-{DOMINIO}-{NN}` para trazabilidad.
 
 ## Dominio: Catálogo (RN-CAT)
 
-- **RN-CAT-01**: El catálogo v1 tiene exactamente 4 categorías: Vidrios a medida y DVH, Espejos, Estantes comerciales, Mesas ratoneras de vidrio — decisión 21a.
+- **RN-CAT-01**: El catálogo v1 tiene exactamente 4 categorías reales: Espejos, Muebles de Vidrio, Instalaciones y Aberturas, Servicios y Reparaciones — catálogo del cliente, reemplaza las 4 iniciales (rearme, DD-09).
 - **RN-CAT-02**: Ningún producto muestra precio ni medidas en la página. Toda definición comercial se cierra por WhatsApp.
 - **RN-CAT-03**: El catálogo es estático en v1: los cambios los aplica el desarrollador sobre los archivos de contenido (decisión 13a).
 - **RN-CAT-04**: No se publica una categoría o producto sin al menos una foto (real o, en última instancia, boceto IA marcado como ilustrativo).

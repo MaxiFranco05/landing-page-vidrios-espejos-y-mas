@@ -16,8 +16,8 @@ Ser la vidriera digital de la vidriería "Vidrios, espejos y mas" (Gral. Alvear,
 
 ## Alcance v1.0
 
-- Home con propuesta de valor + CTA directo a WhatsApp/llamada (+54 9 2625 44-5223).
-- Catálogo en 4 categorías: Vidrios a medida y DVH, Espejos, Estantes comerciales, Mesas ratoneras de vidrio.
+- Home: Hero con propuesta de valor + CTA a WhatsApp/llamada (+54 9 2625 44-5223), teaser “Lo que hacemos”, Trabajos destacados con carousel táctil, Contacto + Ubicación.
+- Catálogo en 4 categorías reales: Espejos, Muebles de Vidrio, Instalaciones y Aberturas, Servicios y Reparaciones — página Catálogo propia + páginas por categoría.
 - Galería de trabajos por categoría (fotos reales; bocetos con IA solo como último recurso).
 - Link de WhatsApp dinámico **por producto**, con mensaje predefinido (ej: *"Hola, me interesa el Espejo redondo con LED..."*).
 - Datos de contacto visibles + dirección (Estrada 912, Gral. Alvear, Mendoza).

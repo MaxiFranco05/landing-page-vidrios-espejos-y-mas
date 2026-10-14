@@ -1,0 +1,15 @@
+{
+  "slug": "mampara-para-bano",
+  "nombre": "Mampara para baño",
+  "categoria": "instalaciones-y-aberturas",
+  "descripcion_corta": "Mampara de vidrio para baño, con herrajes y colocación incluida. Consultanos por WhatsApp.",
+  "fotos": [
+    {
+      "src": "/images/productos/mampara-para-bano.svg",
+      "alt": "Imagen ilustrativa de una mampara de vidrio para baño",
+      "ilustrativa": true
+    }
+  ],
+  "destacado": false,
+  "orden": 2
+}

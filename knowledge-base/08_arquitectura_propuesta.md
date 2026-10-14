@@ -25,7 +25,8 @@ vidrios-espejos-y-mas/
 │   │                          # WhatsAppButton, Gallery, ThemeToggle, MapEmbed
 │   ├── layouts/               # BaseLayout (SEO + tema claro/oscuro)
 │   ├── pages/
-│   │   ├── index.astro        # home
+│   │   ├── index.astro        # home (Hero → Lo que hacemos → destacados → contacto)
+│   │   ├── catalogo.astro     # catálogo completo por categorías
 │   │   └── categoria/[slug].astro
 │   ├── styles/                # tokens de diseño (paleta, tipografías)
 │   └── lib/

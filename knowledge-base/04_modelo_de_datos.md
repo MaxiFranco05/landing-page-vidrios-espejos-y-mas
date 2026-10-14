@@ -28,7 +28,7 @@ DatosContacto (singleton: teléfono, WhatsApp, dirección, horarios, Maps URL)
 - Atributos: `slug` (string, único), `nombre` (string), `descripcion` (string), `imagen_portada` (imagen), `orden` (number).
 - Relaciones: tiene muchos Productos (1—*), tiene muchos Trabajos (1—*).
 - Constraints: `slug` kebab-case, único; `orden` define el orden en home.
-- Seed inicial: `vidrios-a-medida-dvh`, `espejos`, `estantes-comerciales`, `mesas-ratoneras`.
+- Seed inicial (catálogo real): `espejos`, `muebles-de-vidrio`, `instalaciones-y-aberturas`, `servicios-y-reparaciones`.
 
 ### Producto
 - Atributos: `slug` (string, único), `nombre` (string), `categoria` (ref → Categoria), `descripcion_corta` (string), `fotos[]` (imágenes), `destacado` (boolean), `orden` (number).
@@ -46,6 +46,7 @@ DatosContacto (singleton: teléfono, WhatsApp, dirección, horarios, Maps URL)
 
 ## Seed data inicial
 
-- 4 categorías (slugs arriba) con descripción y portada.
+- 4 categorías reales (slugs arriba) con descripción y portada.
 - DatosContacto con los valores del seed.
-- Al menos 1 producto y 2 trabajos por categoría para no lanzar secciones vacías (ver pregunta PA-02).
+- 13 productos del catálogo real (6 espejos, 2 muebles, 2 instalaciones, 3 servicios), nombres sin medidas (R2 vigente, DD-09).
+- Trabajos remapeados a las categorías nuevas, mínimo 2 por categoría (ver pregunta PA-02).

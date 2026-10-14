@@ -52,6 +52,12 @@
 **Trade-offs aceptados**: dependencia de build (PostCSS/Vite plugin de Tailwind dentro de Astro).
 **Nota de implementación (C-01)**: `tailwindcss` + `@tailwindcss/vite` pineados a `4.1.12` con override `vite: 5.4.21` — las versiones 4.3+ traen vite 8 y rompen `astro check` en Astro 4. Mantener el pin hasta actualizar Astro.
 
+### DD-09 — Catálogo real + home reordenado (rearme)
+**Decisión**: reemplazar las 4 categorías iniciales por el catálogo real del cliente (Espejos, Muebles de Vidrio, Instalaciones y Aberturas, Servicios y Reparaciones); R2 sigue vigente (nombres sin medidas); home: Hero → Lo que hacemos (teaser) → Destacados con carousel táctil → Contacto+Ubicación; catálogo completo en página `/catalogo` propia.
+**Contexto**: el cliente pasó su catálogo real y aprobó la demo v3 como mockup; el bloque Servicios en home se veía feo.
+**Justificación**: el seed inicial era supuesto; el contenido real manda. El teaser + página propia le dan aire al catálogo.
+**Trade-offs aceptados**: seed y spec `content-model` ya archivados quedan obsoletos → se actualizan con un change dedicado antes de C-05/06/07.
+
 ## Supuestos inferidos
 
 ### SU-01 — Las fotos parciales alcanzan para arrancar

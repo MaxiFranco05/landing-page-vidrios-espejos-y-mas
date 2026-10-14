@@ -1,0 +1,15 @@
+{
+  "slug": "espejo-con-led",
+  "nombre": "Espejo con LED",
+  "categoria": "espejos",
+  "descripcion_corta": "Espejo con iluminación LED integrada, ideal para baños y vestidores. Consultanos por WhatsApp.",
+  "fotos": [
+    {
+      "src": "/images/productos/espejo-con-led.svg",
+      "alt": "Imagen ilustrativa de un espejo con iluminación LED",
+      "ilustrativa": true
+    }
+  ],
+  "destacado": true,
+  "orden": 5
+}

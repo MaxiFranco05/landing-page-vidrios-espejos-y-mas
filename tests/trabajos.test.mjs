@@ -23,10 +23,17 @@ describe('trabajos (galería por categoría)', () => {
     }
   });
 
-  test('toda ref de categoria existe', () => {
+  test('toda ref de categoria existe y es un slug real (spec: Sin restos del seed supuesto)', () => {
+    const reales = new Set([
+      'espejos',
+      'muebles-de-vidrio',
+      'instalaciones-y-aberturas',
+      'servicios-y-reparaciones',
+    ]);
     for (const { file, data } of trabajos) {
       const t = trabajoSchema.parse(data);
       assert.ok(slugsCategoria.has(t.categoria), `${file}: categoria inexistente ${t.categoria}`);
+      assert.ok(reales.has(t.categoria), `${file}: slug del seed supuesto ${t.categoria}`);
     }
   });
 

@@ -10,9 +10,18 @@ import {
 describe('categorias (RN-CAT-01)', () => {
   const entries = loadJsonEntries('categorias');
 
-  test('existen exactamente las 4 categorías del seed (spec: Cuatro categorías del seed)', () => {
+  test('existen exactamente las 4 categorías del catálogo real (spec: Cuatro categorías del seed, DD-09)', () => {
     const slugs = entries.map((e) => categoriaSchema.parse(e.data).slug).sort();
     assert.deepEqual(slugs, [...CATEGORIA_SLUGS].sort());
+    assert.deepEqual(
+      [...CATEGORIA_SLUGS].sort(),
+      [
+        'espejos',
+        'instalaciones-y-aberturas',
+        'muebles-de-vidrio',
+        'servicios-y-reparaciones',
+      ].sort(),
+    );
   });
 
   test('cada archivo valida y su nombre coincide con el slug', () => {

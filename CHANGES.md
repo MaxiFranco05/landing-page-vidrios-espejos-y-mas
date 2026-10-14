@@ -146,11 +146,21 @@ Paso │ Agente A (Contenido + Catálogo)   │ Agente B (Interacción + Galerí
   - `knowledge-base/07_flujos_principales.md` §Flujo 1
   - `knowledge-base/04_modelo_de_datos.md` §DatosContacto
 
+### [C-09] `catalogo-real-seed`
+- **Estado**: `[x]` archivado (2026-10-14)
+- **Scope**: Reemplazo del seed supuesto de C-02 por el catálogo real (DD-09): 4 categorías nuevas (Espejos, Muebles de Vidrio, Instalaciones y Aberturas, Servicios y Reparaciones), 13 productos sin medidas, trabajos remapeados; MODIFICA el spec `content-model`.
+- **Dependencias**: C-02 (archivado). Bloquea: C-05, C-06, C-07.
+- **Governance**: BAJO.
+- **Leer antes**:
+  - `knowledge-base/04_modelo_de_datos.md` §Entidades
+  - `knowledge-base/05_reglas_de_negocio.md` §RN-CAT-01, §RN-CAT-02
+  - `knowledge-base/09_decisiones_y_supuestos.md` §DD-09
+
 ---
 
 ## FASE 2 — Contenido visible
 
-> C-05, C-06 y C-07 pueden proponerse en paralelo una vez archivados C-02, C-03 y C-04.
+> C-05, C-06 y C-07 pueden proponerse en paralelo una vez archivados C-02, C-03, C-04 y C-09.
 
 ### [C-05] `catalogo-categorias-productos`
 - **Estado**: `[ ]` pendiente

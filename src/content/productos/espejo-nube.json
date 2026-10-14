@@ -1,0 +1,15 @@
+{
+  "slug": "espejo-nube",
+  "nombre": "Espejo nube",
+  "categoria": "espejos",
+  "descripcion_corta": "Espejo con forma de nube, perfecto para dormitorios infantiles y espacios creativos. Escribinos por WhatsApp.",
+  "fotos": [
+    {
+      "src": "/images/productos/espejo-nube.svg",
+      "alt": "Imagen ilustrativa de un espejo con forma de nube",
+      "ilustrativa": true
+    }
+  ],
+  "destacado": false,
+  "orden": 2
+}

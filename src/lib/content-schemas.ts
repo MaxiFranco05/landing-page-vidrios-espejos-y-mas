@@ -13,12 +13,12 @@ import { z } from 'zod';
 // Constantes canónicas
 // ---------------------------------------------------------------------------
 
-/** Slugs de las 4 categorías del catálogo v1 (RN-CAT-01). */
+/** Slugs de las 4 categorías del catálogo real (RN-CAT-01, DD-09, C-09). */
 export const CATEGORIA_SLUGS = [
-  'vidrios-a-medida-dvh',
   'espejos',
-  'estantes-comerciales',
-  'mesas-ratoneras',
+  'muebles-de-vidrio',
+  'instalaciones-y-aberturas',
+  'servicios-y-reparaciones',
 ] as const;
 
 export const KEBAB_CASE_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;

@@ -1,0 +1,15 @@
+{
+  "slug": "reparacion-de-vidrios-de-ventanas",
+  "nombre": "Reparación de vidrios de ventanas",
+  "categoria": "servicios-y-reparaciones",
+  "descripcion_corta": "Reparación y recambio de vidrios de ventanas en viviendas y comercios. Escribinos por WhatsApp.",
+  "fotos": [
+    {
+      "src": "/images/productos/reparacion-de-vidrios-de-ventanas.svg",
+      "alt": "Imagen ilustrativa de una reparación de vidrios de ventanas",
+      "ilustrativa": true
+    }
+  ],
+  "destacado": false,
+  "orden": 1
+}

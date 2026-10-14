@@ -1,0 +1,15 @@
+{
+  "slug": "espejo-rectangular",
+  "nombre": "Espejo rectangular",
+  "categoria": "espejos",
+  "descripcion_corta": "Espejo rectangular con marco a elección, ideal para baño, dormitorio o living. Consultanos por WhatsApp.",
+  "fotos": [
+    {
+      "src": "/images/productos/espejo-rectangular.svg",
+      "alt": "Imagen ilustrativa de un espejo rectangular con marco",
+      "ilustrativa": true
+    }
+  ],
+  "destacado": true,
+  "orden": 1
+}
