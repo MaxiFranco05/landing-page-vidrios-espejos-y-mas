@@ -1,0 +1,198 @@
+﻿{
+    "kb":  {
+               "created_by":  "kb-creator",
+               "discovery":  {
+                                 "domain":  "local_services (vidrierÃ­a)",
+                                 "needs_infra":  false,
+                                 "problem":  "VidrierÃ­a \u0027Vidrios, espejos y mas\u0027 (Gral. Alvear, Mendoza) sin presencia web; la landing muestra productos por categorÃ­a y convierte visitas en consultas por WhatsApp/llamada",
+                                 "scale":  "public_multi_user",
+                                 "stack":  "Astro + Netlify (sitio estÃ¡tico)",
+                                 "system_type":  "web_app"
+                             },
+               "files":  [
+                             "knowledge-base/01_vision_y_objetivos.md",
+                             "knowledge-base/02_descripcion_general.md",
+                             "knowledge-base/03_actores_y_roles.md",
+                             "knowledge-base/04_modelo_de_datos.md",
+                             "knowledge-base/05_reglas_de_negocio.md",
+                             "knowledge-base/06_funcionalidades.md",
+                             "knowledge-base/07_flujos_principales.md",
+                             "knowledge-base/08_arquitectura_propuesta.md",
+                             "knowledge-base/09_decisiones_y_supuestos.md",
+                             "knowledge-base/10_preguntas_abiertas.md",
+                             "knowledge-base/README.md"
+                         ],
+               "source":  "interactive"
+           },
+    "discovery":  {
+                      "casos_de_uso":  [
+                                           "Como vecino, quiero ver espejos y vidrios por categorÃ­a para consultar por WhatsApp sin llamar a ciegas",
+                                           "Como comerciante, quiero ver estantes y trabajos realizados para pedir un presupuesto",
+                                           "Como visitante, quiero ubicar el local (Estrada 912, Gral. Alvear) y contactar en un clic",
+                                           "Como dueÃ±o, quiero que cada producto tenga su propio link de WhatsApp con mensaje predefinido para recibir consultas calificadas"
+                                       ],
+                      "competitors":  [
+                                          {
+                                              "name":  "Vidrios y Espejos HernÃ¡n",
+                                              "notes_file":  "discovery/sources/vidrios-y-espejos-hernan.md"
+                                          },
+                                          {
+                                              "name":  "VidrierÃ­a La Plata (Servicios Lourdes)",
+                                              "notes_file":  "discovery/sources/vidrieria-la-plata.md"
+                                          },
+                                          {
+                                              "name":  "Casa Vigo Vidrios",
+                                              "notes_file":  "discovery/sources/casa-vigo-vidrios.md"
+                                          }
+                                      ],
+                      "created_by":  "discovery-research",
+                      "funcionalidades_necesarias":  [
+                                                         "Home con CTA a WhatsApp/llamada",
+                                                         "CatÃ¡logo por categorÃ­as: vidrios/DVH, espejos, estantes, mesas ratoneras",
+                                                         "GalerÃ­a de trabajos por categorÃ­a",
+                                                         "Links dinÃ¡micos de WhatsApp por producto con mensaje predefinido",
+                                                         "Contacto visible + direcciÃ³n",
+                                                         "Google Maps en footer + acceso rÃ¡pido en home",
+                                                         "CatÃ¡logo estÃ¡tico en v1 (decisiÃ³n 13a)"
+                                                     ],
+                      "funcionalidades_opcionales":  [
+                                                         "EnvÃ­os a alrededores (v2)",
+                                                         "Admin del catÃ¡logo sin costo de mantenimiento (v2, a definir)",
+                                                         "PÃ¡ginas por zona para SEO local",
+                                                         "ReseÃ±as de Google, FAQ, urgencias 24 hs, Instagram"
+                                                     ],
+                      "integraciones":  [
+                                            "WhatsApp deep links por producto",
+                                            "Google Maps (footer + home)"
+                                        ],
+                      "preguntas_abiertas":  [
+                                                 "Definir en v2 el mecanismo del admin del catÃ¡logo sin costo de mantenimiento"
+                                             ],
+                      "problema":  "VidrierÃ­a \u0027Vidrios, espejos y mas\u0027 (Gral. Alvear, Mendoza) sin presencia web; la landing muestra productos por categorÃ­a y convierte visitas en consultas por WhatsApp/llamada",
+                      "reglas_de_negocio":  [
+                                                "Sin reglas duras por ahora; todo se acuerda por WhatsApp segÃºn el pedido",
+                                                "V1 sin toma de medidas ni precios en la pÃ¡gina"
+                                            ],
+                      "restricciones":  [
+                                            "Ninguna restricciÃ³n dura de plazo, presupuesto o stack"
+                                        ],
+                      "riesgos":  [
+                                      "DiseÃ±o genÃ©rico \u0027hecho por IA\u0027 que no atraiga (criterio de calidad del diseÃ±o)",
+                                      "Supuesto sin probar: preferencia por WhatsApp web vs. llamada directa",
+                                      "Prometer envÃ­os sin operatoria (mitigado: v2)",
+                                      "Costo de mantenimiento del futuro admin (mitigado: soluciÃ³n sin mantenimiento)"
+                                  ],
+                      "sources":  [
+                                      "https://www.vidriosespejoshernan.com.ar/",
+                                      "https://vidrierialaplata.com.ar/",
+                                      "https://casavigovidrios.com.ar/"
+                                  ],
+                      "usuarios":  [
+                                       "Hogar/vecino (espejos, ventanas)",
+                                       "Comercio local (estantes, vidrieras)",
+                                       "Obra/arquitecto (aspiracional)"
+                                   ]
+                  },
+    "skills":  {
+                       "created_by":  "find-skill",
+                       "installed":  ["frontend-design", "web-design-guidelines", "design-taste-frontend", "seo-audit", "web-perf", "tailwind-design-system", "accessibility", "seo", "astro"],
+                       "recommended":  [
+                                            {
+                                                "installs":  "982.8K",
+                                                "repo":  "anthropics/skills",
+                                                "skill":  "frontend-design",
+                                                "url":  "https://skills.sh/anthropics/skills/frontend-design",
+                                                "why":  "Sistema de diseño para landing que evita el look genérico de IA (riesgo #1 del discovery; criterio RN-DS-01/02)"
+                                            },
+                                            {
+                                                "installs":  "730.3K",
+                                                "repo":  "vercel-labs/agent-skills",
+                                                "skill":  "web-design-guidelines",
+                                                "url":  "https://skills.sh/vercel-labs/agent-skills/web-design-guidelines",
+                                                "why":  "Guidelines de diseño web + accesibilidad para sitio público mobile-first con tema claro/oscuro"
+                                            },
+                                            {
+                                                "installs":  "603.7K",
+                                                "repo":  "leonxlnx/taste-skill",
+                                                "skill":  "design-taste-frontend",
+                                                "url":  "https://skills.sh/leonxlnx/taste-skill/design-taste-frontend",
+                                                "why":  "Gusto visual high-end para paleta vidrio/agua y tipografía con carácter (identidad visual 08_arquitectura)"
+                                            },
+                                            {
+                                                "installs":  "226.7K",
+                                                "repo":  "coreyhaines31/marketingskills",
+                                                "skill":  "seo-audit",
+                                                "url":  "https://skills.sh/coreyhaines31/marketingskills/seo-audit",
+                                                "why":  "Auditoría SEO local para Gral. Alvear; base para páginas por zona v2 y presencia en Google"
+                                            },
+                                            {
+                                                "installs":  "98.1K",
+                                                "repo":  "cloudflare/skills",
+                                                "skill":  "web-perf",
+                                                "url":  "https://skills.sh/cloudflare/skills/web-perf",
+                                                "why":  "Performance de SSG Astro + galería de fotos reales (LCP, lazy-load, CDN Netlify)"
+                                            },
+                                            {
+                                                "installs":  "96.8K",
+                                                "repo":  "vercel-labs/agent-skills",
+                                                "skill":  "vercel-optimize",
+                                                "url":  "https://skills.sh/vercel-labs/agent-skills/vercel-optimize",
+                                                "why":  "Optimización de build/deploy estático transferible a Netlify (Astro build → HTML + netlify.toml)"
+                                            },
+                                            {
+                                                "installs":  "60.7K",
+                                                "repo":  "addyosmani/web-quality-skills",
+                                                "skill":  "accessibility",
+                                                "url":  "https://skills.sh/addyosmani/web-quality-skills/accessibility",
+                                                "why":  "Accesibilidad y contraste para público general mobile + modo oscuro completo"
+                                            },
+                                            {
+                                                "installs":  "50K",
+                                                "repo":  "addyosmani/web-quality-skills",
+                                                "skill":  "seo",
+                                                "url":  "https://skills.sh/addyosmani/web-quality-skills/seo",
+                                                "why":  "SEO técnico para SSG Astro (meta/OG, sitemap, Maps embed, links wa.me por producto)"
+                                            },
+                                            {
+                                                "installs":  "17K",
+                                                "repo":  "astrolicious/agent-skills",
+                                                "skill":  "astro",
+                                                "url":  "https://skills.sh/astrolicious/agent-skills/astro",
+                                                "why":  "Único match exacto del stack: Content Collections, islas, rutas categoria/[slug].astro (17K installs, menor tracción)"
+                                            },
+                                            {
+                                                "installs":  "68.4K",
+                                                "repo":  "wshobson/agents",
+                                                "skill":  "tailwind-design-system",
+                                                "url":  "https://skills.sh/wshobson/agents/tailwind-design-system",
+                                                "why":  "Opcional solo si se usa Tailwind para tokens de diseño en src/styles (no confirmado en KB)"
+                                            }
+                                        ]
+                   },
+    "agents":  {"created_by":  "agent-instruction", "files":  ["AGENTS.md", "CLAUDE.md"], "reglas_applied":  ["R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8"]},
+    "owner":  "active-orchestrator",
+    "step":  "done",
+    "version":  4,
+    "roadmap":  {
+                    "created_by":  "roadmap-generator",
+                    "source":  "CHANGES.md",
+                    "changes":  [
+                                    "C-01",
+                                    "C-02",
+                                    "C-03",
+                                    "C-04",
+                                    "C-05",
+                                    "C-06",
+                                    "C-07",
+                                    "C-08"
+                                ]
+                },
+    "registry":  {
+                    "created_by":  "skill-registry",
+                    "location":  ".atl/skill-registry.md",
+                    "skills":  ["frontend-design", "web-design-guidelines", "design-taste-frontend", "seo-audit", "web-perf", "tailwind-design-system", "accessibility", "seo", "astro"],
+                    "conventions":  [],
+                    "conventions_note":  "No AGENTS.md/CLAUDE.md yet (expected, next phase)",
+                    "engram":  "saved"
+                }
+}
