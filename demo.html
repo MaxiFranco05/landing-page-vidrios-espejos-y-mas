@@ -1,13 +1,16 @@
 <!doctype html>
 <!--
-  DEMO de paletas — c-03-design-system-tema (instrumento descartable).
+  DEMO de paletas + vista previa — c-03-design-system-tema (instrumento descartable).
   - Un solo archivo, CSS/JS inline, sin build: se abre con doble clic.
-  - Conmutador de paletas 37A/37B/37C + claro/oscuro (sticky arriba).
+  - Conmutador de paletas 37A/37B/37C (default 37B) + claro/oscuro + vista actual/nueva.
+  - Vista "actual": contenido demo previo, sin cambios.
+  - Vista "nueva" (default): propuesta Casa Vigo / La Plata con 4 rubros reales, sin precios ni medidas (R2).
   - NO es maqueta base: C-05+ parten de los tokens, no de este HTML.
   - NO se publica: `npm run build` no la incluye en `dist/`.
+  - Links wa.me de ejemplo (sin `#`); imágenes = SVG inline ilustrativos con role="img".
   - Sin prueba social inventada (sin reseñas ni estadísticas).
 -->
-<html lang="es" data-paleta="37b" data-tema="claro">
+<html lang="es" data-paleta="37b" data-tema="claro" data-vista="nueva">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -69,7 +72,7 @@
     display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center;
     padding: 0.6rem 1.25rem;
   }
-  .demo-bar fieldset { border: 0; margin: 0; padding: 0; display: flex; gap: 0.4rem; align-items: center; }
+  .demo-bar fieldset { border: 0; margin: 0; padding: 0; display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
   .demo-bar legend { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0; margin-right: 0.25rem; }
   .demo-bar label {
     border: 1px solid var(--borde); border-radius: 999px; cursor: pointer;
@@ -81,6 +84,10 @@
   .demo-bar label:has(input:focus-visible) { outline: 3px solid var(--acento); outline-offset: 2px; }
 
   .envoltura { max-width: 68rem; margin: 0 auto; padding: 0 1.25rem; }
+
+  /* Conmutador de vista: solo una visible por vez. */
+  html[data-vista="actual"] #vista-nueva { display: none; }
+  html[data-vista="nueva"] #vista-actual { display: none; }
 
   /* Hero de oficio: titular + foto protagonista, composición asimétrica. */
   .hero { display: grid; gap: 1.5rem; padding: 3rem 0 2.5rem; }
@@ -110,6 +117,7 @@
   .categorias li:nth-child(odd) { background: var(--calido); }
   .categorias h3 { font-family: "Fraunces", Georgia, serif; font-size: 1.15rem; margin: 0 0 0.4rem; }
   .categorias p { font-size: 0.92rem; margin: 0; }
+  .categorias .ver-catalogo { margin-top: 0.75rem; }
 
   /* Galería estilo La Plata: fotos grandes protagonistas + tira con scroll-snap. */
   .galeria { padding: 2rem 0 3rem; }
@@ -121,22 +129,73 @@
   @media (min-width: 720px) { .galeria-tira { grid-auto-columns: 42%; } }
   .galeria-tira figure { scroll-snap-align: start; margin: 0; }
 
+  /* ===== Nueva propuesta ===== */
+  .servicios { padding: 2rem 0; }
+  .servicios-grid { display: grid; gap: 1rem; list-style: none; margin: 1rem 0 0; padding: 0; }
+  @media (min-width: 720px) { .servicios-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .servicios-grid { grid-template-columns: repeat(4, 1fr); } }
+  .servicio-card { background: var(--superficie); border: 1px solid var(--borde); border-radius: 0.9rem; padding: 1.1rem; }
+  .servicios-grid > li:nth-child(even) { background: var(--calido); }
+  .servicio-card h3 { font-family: "Fraunces", Georgia, serif; font-size: 1.15rem; margin: 0 0 0.5rem; }
+  .servicio-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+  .servicio-card li { display: grid; gap: 0.35rem; border-top: 1px solid var(--borde); padding-top: 0.6rem; }
+  .servicio-card li:first-child { border-top: 0; padding-top: 0; }
+  .producto-nombre { font-size: 0.95rem; font-weight: 600; }
+  .boton-presupuesto {
+    border: 1px solid var(--acento); border-radius: 999px; color: var(--acento);
+    display: inline-block; font-size: 0.85rem; font-weight: 600;
+    min-height: 40px; padding: 0.45rem 1rem; text-decoration: none; text-align: center;
+  }
+  .boton-presupuesto:hover, .boton-presupuesto:focus-visible { background: var(--acento); color: var(--sobre-acento); }
+
+  /* Trabajos destacados: imagen grande + carousel de miniaturas (botones). */
+  .destacados { padding: 2rem 0; }
+  .destacado-grande { margin: 1rem 0; touch-action: pan-y; }
+  .carousel { display: grid; grid-auto-flow: column; grid-auto-columns: 10rem; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0.25rem 0 0.75rem; margin: 0; list-style: none; }
+  .carousel li { scroll-snap-align: start; }
+  .mini-btn {
+    background: var(--superficie); border: 2px solid var(--borde); border-radius: 0.7rem;
+    cursor: pointer; padding: 0; overflow: hidden; width: 100%; color: inherit;
+    min-height: 44px;
+  }
+  .mini-btn svg { display: block; width: 100%; height: auto; }
+  .mini-btn .mini-nombre { display: block; font-size: 0.78rem; padding: 0.35rem 0.5rem 0.5rem; text-align: left; }
+  .mini-btn[aria-pressed="true"] { border-color: var(--acento); outline: 2px solid var(--acento); outline-offset: 1px; }
+
+  /* Contacto + ubicación estilo Casa Vigo. */
+  .contacto { padding: 2rem 0 3rem; }
+  .contacto-grid { display: grid; gap: 1rem; margin-top: 1rem; }
+  @media (min-width: 720px) { .contacto-grid { grid-template-columns: 1fr 1fr; } }
+  .contacto-card { background: var(--superficie); border: 1px solid var(--borde); border-radius: 0.9rem; padding: 1.25rem; }
+  .contacto-card:nth-child(2) { background: var(--calido); }
+  .contacto-card h3 { font-family: "Fraunces", Georgia, serif; font-size: 1.15rem; margin: 0 0 0.5rem; }
+  .contacto-card address { font-style: normal; }
+  .contacto-card ul { list-style: none; margin: 0.5rem 0 0; padding: 0; display: grid; gap: 0.35rem; }
+  .horarios { width: 100%; border-collapse: collapse; font-size: 0.92rem; margin-top: 0.5rem; }
+  .horarios th, .horarios td { text-align: left; padding: 0.3rem 0.5rem 0.3rem 0; border-top: 1px solid var(--borde); }
+  .horarios tr:first-child th, .horarios tr:first-child td { border-top: 0; }
+
   footer { background: var(--superficie); border-top: 2px solid var(--borde); padding: 2rem 0; }
   footer address { font-style: normal; }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
-    .galeria-tira { scroll-snap-type: none; }
+    .galeria-tira, .carousel { scroll-snap-type: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="demo-bar" role="group" aria-label="Conmutador de paleta y tema de la demo">
+<div class="demo-bar" role="group" aria-label="Conmutadores de la demo: vista, paleta y tema">
+  <fieldset>
+    <legend>Vista</legend>
+    <label><input type="radio" name="vista" value="actual" /> Vista actual</label>
+    <label><input type="radio" name="vista" value="nueva" checked /> Nueva propuesta</label>
+  </fieldset>
   <fieldset>
     <legend>Paleta</legend>
-    <label><input type="radio" name="paleta" value="37a" checked /> 37A Vidrio Agua</label>
-    <label><input type="radio" name="paleta" value="37b" /> 37B Azul Taller</label>
+    <label><input type="radio" name="paleta" value="37a" /> 37A Vidrio Agua</label>
+    <label><input type="radio" name="paleta" value="37b" checked /> 37B Azul Taller</label>
     <label><input type="radio" name="paleta" value="37c" /> 37C Costa</label>
   </fieldset>
   <fieldset>
@@ -146,6 +205,8 @@
   </fieldset>
 </div>
 
+<!-- ============ VISTA ACTUAL (contenido demo previo, sin cambios) ============ -->
+<div id="vista-actual">
 <div class="envoltura">
   <section class="hero" aria-labelledby="demo-titulo">
     <div>
@@ -239,20 +300,264 @@
     </address>
   </div>
 </footer>
+</div><!-- /vista-actual -->
+
+<!-- ============ NUEVA PROPUESTA (Casa Vigo / La Plata, R2 sin precios ni medidas) ============ -->
+<div id="vista-nueva">
+<div class="envoltura">
+  <section class="hero" aria-labelledby="nueva-titulo">
+    <div>
+      <p class="zona">Vidriería · Gral. Alvear, Mendoza</p>
+      <h1 id="nueva-titulo">Vidrios, espejos <em>y mas</em></h1>
+      <div class="filete" aria-hidden="true"></div>
+      <p>Espejos, muebles de vidrio, aberturas y reparaciones para casas y locales de la zona. Escribinos por WhatsApp y te asesoramos sin compromiso.</p>
+      <a class="boton-ejemplo" href="https://wa.me/5492625445223?text=Hola%20Vidrios%2C%20espejos%20y%20mas!%20Quiero%20hacer%20una%20consulta">WhatsApp: pedir presupuesto (ejemplo)</a>
+    </div>
+    <figure class="foto-marco">
+      <svg viewBox="0 0 640 420" role="img" aria-label="Ilustración: espejo redondo con luz LED sobre pared clara junto a una bacha de baño">
+        <rect width="640" height="420" fill="#9db8c4"/>
+        <rect x="0" y="300" width="640" height="120" fill="#7fa3b5"/>
+        <circle cx="320" cy="180" r="120" fill="#dfe9ec" stroke="#3d5a66" stroke-width="10"/>
+        <circle cx="320" cy="180" r="104" fill="none" stroke="#e8f2f4" stroke-width="8"/>
+        <rect x="250" y="310" width="140" height="30" rx="6" fill="#e4edf0" stroke="#3d5a66" stroke-width="5"/>
+      </svg>
+      <figcaption>Imagen ilustrativa: espejo instalado en baño</figcaption>
+    </figure>
+  </section>
+
+  <section class="categorias" aria-labelledby="nueva-quehacemos">
+    <h2 id="nueva-quehacemos">Lo que hacemos</h2>
+    <ul>
+      <li>
+        <h3>Espejos</h3>
+        <p>Espejos para baño, living y locales, listos para colgar.</p>
+        <a class="boton-presupuesto ver-catalogo" href="#catalogo">Ver catálogo</a>
+      </li>
+      <li>
+        <h3>Muebles de Vidrio</h3>
+        <p>Mesas y vitrinas de vidrio para casa y comercio.</p>
+        <a class="boton-presupuesto ver-catalogo" href="#catalogo">Ver catálogo</a>
+      </li>
+      <li>
+        <h3>Instalaciones y Aberturas</h3>
+        <p>Aberturas de aluminio y mamparas instaladas en obra.</p>
+        <a class="boton-presupuesto ver-catalogo" href="#catalogo">Ver catálogo</a>
+      </li>
+      <li>
+        <h3>Servicios y Reparaciones</h3>
+        <p>Reparaciones de vidrios y enmarcaciones a pedido.</p>
+        <a class="boton-presupuesto ver-catalogo" href="#catalogo">Ver catálogo</a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="destacados" aria-labelledby="nueva-destacados">
+    <h2 id="nueva-destacados">Trabajos destacados</h2>
+    <figure class="foto-marco destacado-grande" aria-live="polite">
+      <span id="trabajo-grande-img">
+        <svg viewBox="0 0 960 480" role="img" aria-label="Ilustración: espejo rectangular con marco oscuro instalado en un living">
+          <rect width="960" height="480" fill="#8ba7b5"/>
+          <rect x="330" y="50" width="300" height="380" rx="8" fill="#dfe9ec" stroke="#2f3f47" stroke-width="12"/>
+          <rect x="360" y="90" width="240" height="180" fill="#b9d2da"/>
+          <rect x="120" y="340" width="180" height="70" fill="#5d7a87"/>
+          <rect x="660" y="340" width="180" height="70" fill="#5d7a87"/>
+        </svg>
+      </span>
+      <figcaption id="trabajo-grande-caption">Imagen ilustrativa: espejo rectangular instalado en living</figcaption>
+    </figure>
+    <ul class="carousel" aria-label="Elegir trabajo destacado">
+      <li>
+        <button type="button" class="mini-btn" data-indice="0" aria-pressed="true">
+          <svg viewBox="0 0 320 180" role="img" aria-label="Miniatura ilustrativa: espejo rectangular en living">
+            <rect width="320" height="180" fill="#8ba7b5"/>
+            <rect x="115" y="15" width="90" height="150" rx="4" fill="#dfe9ec" stroke="#2f3f47" stroke-width="8"/>
+          </svg>
+          <span class="mini-nombre">Espejo rectangular</span>
+        </button>
+      </li>
+      <li>
+        <button type="button" class="mini-btn" data-indice="1" aria-pressed="false">
+          <svg viewBox="0 0 320 180" role="img" aria-label="Miniatura ilustrativa: mampara de vidrio en baño">
+            <rect width="320" height="180" fill="#9db8c4"/>
+            <rect x="60" y="20" width="200" height="140" fill="#c8d9df" stroke="#2f3f47" stroke-width="8"/>
+            <line x1="160" y1="20" x2="160" y2="160" stroke="#2f3f47" stroke-width="6"/>
+          </svg>
+          <span class="mini-nombre">Mampara para baño</span>
+        </button>
+      </li>
+      <li>
+        <button type="button" class="mini-btn" data-indice="2" aria-pressed="false">
+          <svg viewBox="0 0 320 180" role="img" aria-label="Miniatura ilustrativa: abertura de aluminio con vidrio repartido">
+            <rect width="320" height="180" fill="#a7bfd0"/>
+            <rect x="50" y="25" width="220" height="130" fill="#d5e3e8" stroke="#2f3f47" stroke-width="8"/>
+            <line x1="160" y1="25" x2="160" y2="155" stroke="#2f3f47" stroke-width="6"/>
+          </svg>
+          <span class="mini-nombre">Abertura de aluminio</span>
+        </button>
+      </li>
+      <li>
+        <button type="button" class="mini-btn" data-indice="3" aria-pressed="false">
+          <svg viewBox="0 0 320 180" role="img" aria-label="Miniatura ilustrativa: mesa ratonera con tapa de cristal en living">
+            <rect width="320" height="180" fill="#b3c6cf"/>
+            <rect x="70" y="70" width="180" height="18" rx="4" fill="#e4edf0" stroke="#2f3f47" stroke-width="5"/>
+            <rect x="90" y="88" width="10" height="70" fill="#2f3f47"/>
+            <rect x="220" y="88" width="10" height="70" fill="#2f3f47"/>
+          </svg>
+          <span class="mini-nombre">Mesa ratonera</span>
+        </button>
+      </li>
+    </ul>
+  </section>
+
+  <section class="contacto" aria-labelledby="nueva-contacto">
+    <h2 id="nueva-contacto">Contacto y ubicación</h2>
+    <div class="contacto-grid">
+      <div class="contacto-card">
+        <h3>Escribinos</h3>
+        <address>
+          <ul>
+            <li>WhatsApp: <a href="https://wa.me/5492625445223?text=Hola%20Vidrios%2C%20espejos%20y%20mas!%20Quiero%20hacer%20una%20consulta">+54 9 2625 44-5223</a></li>
+            <li>Tel: <a href="tel:+5492625445223">+54 9 2625 44-5223</a></li>
+            <li>Estrada 912, Gral. Alvear, Mendoza</li>
+          </ul>
+        </address>
+        <table class="horarios">
+          <caption>Horarios de atención</caption>
+          <tbody>
+            <tr><th scope="row">Lun–Vie</th><td>8–19</td></tr>
+            <tr><th scope="row">Sáb</th><td>8–13</td></tr>
+            <tr><th scope="row">Dom</th><td>Cerrado</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="contacto-card">
+        <h3>Cómo llegar</h3>
+        <p>Estrada 912, General Alvear, Mendoza. Pasá por el taller o escribinos antes de venir.</p>
+        <a class="boton-ejemplo" href="https://www.google.com/maps/search/?api=1&amp;query=Vidrios,+espejos+y+mas+Estrada+912+General+Alvear+Mendoza">Cómo llegar</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="envoltura">
+    <p class="marca-nombre">Vidrios, espejos <em>y mas</em></p>
+    <address>
+      Estrada 912, Gral. Alvear, Mendoza · Lun–Vie 8–19, Sáb 8–13, Dom cerrado
+    </address>
+  </div>
+</footer>
+</div><!-- /vista-nueva -->
 
 <script>
-  // Conmutador A/B/C + claro/oscuro: cambia data-* en <html>, sin recargar.
-  var root = document.documentElement;
-  document.querySelectorAll('input[name="paleta"]').forEach(function (radio) {
-    radio.addEventListener('change', function () {
-      root.setAttribute('data-paleta', radio.value);
+  // Conmutadores vista/paleta/tema: cambian data-* en <html>, con persistencia local.
+  // Galería nueva propuesta: las miniaturas cambian la imagen grande (click + teclado + swipe táctil).
+  (function () {
+    var root = document.documentElement;
+
+    function recordar(clave, valor) {
+      try { window.localStorage.setItem(clave, valor); } catch (e) { /* sin almacenamiento: sigue funcionando */ }
+    }
+    function leer(clave) {
+      try { return window.localStorage.getItem(clave); } catch (e) { return null; }
+    }
+
+    function enlazar(nombre, attr, clave) {
+      var radios = document.querySelectorAll('input[name="' + nombre + '"]');
+      var guardado = leer(clave);
+      if (guardado) {
+        root.setAttribute(attr, guardado);
+        radios.forEach(function (r) { r.checked = (r.value === guardado); });
+      }
+      radios.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+          root.setAttribute(attr, radio.value);
+          recordar(clave, radio.value);
+        });
+      });
+    }
+
+    enlazar('vista', 'data-vista', 'demo-vista');
+    enlazar('paleta', 'data-paleta', 'demo-paleta');
+    enlazar('tema', 'data-tema', 'demo-tema');
+
+    var trabajos = [
+      {
+        caption: 'Imagen ilustrativa: espejo rectangular instalado en living',
+        etiqueta: 'Ilustración: espejo rectangular con marco oscuro instalado en un living',
+        dibujo: '<rect width="960" height="480" fill="#8ba7b5"/><rect x="330" y="50" width="300" height="380" rx="8" fill="#dfe9ec" stroke="#2f3f47" stroke-width="12"/><rect x="360" y="90" width="240" height="180" fill="#b9d2da"/><rect x="120" y="340" width="180" height="70" fill="#5d7a87"/><rect x="660" y="340" width="180" height="70" fill="#5d7a87"/>'
+      },
+      {
+        caption: 'Imagen ilustrativa: mampara de vidrio instalada en baño',
+        etiqueta: 'Ilustración: mampara de vidrio con perfilería oscura en un baño claro',
+        dibujo: '<rect width="960" height="480" fill="#9db8c4"/><rect x="230" y="50" width="500" height="380" fill="#c8d9df" stroke="#2f3f47" stroke-width="12"/><line x1="480" y1="50" x2="480" y2="430" stroke="#2f3f47" stroke-width="10"/><rect x="230" y="380" width="500" height="50" fill="#7fa3b5"/>'
+      },
+      {
+        caption: 'Imagen ilustrativa: abertura de aluminio con vidrio repartido',
+        etiqueta: 'Ilustración: abertura de aluminio con vidrio repartido en pared clara',
+        dibujo: '<rect width="960" height="480" fill="#a7bfd0"/><rect x="180" y="70" width="600" height="340" fill="#d5e3e8" stroke="#2f3f47" stroke-width="12"/><line x1="480" y1="70" x2="480" y2="410" stroke="#2f3f47" stroke-width="10"/><rect x="140" y="410" width="680" height="24" fill="#5d7a87"/>'
+      },
+      {
+        caption: 'Imagen ilustrativa: mesa ratonera con tapa de cristal en living',
+        etiqueta: 'Ilustración: mesa ratonera con tapa de cristal y base oscura en un living',
+        dibujo: '<rect width="960" height="480" fill="#b3c6cf"/><rect x="280" y="200" width="400" height="36" rx="6" fill="#e4edf0" stroke="#2f3f47" stroke-width="8"/><rect x="330" y="236" width="20" height="150" fill="#2f3f47"/><rect x="610" y="236" width="20" height="150" fill="#2f3f47"/><rect x="180" y="386" width="600" height="20" fill="#7fa3b5"/>'
+      }
+    ];
+
+    var grandeImg = document.getElementById('trabajo-grande-img');
+    var grandeCaption = document.getElementById('trabajo-grande-caption');
+    var minis = document.querySelectorAll('.mini-btn');
+    var figuraGrande = document.querySelector('#vista-nueva .destacado-grande');
+    var actual = 0;
+    var tactoX = null;
+
+    function mostrar(indice) {
+      var t = trabajos[indice];
+      if (!t || !grandeImg || !grandeCaption) { return; }
+      actual = indice;
+      grandeImg.innerHTML = '<svg viewBox="0 0 960 480" role="img" aria-label="' + t.etiqueta + '">' + t.dibujo + '</svg>';
+      grandeCaption.textContent = t.caption;
+      minis.forEach(function (btn, i) {
+        btn.setAttribute('aria-pressed', i === indice ? 'true' : 'false');
+      });
+    }
+
+    minis.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        mostrar(parseInt(btn.getAttribute('data-indice'), 10));
+      });
+      btn.addEventListener('keydown', function (ev) {
+        var i = parseInt(btn.getAttribute('data-indice'), 10);
+        var destino = null;
+        if (ev.key === 'ArrowRight') { destino = (i + 1) % minis.length; }
+        if (ev.key === 'ArrowLeft') { destino = (i - 1 + minis.length) % minis.length; }
+        if (destino !== null) {
+          ev.preventDefault();
+          minis[destino].focus();
+          mostrar(destino);
+        }
+      });
     });
-  });
-  document.querySelectorAll('input[name="tema"]').forEach(function (radio) {
-    radio.addEventListener('change', function () {
-      root.setAttribute('data-tema', radio.value);
-    });
-  });
+
+    // Ruleta táctil: swipe horizontal sobre la imagen grande cambia el trabajo.
+    // Umbral 40px; vertical scroll intacto (touch-action: pan-y en CSS).
+    function avanzar(paso) {
+      if (!minis.length) { return; }
+      mostrar((actual + paso + minis.length) % minis.length);
+    }
+    if (figuraGrande) {
+      figuraGrande.addEventListener('touchstart', function (ev) {
+        if (ev.changedTouches && ev.changedTouches.length) { tactoX = ev.changedTouches[0].clientX; }
+      }, { passive: true });
+      figuraGrande.addEventListener('touchend', function (ev) {
+        if (tactoX === null || !ev.changedTouches || !ev.changedTouches.length) { return; }
+        var dx = ev.changedTouches[0].clientX - tactoX;
+        tactoX = null;
+        if (Math.abs(dx) < 40) { return; }
+        if (dx < 0) { avanzar(1); } else { avanzar(-1); }
+      }, { passive: true });
+    }
+  })();
 </script>
 </body>
 </html>
