@@ -1,0 +1,11 @@
+{
+  "slug": "mesas-ratoneras",
+  "nombre": "Mesas ratoneras de vidrio",
+  "descripcion": "Mesas ratoneras con tapa de vidrio y base a elección, ideales para living. Escribinos por WhatsApp para conocer los modelos.",
+  "imagen_portada": {
+    "src": "/images/categorias/mesas-ratoneras.svg",
+    "alt": "Imagen ilustrativa de una mesa ratonera de vidrio en un living",
+    "ilustrativa": true
+  },
+  "orden": 4
+}

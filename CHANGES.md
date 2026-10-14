@@ -95,7 +95,7 @@ Paso │ Agente A (Contenido + Catálogo)   │ Agente B (Interacción + Galerí
   - `knowledge-base/09_decisiones_y_supuestos.md` §DD-01, §DD-02, §DD-03
 
 ### [C-02] `content-model-seed`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` archivado (2026-10-14)
 - **Scope**: Modelo de contenido + seed inicial versionado en git
   - Schemas Zod de Content Collections: `categorias` (`slug` kebab-case único, `nombre`, `descripcion`, `imagen_portada`, `orden`), `productos` (`slug`, `nombre`, `categoria` ref, `descripcion_corta`, `fotos[]` con `alt`, `destacado`, `orden`), `trabajos` (`titulo`, `categoria` ref, `fotos[]`, `descripcion?`, `fecha?`), `datos-contacto.json` (whatsapp `5492625445223`, teléfono visible, dirección, zona, maps_url, maps_embed_url, horarios)
   - Seed: 4 categorías (`vidrios-a-medida-dvh`, `espejos`, `estantes-comerciales`, `mesas-ratoneras`), DatosContacto con valores del seed, ≥1 producto y ≥2 trabajos por categoría (placeholder marcado si aplica PA-02)

@@ -1,0 +1,13 @@
+{
+  "titulo": "Mesa ratonera en living familiar",
+  "categoria": "mesas-ratoneras",
+  "fotos": [
+    {
+      "src": "/images/trabajos/mesa-ratonera-living.svg",
+      "alt": "Imagen ilustrativa de una mesa ratonera de vidrio en un living familiar",
+      "ilustrativa": true
+    }
+  ],
+  "descripcion": "Mesa ratonera de vidrio entregada e instalada en una vivienda.",
+  "fecha": "2025-07-19"
+}

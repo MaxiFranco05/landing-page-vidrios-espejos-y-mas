@@ -42,7 +42,7 @@ DatosContacto (singleton: teléfono, WhatsApp, dirección, horarios, Maps URL)
 
 ### DatosContacto (singleton)
 - Atributos: `whatsapp` (string, formato internacional sin `+`), `telefono_visible` (string), `direccion` (string), `zona_atencion` (string), `maps_url` (url), `maps_embed_url` (url), `horarios` (string).
-- Seed inicial: whatsapp `5492625445223`, dirección "Estrada 912, Gral. Alvear, Mendoza", zona "Gral. Alvear y alrededores", horarios "Lun–Vie 8–19, Sáb 8–13, Dom cerrado" (respuesta 25a).
+- Seed inicial: whatsapp `5492625445223`, dirección "Estrada 912, Gral. Alvear, Mendoza", zona "Gral. Alvear y alrededores", horarios "Lun–Vie 8–19, Sáb 8–13, Dom cerrado" (respuesta 25a), maps_embed_url real de la ficha (respuesta 36a), maps_url derivada `https://www.google.com/maps/search/?api=1&query=Vidrios,+espejos+y+mas+Estrada+912+General+Alvear+Mendoza` (a verificar en C-07).
 
 ## Seed data inicial
 

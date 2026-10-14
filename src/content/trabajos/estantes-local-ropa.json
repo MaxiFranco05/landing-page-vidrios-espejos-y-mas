@@ -1,0 +1,12 @@
+{
+  "titulo": "Estantes flotantes en local de ropa",
+  "categoria": "estantes-comerciales",
+  "fotos": [
+    {
+      "src": "/images/trabajos/estantes-local-ropa.svg",
+      "alt": "Imagen ilustrativa de estantes flotantes de vidrio en un local de ropa",
+      "ilustrativa": true
+    }
+  ],
+  "descripcion": "Estantes flotantes de vidrio para exhibición de indumentaria."
+}

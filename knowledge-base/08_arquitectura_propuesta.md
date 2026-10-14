@@ -61,3 +61,5 @@ vidrios-espejos-y-mas/
 - Tipografía legible con carácter (a definir en implementación; nada de la sans genérica de plantilla).
 - Fotos reales del negocio como protagonistas; bocetos IA solo ilustrativos y marcados.
 - Sin logo previo: la marca (logo simple + tokens de color/tipografía) se crea dentro del proyecto — decisión 26b.
+- Referencia visual (gusto del cliente): galería/trabajos estilo La Plata — lo visual, no la estructura (las páginas por zona NO aplican: un solo local).
+- Paleta a definir con demo visual en C-03 (ternas 37A/B/C propuestas; el demo las incluye conmutables + galería estilo La Plata). Decisión del dueño: demo después, durante el diseño.

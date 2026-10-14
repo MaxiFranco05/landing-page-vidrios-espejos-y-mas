@@ -1,0 +1,11 @@
+{
+  "slug": "vidrios-a-medida-dvh",
+  "nombre": "Vidrios a medida y DVH",
+  "descripcion": "Corte a medida, templados, laminados y doble vidriado hermético (DVH) para aberturas, puertas y cerramientos. Instalación incluida y asesoramiento por WhatsApp.",
+  "imagen_portada": {
+    "src": "/images/categorias/vidrios-a-medida-dvh.svg",
+    "alt": "Imagen ilustrativa de vidrios a medida y DVH instalados en una abertura",
+    "ilustrativa": true
+  },
+  "orden": 1
+}

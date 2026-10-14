@@ -1,0 +1,13 @@
+{
+  "titulo": "Espejo vestidor en dormitorio",
+  "categoria": "espejos",
+  "fotos": [
+    {
+      "src": "/images/trabajos/espejo-vestidor.svg",
+      "alt": "Imagen ilustrativa de un espejo vestidor instalado en un dormitorio",
+      "ilustrativa": true
+    }
+  ],
+  "descripcion": "Espejo de cuerpo entero instalado en dormitorio.",
+  "fecha": "2025-06-21"
+}

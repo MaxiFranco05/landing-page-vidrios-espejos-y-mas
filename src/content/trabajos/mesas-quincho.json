@@ -1,0 +1,12 @@
+{
+  "titulo": "Juego de mesas para quincho",
+  "categoria": "mesas-ratoneras",
+  "fotos": [
+    {
+      "src": "/images/trabajos/mesas-quincho.svg",
+      "alt": "Imagen ilustrativa de mesas ratoneras de vidrio en un quincho",
+      "ilustrativa": true
+    }
+  ],
+  "descripcion": "Mesas ratoneras de vidrio para un quincho familiar."
+}

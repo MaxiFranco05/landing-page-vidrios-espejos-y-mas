@@ -1,0 +1,13 @@
+{
+  "titulo": "Ventanas con DVH en dormitorio",
+  "categoria": "vidrios-a-medida-dvh",
+  "fotos": [
+    {
+      "src": "/images/trabajos/ventanas-dvh.svg",
+      "alt": "Imagen ilustrativa de ventanas con DVH instaladas en un dormitorio",
+      "ilustrativa": true
+    }
+  ],
+  "descripcion": "Reemplazo de ventanas con doble vidriado hermético en dormitorio.",
+  "fecha": "2025-10-02"
+}

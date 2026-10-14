@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img">
+  <title>Espejos — imagen ilustrativa</title>
+  <rect width="1200" height="800" fill="#e0f2fe"/>
+  <rect x="80" y="80" width="1040" height="640" rx="24" fill="#ffffff" opacity="0.4"/>
+  <rect x="380" y="140" width="440" height="400" rx="220" fill="#cffafe" stroke="#0e7490" stroke-width="8"/>
+  <rect x="420" y="180" width="120" height="320" rx="60" fill="#ffffff" opacity="0.55"/>
+  <text x="600" y="620" text-anchor="middle" font-family="sans-serif" font-size="52" fill="#164e63">Espejos</text>
+  <text x="600" y="676" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#475569">Imagen ilustrativa</text>
+</svg>

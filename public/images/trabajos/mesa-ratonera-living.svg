@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img">
+  <title>Mesa ratonera en living — imagen ilustrativa</title>
+  <rect width="1200" height="800" fill="#dcfce7"/>
+  <rect x="80" y="80" width="1040" height="640" rx="24" fill="#ffffff" opacity="0.4"/>
+  <rect x="230" y="280" width="220" height="220" rx="16" fill="#15803d" opacity="0.25"/>
+  <rect x="750" y="280" width="220" height="220" rx="16" fill="#15803d" opacity="0.25"/>
+  <rect x="380" y="330" width="440" height="36" rx="18" fill="#bbf7d0" stroke="#15803d" stroke-width="5"/>
+  <rect x="450" y="366" width="24" height="140" fill="#15803d"/>
+  <rect x="726" y="366" width="24" height="140" fill="#15803d"/>
+  <text x="600" y="610" text-anchor="middle" font-family="sans-serif" font-size="48" fill="#14532d">Mesa en living</text>
+  <text x="600" y="666" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#475569">Imagen ilustrativa</text>
+</svg>

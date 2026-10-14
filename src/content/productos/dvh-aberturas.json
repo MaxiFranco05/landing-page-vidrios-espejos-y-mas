@@ -1,0 +1,15 @@
+{
+  "slug": "dvh-aberturas",
+  "nombre": "DVH para aberturas",
+  "categoria": "vidrios-a-medida-dvh",
+  "descripcion_corta": "Doble vidriado hermético a medida para ventanas y puertas, con colocación incluida.",
+  "fotos": [
+    {
+      "src": "/images/productos/dvh-aberturas.svg",
+      "alt": "Imagen ilustrativa de DVH instalado en una abertura",
+      "ilustrativa": true
+    }
+  ],
+  "destacado": true,
+  "orden": 1
+}

@@ -1,0 +1,12 @@
+{
+  "titulo": "Espejos en peluquería céntrica",
+  "categoria": "espejos",
+  "fotos": [
+    {
+      "src": "/images/trabajos/espejos-peluqueria.svg",
+      "alt": "Imagen ilustrativa de una pared de espejos en una peluquería",
+      "ilustrativa": true
+    }
+  ],
+  "descripcion": "Pared de espejos instalada en una peluquería del centro."
+}

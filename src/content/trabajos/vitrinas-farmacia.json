@@ -1,0 +1,13 @@
+{
+  "titulo": "Vitrinas para farmacia",
+  "categoria": "estantes-comerciales",
+  "fotos": [
+    {
+      "src": "/images/trabajos/vitrinas-farmacia.svg",
+      "alt": "Imagen ilustrativa de estantes de vidrio en vitrinas de farmacia",
+      "ilustrativa": true
+    }
+  ],
+  "descripcion": "Estantes de vidrio para las vitrinas de una farmacia de avenida principal.",
+  "fecha": "2025-09-05"
+}
