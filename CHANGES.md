@@ -79,7 +79,7 @@ Paso │ Agente A (Contenido + Catálogo)   │ Agente B (Interacción + Galerí
 ## FASE 0 — Cimientos
 
 ### [C-01] `foundation-setup`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` archivado (2026-10-14)
 - **Scope**: Scaffolding Astro + Netlify listo para construir
   - Proyecto Astro 4.x + TypeScript 5.x, `astro.config.mjs`, `tsconfig`, estructura `src/{content,components,layouts,pages,styles,lib}` + `public/images` según `08_arquitectura_propuesta.md`
   - `netlify.toml` (build `astro build`, publish `dist`, URL temporal `*.netlify.app` por PA-01), `.env.example` con `PUBLIC_WHATSAPP_NUMBER`, `PUBLIC_PHONE_DISPLAY`, `PUBLIC_ADDRESS`, `PUBLIC_MAPS_URL`, `PUBLIC_MAPS_EMBED_URL`
