@@ -1,0 +1,7 @@
+# Netlify — deploy declarativo (C-01).
+# Sitio 100 % estático (R1): build Astro SSG → publicar `dist/` directo,
+# sin functions ni SSR (decisión D1: sin adapter en v1).
+# URL temporal `*.netlify.app` hasta resolver PA-01 (dominio definitivo, C-08).
+[build]
+  command = "npm run build"
+  publish = "dist"

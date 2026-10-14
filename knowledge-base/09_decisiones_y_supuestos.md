@@ -50,6 +50,7 @@
 **Contexto**: el dueño confirmó Tailwind al elegir skills (se sumó `tailwind-design-system`, se descartó `vercel-optimize` por deploy en Netlify).
 **Justificación**: acelera el maquetado del doble tema claro/oscuro y los tokens evitan estilos ad-hoc que rompan la identidad.
 **Trade-offs aceptados**: dependencia de build (PostCSS/Vite plugin de Tailwind dentro de Astro).
+**Nota de implementación (C-01)**: `tailwindcss` + `@tailwindcss/vite` pineados a `4.1.12` con override `vite: 5.4.21` — las versiones 4.3+ traen vite 8 y rompen `astro check` en Astro 4. Mantener el pin hasta actualizar Astro.
 
 ## Supuestos inferidos
 

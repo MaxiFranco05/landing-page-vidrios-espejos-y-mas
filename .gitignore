@@ -1,0 +1,15 @@
+# Dependencias
+node_modules/
+
+# Build
+dist/
+.astro/
+
+# Env local (el ejemplo versionado es .env.example)
+.env
+.env.local
+
+# Logs y OS
+*.log
+.DS_Store
+Thumbs.db

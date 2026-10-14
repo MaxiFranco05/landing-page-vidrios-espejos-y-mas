@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens (C-01: esqueleto mínimo).
+ *
+ * Tailwind CSS v4 CSS-first (R3): los tokens viven aquí vía `@theme`,
+ * NUNCA en `tailwind.config.ts`. La paleta final, tipografías y modo
+ * oscuro los define C-03 (design-system) con jerarquía
+ * brand → semantic → component. Este bloque solo deja el mecanismo
+ * probado para que el pipeline CSS compile desde el día 1.
+ */
+@theme {
+  /* Sin tokens de marca aún — C-03 los añade (preferir OKLCH). */
+}

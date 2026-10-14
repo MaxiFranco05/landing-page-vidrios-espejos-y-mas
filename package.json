@@ -1,0 +1,29 @@
+{
+  "name": "landing-vidrios-espejos-y-mas",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Landing estática para vidriería «Vidrios, espejos y mas» (Gral. Alvear) — Astro 4.x SSG + Tailwind CSS v4 + Netlify.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "sync": "astro sync"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "4.1.12",
+    "astro": "^4",
+    "tailwindcss": "4.1.12"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "~5"
+  },
+  "engines": {
+    "node": ">=18.17.1"
+  },
+  "overrides": {
+    "vite": "5.4.21"
+  }
+}
