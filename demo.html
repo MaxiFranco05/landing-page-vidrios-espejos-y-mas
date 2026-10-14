@@ -1,0 +1,258 @@
+<!doctype html>
+<!--
+  DEMO de paletas — c-03-design-system-tema (instrumento descartable).
+  - Un solo archivo, CSS/JS inline, sin build: se abre con doble clic.
+  - Conmutador de paletas 37A/37B/37C + claro/oscuro (sticky arriba).
+  - NO es maqueta base: C-05+ parten de los tokens, no de este HTML.
+  - NO se publica: `npm run build` no la incluye en `dist/`.
+  - Sin prueba social inventada (sin reseñas ni estadísticas).
+-->
+<html lang="es" data-paleta="37b" data-tema="claro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Demo de paletas — Vidrios, espejos y mas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,600&display=swap" rel="stylesheet" />
+<style>
+  /* Mapa de las 3 ternas candidatas (design.md D1). La ganadora (37d)
+     se registra tras ver esta demo; los tokens finales usan solo esa. */
+  :root, html[data-paleta="37a"][data-tema="claro"] {
+    --fondo: #EDF3F0; --superficie: #D8E9E3; --borde: #A9CFC7;
+    --acento: #14676F; --texto: #123A3F; --calido: #F6F1E4;
+    --sobre-acento: #EDF3F0;
+  }
+  html[data-paleta="37a"][data-tema="oscuro"] {
+    --fondo: #0E2429; --superficie: #17363D; --borde: #17363D;
+    --acento: #82CCC6; --texto: #EAF4F0; --calido: #17363D;
+    --sobre-acento: #0E2429;
+  }
+  html[data-paleta="37b"][data-tema="claro"] {
+    --fondo: #EDF1F6; --superficie: #CDDBE8; --borde: #D9E8F5;
+    --acento: #1E5AA8; --texto: #152A42; --calido: #F4EFE3;
+    --sobre-acento: #EDF1F6;
+  }
+  html[data-paleta="37b"][data-tema="oscuro"] {
+    --fondo: #0F1E30; --superficie: #1A2F47; --borde: #1A2F47;
+    --acento: #8FB8E8; --texto: #E9F1F8; --calido: #1A2F47;
+    --sobre-acento: #0F1E30;
+  }
+  html[data-paleta="37c"][data-tema="claro"] {
+    --fondo: #FBF7EC; --superficie: #F3EAD5; --borde: #D9E6D9;
+    --acento: #2E7D64; --texto: #1F352C; --calido: #F3EAD5;
+    --sobre-acento: #FBF7EC;
+  }
+  html[data-paleta="37c"][data-tema="oscuro"] {
+    --fondo: #122419; --superficie: #1D352A; --borde: #1D352A;
+    --acento: #8FD0B4; --texto: #EDF5EE; --calido: #1D352A;
+    --sobre-acento: #122419;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--fondo); color: var(--texto);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    margin: 0; line-height: 1.6;
+  }
+  h1, h2, .marca-nombre {
+    font-family: "Fraunces", Georgia, "Times New Roman", serif;
+    font-weight: 600; line-height: 1.1; margin: 0 0 0.5rem;
+  }
+  a { color: var(--acento); }
+  :focus-visible { outline: 3px solid var(--acento); outline-offset: 2px; }
+
+  /* Barra de conmutadores: sticky, nativa, operable por teclado. */
+  .demo-bar {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--superficie); border-bottom: 2px solid var(--borde);
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center;
+    padding: 0.6rem 1.25rem;
+  }
+  .demo-bar fieldset { border: 0; margin: 0; padding: 0; display: flex; gap: 0.4rem; align-items: center; }
+  .demo-bar legend { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0; margin-right: 0.25rem; }
+  .demo-bar label {
+    border: 1px solid var(--borde); border-radius: 999px; cursor: pointer;
+    font-size: 0.85rem; padding: 0.3rem 0.8rem; min-height: 32px;
+    display: inline-flex; align-items: center;
+  }
+  .demo-bar input { accent-color: var(--acento); margin-right: 0.35rem; }
+  .demo-bar label:has(input:checked) { background: var(--acento); color: var(--sobre-acento); border-color: var(--acento); }
+  .demo-bar label:has(input:focus-visible) { outline: 3px solid var(--acento); outline-offset: 2px; }
+
+  .envoltura { max-width: 68rem; margin: 0 auto; padding: 0 1.25rem; }
+
+  /* Hero de oficio: titular + foto protagonista, composición asimétrica. */
+  .hero { display: grid; gap: 1.5rem; padding: 3rem 0 2.5rem; }
+  @media (min-width: 720px) { .hero { grid-template-columns: 1.1fr 0.9fr; align-items: center; } }
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
+  .hero h1 em { color: var(--acento); font-style: italic; }
+  .hero .zona { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .hero .filete { background: var(--acento); height: 3px; width: 4.5rem; border-radius: 2px; margin: 1rem 0; }
+  .boton-ejemplo {
+    background: var(--acento); border-radius: 999px; color: var(--sobre-acento);
+    display: inline-block; font-weight: 600; margin-top: 1rem;
+    min-height: 44px; padding: 0.7rem 1.6rem; text-decoration: none;
+  }
+  .foto-marco {
+    background: var(--superficie); border: 1px solid var(--borde);
+    border-radius: 0.9rem; overflow: hidden;
+  }
+  .foto-marco svg, .foto-marco img { display: block; width: 100%; height: auto; }
+  .foto-marco figcaption { font-size: 0.85rem; padding: 0.5rem 1rem 0.8rem; }
+
+  /* Tira de categorías: 4 rubros reales, cada uno con tono propio. */
+  .categorias { padding: 2rem 0; }
+  .categorias ul { display: grid; gap: 1rem; list-style: none; margin: 1rem 0 0; padding: 0; }
+  @media (min-width: 720px) { .categorias ul { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .categorias ul { grid-template-columns: repeat(4, 1fr); } }
+  .categorias li { background: var(--superficie); border: 1px solid var(--borde); border-radius: 0.9rem; padding: 1.1rem; }
+  .categorias li:nth-child(odd) { background: var(--calido); }
+  .categorias h3 { font-family: "Fraunces", Georgia, serif; font-size: 1.15rem; margin: 0 0 0.4rem; }
+  .categorias p { font-size: 0.92rem; margin: 0; }
+
+  /* Galería estilo La Plata: fotos grandes protagonistas + tira con scroll-snap. */
+  .galeria { padding: 2rem 0 3rem; }
+  .galeria-destacada { margin: 1rem 0; }
+  .galeria-tira {
+    display: grid; grid-auto-flow: column; grid-auto-columns: 78%;
+    gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.5rem;
+  }
+  @media (min-width: 720px) { .galeria-tira { grid-auto-columns: 42%; } }
+  .galeria-tira figure { scroll-snap-align: start; margin: 0; }
+
+  footer { background: var(--superficie); border-top: 2px solid var(--borde); padding: 2rem 0; }
+  footer address { font-style: normal; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+    .galeria-tira { scroll-snap-type: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-bar" role="group" aria-label="Conmutador de paleta y tema de la demo">
+  <fieldset>
+    <legend>Paleta</legend>
+    <label><input type="radio" name="paleta" value="37a" checked /> 37A Vidrio Agua</label>
+    <label><input type="radio" name="paleta" value="37b" /> 37B Azul Taller</label>
+    <label><input type="radio" name="paleta" value="37c" /> 37C Costa</label>
+  </fieldset>
+  <fieldset>
+    <legend>Tema</legend>
+    <label><input type="radio" name="tema" value="claro" checked /> Claro</label>
+    <label><input type="radio" name="tema" value="oscuro" /> Oscuro</label>
+  </fieldset>
+</div>
+
+<div class="envoltura">
+  <section class="hero" aria-labelledby="demo-titulo">
+    <div>
+      <p class="zona">Vidriería · Gral. Alvear, Mendoza</p>
+      <h1 id="demo-titulo">Vidrios a medida, espejos <em>y mas</em></h1>
+      <div class="filete" aria-hidden="true"></div>
+      <p>Cortamos vidrio a medida, colocamos espejos y armamos estantes y mesas para casas y locales de la zona. Escribinos y te asesoramos.</p>
+      <a class="boton-ejemplo" href="#">Botón WhatsApp (ejemplo visual)</a>
+    </div>
+    <figure class="foto-marco">
+      <svg viewBox="0 0 640 420" role="img" aria-label="Ilustración de muestra: espejo rectangular con marco sobre pared clara junto a una ventana">
+        <rect width="640" height="420" fill="#9db8c4"/>
+        <rect x="60" y="40" width="300" height="340" rx="8" fill="#dfe9ec" stroke="#3d5a66" stroke-width="10"/>
+        <rect x="90" y="70" width="240" height="200" fill="#b9d2da"/>
+        <rect x="400" y="40" width="180" height="340" fill="#7fa3b5"/>
+        <rect x="400" y="40" width="180" height="14" fill="#3d5a66"/>
+        <rect x="400" y="366" width="180" height="14" fill="#3d5a66"/>
+      </svg>
+      <figcaption>Foto protagonista de muestra: espejo instalado en interior</figcaption>
+    </figure>
+  </section>
+
+  <section class="categorias" aria-labelledby="demo-categorias">
+    <h2 id="demo-categorias">Lo que hacemos</h2>
+    <ul>
+      <li>
+        <h3>Vidrios a medida y DVH</h3>
+        <p>Corte a medida y doble vidriado para ventanas y aberturas de la casa.</p>
+      </li>
+      <li>
+        <h3>Espejos</h3>
+        <p>Espejos para baño, living y locales, con marco o pulidos, listos para colgar.</p>
+      </li>
+      <li>
+        <h3>Estantes comerciales</h3>
+        <p>Estantes y vitrinas de vidrio para locales, farmacia y ropa.</p>
+      </li>
+      <li>
+        <h3>Mesas ratoneras de vidrio</h3>
+        <p>Mesas ratoneras y de quincho con tapa de vidrio a medida.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="galeria" aria-labelledby="demo-galeria">
+    <h2 id="demo-galeria">Trabajos en la zona</h2>
+    <figure class="foto-marco galeria-destacada">
+      <svg viewBox="0 0 960 480" role="img" aria-label="Ilustración de muestra: cerramiento vidriado de living con perfilería oscura">
+        <rect width="960" height="480" fill="#8ba7b5"/>
+        <rect x="80" y="60" width="800" height="360" fill="#c8d9df" stroke="#2f3f47" stroke-width="12"/>
+        <line x1="346" y1="60" x2="346" y2="420" stroke="#2f3f47" stroke-width="10"/>
+        <line x1="613" y1="60" x2="613" y2="420" stroke="#2f3f47" stroke-width="10"/>
+        <rect x="120" y="330" width="220" height="60" fill="#5d7a87"/>
+      </svg>
+      <figcaption>Cerramiento de living — vidriado con perfilería oscura</figcaption>
+    </figure>
+    <div class="galeria-tira">
+      <figure class="foto-marco">
+        <svg viewBox="0 0 480 320" role="img" aria-label="Ilustración de muestra: espejo de vestidor de cuerpo entero">
+          <rect width="480" height="320" fill="#a7bfd0"/>
+          <rect x="170" y="20" width="140" height="280" rx="6" fill="#dfe9ec" stroke="#3d5a66" stroke-width="8"/>
+        </svg>
+        <figcaption>Espejo de vestidor — cuerpo entero</figcaption>
+      </figure>
+      <figure class="foto-marco">
+        <svg viewBox="0 0 480 320" role="img" aria-label="Ilustración de muestra: vitrinas de vidrio en farmacia">
+          <rect width="480" height="320" fill="#9db8c4"/>
+          <rect x="40" y="60" width="180" height="200" fill="#d5e3e8" stroke="#3d5a66" stroke-width="6"/>
+          <rect x="260" y="60" width="180" height="200" fill="#d5e3e8" stroke="#3d5a66" stroke-width="6"/>
+        </svg>
+        <figcaption>Vitrinas de farmacia — estantes de vidrio</figcaption>
+      </figure>
+      <figure class="foto-marco">
+        <svg viewBox="0 0 480 320" role="img" aria-label="Ilustración de muestra: mesa ratonera con tapa de vidrio en living">
+          <rect width="480" height="320" fill="#b3c6cf"/>
+          <rect x="110" y="130" width="260" height="26" rx="4" fill="#e4edf0" stroke="#3d5a66" stroke-width="5"/>
+          <rect x="140" y="156" width="14" height="110" fill="#3d5a66"/>
+          <rect x="326" y="156" width="14" height="110" fill="#3d5a66"/>
+        </svg>
+        <figcaption>Mesa ratonera — tapa de vidrio a medida</figcaption>
+      </figure>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="envoltura">
+    <p class="marca-nombre">Vidrios, espejos <em>y mas</em></p>
+    <address>
+      Estrada 912, Gral. Alvear, Mendoza · Lun–Vie 8–19, Sáb 8–13
+    </address>
+  </div>
+</footer>
+
+<script>
+  // Conmutador A/B/C + claro/oscuro: cambia data-* en <html>, sin recargar.
+  var root = document.documentElement;
+  document.querySelectorAll('input[name="paleta"]').forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      root.setAttribute('data-paleta', radio.value);
+    });
+  });
+  document.querySelectorAll('input[name="tema"]').forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      root.setAttribute('data-tema', radio.value);
+    });
+  });
+</script>
+</body>
+</html>

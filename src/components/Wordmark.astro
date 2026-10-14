@@ -1,0 +1,54 @@
+---
+/*
+ * Wordmark tipográfico (C-03, D5 + decisión 26b): la marca es texto, sin
+ * imagen de logo. Reutilizable en header y footer (C-07).
+ * Fraunces 600 + filete de acento + microcopy de zona.
+ */
+---
+
+<p class="wordmark">
+  <span class="wordmark-nombre"
+    >Vidrios, espejos <em class="wordmark-mas">y mas</em></span
+  >
+  <span class="wordmark-filete" aria-hidden="true"></span>
+  <span class="wordmark-zona">Gral. Alvear · Mendoza</span>
+</p>
+
+<style>
+  .wordmark {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .wordmark-nombre {
+    color: var(--surface-text);
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .wordmark-mas {
+    color: var(--surface-acento);
+    font-style: italic;
+  }
+
+  .wordmark-filete {
+    background-color: var(--surface-acento);
+    border-radius: 1px;
+    height: 2px;
+    width: 3.5rem;
+  }
+
+  .wordmark-zona {
+    color: var(--surface-text);
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+    text-transform: uppercase;
+  }
+</style>

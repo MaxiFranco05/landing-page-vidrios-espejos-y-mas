@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { datosContacto } from '../lib/datos-contacto.ts';
 ---
 
 <BaseLayout>
@@ -9,5 +11,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       Vidriería en General Alvear. Página placeholder del scaffolding
       inicial (C-01) — el home real lo construyen C-04/C-05/C-06/C-07.
     </p>
+
+    <section aria-labelledby="contacto-titulo">
+      <h2 id="contacto-titulo">Contacto por WhatsApp</h2>
+      <WhatsAppButton
+        variant="generic"
+        numero={datosContacto.whatsapp}
+        mostrarTel
+        telefonoVisible={datosContacto.telefono_visible}
+      />
+    </section>
   </main>
+
+  <!-- CTA sticky mobile (C-04, D5): instancia del mismo componente, sin isla JS. -->
+  <div class="fixed inset-x-0 bottom-0 z-50 border-t bg-white/95 p-3 backdrop-blur md:hidden">
+    <WhatsAppButton
+      variant="generic"
+      numero={datosContacto.whatsapp}
+      mostrarTel
+      telefonoVisible={datosContacto.telefono_visible}
+    />
+  </div>
 </BaseLayout>

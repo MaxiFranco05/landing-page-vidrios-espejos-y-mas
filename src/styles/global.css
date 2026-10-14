@@ -1,14 +1,88 @@
 @import "tailwindcss";
 
 /*
- * Design tokens (C-01: esqueleto mínimo).
+ * Sistema de diseño — Vidrios, espejos y mas (C-03).
  *
- * Tailwind CSS v4 CSS-first (R3): los tokens viven aquí vía `@theme`,
- * NUNCA en `tailwind.config.ts`. La paleta final, tipografías y modo
- * oscuro los define C-03 (design-system) con jerarquía
- * brand → semantic → component. Este bloque solo deja el mecanismo
- * probado para que el pipeline CSS compile desde el día 1.
+ * Tailwind CSS v4 CSS-first (R3): todos los tokens viven aquí vía `@theme`,
+ * NUNCA en `tailwind.config.ts`. Jerarquía brand → semantic → component.
+ * Paleta ganadora 37d: 37B Azul Taller (design.md D1); este mapa de vars
+ * es el único lugar que cambiaría si la decisión se revisara.
+ * Colores en OKLCH. Dark por clase vía custom-variant (canónico en v4).
  */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  /* Sin tokens de marca aún — C-03 los añade (preferir OKLCH). */
+  /* ——— Brand: 37B Azul Taller (claro) — ganadora 37d ——— */
+  --color-humo: oklch(95.7% 0.008 253.9); /* fondo */
+  --color-acero: oklch(88.5% 0.023 246.1); /* superficie */
+  --color-hielo: oklch(92.4% 0.024 244.1); /* bordes / detalles */
+  --color-taller: oklch(47.3% 0.139 256.8); /* acento */
+  --color-tinta: oklch(28.0% 0.052 253.0); /* texto */
+  --color-arena: oklch(95.3% 0.017 88.0); /* neutro cálido */
+
+  /* ——— Brand: 37B modo oscuro (diseñado, no inversión) ——— */
+  --color-noche: oklch(23.2% 0.041 253.9); /* fondo oscuro */
+  --color-hondo: oklch(30.0% 0.052 252.8); /* superficie oscura */
+  --color-brisa: oklch(77.1% 0.082 252.8); /* acento oscuro */
+  --color-espuma: oklch(95.4% 0.013 244.3); /* texto oscuro */
+
+  /* ——— Tipografía (D2: máx. 2 familias) ——— */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans:
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+
+  /* ——— Component: radios y espaciado base ——— */
+  --radius-tarjeta: 0.9rem;
+  --radius-boton: 999px;
+}
+
+/* ——— Semantic: resuelven a brand en claro, override en .dark ——— */
+:root {
+  --surface-bg: var(--color-humo);
+  --surface-elevada: var(--color-acero);
+  --surface-calida: var(--color-arena);
+  --surface-text: var(--color-tinta);
+  --surface-acento: var(--color-taller);
+  --surface-borde: var(--color-hielo);
+  --surface-sobre-acento: var(--color-humo);
+}
+
+.dark {
+  --surface-bg: var(--color-noche);
+  --surface-elevada: var(--color-hondo);
+  --surface-calida: var(--color-hondo);
+  --surface-text: var(--color-espuma);
+  --surface-acento: var(--color-brisa);
+  --surface-borde: var(--color-hondo);
+  --surface-sobre-acento: var(--color-noche);
+}
+
+/* Base: el layout aplica el tema completo (D4). */
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background-color: var(--surface-bg);
+  color: var(--surface-text);
+  font-family: var(--font-sans);
+}
+
+/* Foco visible (WCAG 2.2 AA). */
+:focus-visible {
+  outline: 2px solid var(--surface-acento);
+  outline-offset: 2px;
+}
+
+/* Sin animaciones si el usuario las desactiva. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

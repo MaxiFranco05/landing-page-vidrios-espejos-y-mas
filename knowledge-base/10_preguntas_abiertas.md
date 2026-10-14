@@ -13,3 +13,4 @@ Ninguna. Las categorías quedaron confirmadas (21a) y el alcance v1/v2 está sep
 | Media | PA-04 — Implementar el admin v2 con Decap CMS según rumbo DD-07 (resta hacerlo en v2, con mitigaciones de seguridad) | Diseño v2, no v1 | Dueño + dev |
 | Baja | PA-05 — ¿Operatoria de envíos a alrededores (qué piezas, costo de traslado, mínimos)? | Promesa de expansión (v2) | Dueño |
 | Baja | PA-06 — ¿Textos finales de cada categoría/producto los escribe el dueño o el dev? | Contenido real vs. placeholder | Dueño |
+| Baja | PA-07 — Herramienta de analítica a definir en C-08 (43c): candidatas sin cookies (Netlify/Plausible) vs. GA4 con banner | Medición en producción | Dueño |

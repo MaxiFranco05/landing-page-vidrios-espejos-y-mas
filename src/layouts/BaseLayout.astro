@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import Wordmark from '../components/Wordmark.astro';
 
 interface Props {
   title?: string;
@@ -19,8 +21,58 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <!--
+      Anti-flash (C-03, D4): primer script del <head>, antes de cualquier
+      CSS, para que el primer pintado ya use el tema correcto. Lee
+      `localStorage('tema')`; sin elección sigue a `prefers-color-scheme`.
+      Sin dependencias, sin framework.
+    -->
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('tema');
+          var dark =
+            stored === 'oscuro'
+              ? true
+              : stored === 'claro'
+                ? false
+                : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (dark) document.documentElement.classList.add('dark');
+        } catch (e) {
+          /* Sin localStorage (navegación privada estricta): tema claro. */
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,600&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <header class="site-header">
+      <a class="site-marca" href="/" aria-label="Vidrios, espejos y mas — inicio">
+        <Wordmark />
+      </a>
+      <ThemeToggle />
+    </header>
     <slot />
   </body>
 </html>
+
+<style>
+  .site-header {
+    align-items: center;
+    background-color: var(--surface-bg);
+    border-bottom: 1px solid var(--surface-borde);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .site-marca {
+    text-decoration: none;
+  }
+</style>

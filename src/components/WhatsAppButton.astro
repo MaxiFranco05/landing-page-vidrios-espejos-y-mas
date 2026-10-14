@@ -1,0 +1,84 @@
+---
+import { buildGenericLink, buildProductLink, buildTelLink } from '../lib/whatsapp.ts';
+
+/**
+ * CTA de WhatsApp con dos variantes (C-04, D4 / RN-WA-01/02/04).
+ *
+ * - `product`: texto visible "Pedir presupuesto", `aria-label` que nombra
+ *   el producto para lectores de pantalla.
+ * - `generic`: texto "Consultar por otro trabajo".
+ *
+ * Renderiza `<a href>` nativo (nunca div-button): preserva semántica,
+ * navegación por teclado y menú contextual sin JS (static-first, R1).
+ * El número llega SIEMPRE por prop desde `datosContacto` (R4): este
+ * componente NUNCA hardcodea el número.
+ */
+
+interface Props {
+  variant: 'product' | 'generic';
+  /** `datosContacto.whatsapp` resuelto por el llamador (D3). */
+  numero: string;
+  /** Obligatorio con `variant="product"`. */
+  productoNombre?: string;
+  /** Reservado para reuso en C-05; el mensaje cita solo el nombre. */
+  categoria?: string;
+  /** Muestra el fallback `tel:` visible junto al CTA (RN-WA-04). */
+  mostrarTel?: boolean;
+  /** `datosContacto.telefono_visible` resuelto por el llamador. */
+  telefonoVisible?: string;
+}
+
+const {
+  variant,
+  numero,
+  productoNombre,
+  categoria,
+  mostrarTel = false,
+  telefonoVisible = '',
+} = Astro.props;
+
+if (variant === 'product' && (productoNombre === undefined || productoNombre.trim().length === 0)) {
+  throw new Error('WhatsAppButton: variant="product" exige productoNombre no vacío');
+}
+if (mostrarTel && telefonoVisible.trim().length === 0) {
+  throw new Error('WhatsAppButton: mostrarTel exige telefonoVisible no vacío');
+}
+
+const href =
+  variant === 'product'
+    ? buildProductLink(numero, productoNombre as string, categoria)
+    : buildGenericLink(numero);
+
+const textoVisible = variant === 'product' ? 'Pedir presupuesto' : 'Consultar por otro trabajo';
+const etiquetaAccesible =
+  variant === 'product'
+    ? `Pedir presupuesto de ${productoNombre} por WhatsApp`
+    : 'Consultar por otro trabajo por WhatsApp';
+
+const tel = mostrarTel
+  ? buildTelLink({ whatsapp: numero, telefono_visible: telefonoVisible })
+  : null;
+---
+
+<div class="flex flex-col items-stretch gap-2">
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener"
+    aria-label={etiquetaAccesible}
+    class="inline-flex min-h-[48px] items-center justify-center rounded-lg bg-green-600 px-6 py-3 text-base font-semibold text-white hover:bg-green-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-800"
+  >
+    {textoVisible}
+  </a>
+  {
+    tel !== null && (
+      <a
+        href={tel.href}
+        aria-label={`Llamar al ${tel.textoVisible} por teléfono`}
+        class="inline-flex min-h-[48px] items-center justify-center rounded-lg px-6 py-2 text-base font-medium underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+      >
+        {tel.textoVisible}
+      </a>
+    )
+  }
+</div>

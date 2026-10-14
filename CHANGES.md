@@ -116,7 +116,7 @@ Paso │ Agente A (Contenido + Catálogo)   │ Agente B (Interacción + Galerí
 > C-03 puede avanzar en paralelo con C-02 (ambos solo necesitan C-01). C-04 arranca cuando C-02 está archivado.
 
 ### [C-03] `design-system-tema`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` archivado (2026-10-14)
 - **Scope**: Sistema visual propio + modo oscuro completo (US-007)
   - Tokens en `src/styles/`: paleta análoga clara gama vidrio/agua (celestes, verdes suaves, neutros cálidos), tipografía legible con carácter (no sans genérica), espaciados y radios
   - `ThemeToggle.astro` (isla JS): respeta `prefers-color-scheme` por defecto, persiste en `localStorage`, sin flash de tema incorrecto
@@ -132,7 +132,7 @@ Paso │ Agente A (Contenido + Catálogo)   │ Agente B (Interacción + Galerí
   - `knowledge-base/01_vision_y_objetivos.md` §Alcance v1.0
 
 ### [C-04] `whatsapp-contact-ctas`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` archivado (2026-10-14)
 - **Scope**: Conversión a WhatsApp/llamada como single source of truth (US-003, US-005)
   - `src/lib/whatsapp.ts`: `buildProductLink(numero, producto, categoria)` + `buildGenericLink(numero)` con `encodeURIComponent`, tests unitarios (acentos, comillas, emojis)
   - `WhatsAppButton.astro`: variantes por producto / genérica ("Consultar por otro trabajo") + `tel:+5492625445223` siempre visible como alternativa
