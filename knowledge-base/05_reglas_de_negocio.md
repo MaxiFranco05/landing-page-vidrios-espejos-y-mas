@@ -20,7 +20,7 @@ Cada regla tiene un código único `RN-{DOMINIO}-{NN}` para trazabilidad.
 
 - **RN-CN-01**: Las fotos reales tienen prioridad; los bocetos con IA son último recurso y se marcan como imagen ilustrativa.
 - **RN-CN-02**: Toda imagen lleva texto alternativo descriptivo (accesibilidad + SEO).
-- **RN-CN-03**: La dirección publicada es siempre "Estrada 912, Gral. Alvear, Mendoza" y la zona "Gral. Alvear y alrededores" — mismo texto en home, contacto y footer.
+- **RN-CN-03**: La dirección publicada es siempre "26 de Julio, M5620 Gral. Alvear, Mendoza" y la zona "Gral. Alvear y alrededores" — mismo texto en home, contacto y footer.
 
 ## Dominio: Diseño (RN-DS)
 

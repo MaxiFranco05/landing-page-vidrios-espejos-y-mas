@@ -5,9 +5,9 @@
   "descripcion_corta": "Espejo rectangular con marco a elección, ideal para baño, dormitorio o living. Consultanos por WhatsApp.",
   "fotos": [
     {
-      "src": "/images/productos/espejo-rectangular.svg",
-      "alt": "Imagen ilustrativa de un espejo rectangular con marco",
-      "ilustrativa": true
+      "src": "/images/productos/espejo-rectangular-hd3.jpeg",
+      "alt": "Espejo rectangular de cuerpo entero con cantos redondeados sobre pared terracota",
+      "ilustrativa": false
     }
   ],
   "destacado": true,

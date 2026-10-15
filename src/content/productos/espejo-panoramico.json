@@ -5,9 +5,9 @@
   "descripcion_corta": "Espejo panorámico de pared para locales, gimnasios y salones. Escribinos por WhatsApp.",
   "fotos": [
     {
-      "src": "/images/productos/espejo-panoramico.svg",
-      "alt": "Imagen ilustrativa de un espejo panorámico en un salón",
-      "ilustrativa": true
+      "src": "/images/productos/espejo-panoramico-gancho.jpg",
+      "alt": "Espejo panorámico vertical con bordes esmerilados en un taller de vidriería",
+      "ilustrativa": false
     }
   ],
   "destacado": false,

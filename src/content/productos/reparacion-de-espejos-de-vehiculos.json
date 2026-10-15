@@ -5,9 +5,9 @@
   "descripcion_corta": "Reparación de espejos laterales e interiores de autos y camionetas. Consultanos por WhatsApp.",
   "fotos": [
     {
-      "src": "/images/productos/reparacion-de-espejos-de-vehiculos.svg",
-      "alt": "Imagen ilustrativa de una reparación de espejos de vehículos",
-      "ilustrativa": true
+      "src": "/images/productos/reparacion-espejo-vehiculo.jpg",
+      "alt": "Espejo lateral de vehículo con marco negro en primer plano",
+      "ilustrativa": false
     }
   ],
   "destacado": false,

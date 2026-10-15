@@ -13,3 +13,6 @@ dist/
 *.log
 .DS_Store
 Thumbs.db
+
+# Staging de fotos del cliente (no versionar originales)
+incoming/

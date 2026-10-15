@@ -17,7 +17,7 @@ const sinComentarios = (texto) =>
     .replace(/\/\*[\s\S]*?\*\//g, '')
     .replace(/(?<!:)\/\/.*$/gm, '');
 
-const LITERALES_PROHIBIDOS = ['5492625445223', 'Estrada 912', 'google.com/maps'];
+const LITERALES_PROHIBIDOS = ['5492625445223', '26 de Julio', 'google.com/maps'];
 
 function afirmarSinLiterales(fuente, etiqueta) {
   const limpio = sinComentarios(fuente);
@@ -32,7 +32,7 @@ function afirmarSinLiterales(fuente, etiqueta) {
 const CANON = {
   whatsapp: '5492625445223',
   telHref: 'tel:+5492625445223',
-  direccion: 'Estrada 912, Gral. Alvear, Mendoza',
+  direccion: '26 de Julio, M5620 Gral. Alvear, Mendoza',
   zona: 'Gral. Alvear y alrededores',
   horarios: 'Lun–Vie 8–19, Sáb 8–13, Dom cerrado',
 };

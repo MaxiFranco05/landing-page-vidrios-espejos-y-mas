@@ -25,7 +25,7 @@ vidrios-espejos-y-mas/
 │   │                          # WhatsAppButton, Gallery, ThemeToggle, MapEmbed
 │   ├── layouts/               # BaseLayout (SEO + tema claro/oscuro)
 │   ├── pages/
-│   │   ├── index.astro        # home (Hero → Lo que hacemos → destacados → contacto)
+│   │   ├── index.astro        # home (Hero → Lo que hacemos → destacados → testimonios → contacto)
 │   │   ├── catalogo.astro     # catálogo completo por categorías
 │   │   └── categoria/[slug].astro
 │   ├── styles/                # tokens de diseño (paleta, tipografías)
@@ -51,7 +51,7 @@ vidrios-espejos-y-mas/
 |---|---|---|---|
 | `PUBLIC_WHATSAPP_NUMBER` | Número destino en formato internacional | `5492625445223` | No |
 | `PUBLIC_PHONE_DISPLAY` | Número como lo ve el usuario | `+54 9 2625 44-5223` | No |
-| `PUBLIC_ADDRESS` | Dirección del local | `Estrada 912, Gral. Alvear, Mendoza` | No |
+| `PUBLIC_ADDRESS` | Dirección del local | `26 de Julio, M5620 Gral. Alvear, Mendoza` | No |
 | `PUBLIC_MAPS_URL` | Link "cómo llegar" | `https://maps...` | No |
 | `PUBLIC_MAPS_EMBED_URL` | URL del iframe del mapa | `https://maps.../embed` | No |
 | `PUBLIC_UMAMI_WEBSITE_ID` | ID del sitio en Umami (cuenta del usuario; NUNCA commitear valores reales, solo la key en `.env.example`) | `xxxxxxxx-xxxx-...` | No |

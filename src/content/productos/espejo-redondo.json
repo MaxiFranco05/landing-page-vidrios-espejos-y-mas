@@ -5,9 +5,9 @@
   "descripcion_corta": "Espejo redondo pulido o con marco, un clásico que suma luz a cualquier ambiente. Consultanos por WhatsApp.",
   "fotos": [
     {
-      "src": "/images/productos/espejo-redondo.svg",
-      "alt": "Imagen ilustrativa de un espejo redondo en una pared",
-      "ilustrativa": true
+      "src": "/images/productos/espejo-redondo.jpg",
+      "alt": "Espejo redondo con marco negro apoyado contra una pared terracota",
+      "ilustrativa": false
     }
   ],
   "destacado": true,

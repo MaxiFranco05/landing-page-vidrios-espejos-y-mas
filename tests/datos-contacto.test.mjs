@@ -5,7 +5,7 @@ import { datosContactoSchema } from '../src/lib/content-schemas.ts';
 
 const CANONICAL = {
   whatsapp: '5492625445223',
-  direccion: 'Estrada 912, Gral. Alvear, Mendoza',
+  direccion: '26 de Julio, M5620 Gral. Alvear, Mendoza',
   zona_atencion: 'Gral. Alvear y alrededores',
   horarios: 'Lun–Vie 8–19, Sáb 8–13, Dom cerrado',
 };

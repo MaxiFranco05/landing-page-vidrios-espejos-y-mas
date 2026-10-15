@@ -5,9 +5,9 @@
   "descripcion_corta": "Vitrina de vidrio con estantes para comercios, farmacias y hogares. Pedí tu presupuesto por WhatsApp.",
   "fotos": [
     {
-      "src": "/images/productos/vitrina-de-vidrio.svg",
-      "alt": "Imagen ilustrativa de una vitrina de vidrio en un comercio",
-      "ilustrativa": true
+      "src": "/images/productos/vitrina-vidrio.jpg",
+      "alt": "Vitrina alta de vidrio con estantes exhibiendo productos en un comercio",
+      "ilustrativa": false
     }
   ],
   "destacado": false,

@@ -14,4 +14,3 @@ Ninguna. Las categorías quedaron confirmadas (21a) y el alcance v1/v2 está sep
 | Baja | PA-05 — ¿Operatoria de envíos a alrededores (qué piezas, costo de traslado, mínimos)? | Promesa de expansión (v2) | Dueño |
 | Baja | PA-06 — ¿Textos finales de cada categoría/producto los escribe el dueño o el dev? | Contenido real vs. placeholder | Dueño |
 | Baja | PA-07 — Analítica: Umami Cloud Hobby (gratis, sin cookies) decidida; GA4 queda para otra versión | Medición en producción | Dueño |
-| Baja | PA-08 — Testimonios REALES desde reseñas de Google Maps (como La Plata), autorizadas; variante elegida: grilla dentro de carousel con puntos, sin flechas; en demo solo placeholders de ejemplo | Contenido real vs. inventado (nunca publicar prueba falsa) | Dueño |

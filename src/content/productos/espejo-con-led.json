@@ -5,9 +5,9 @@
   "descripcion_corta": "Espejo con iluminación LED integrada, ideal para baños y vestidores. Consultanos por WhatsApp.",
   "fotos": [
     {
-      "src": "/images/productos/espejo-con-led.svg",
-      "alt": "Imagen ilustrativa de un espejo con iluminación LED",
-      "ilustrativa": true
+      "src": "/images/productos/espejo-redondo-led.jpg",
+      "alt": "Espejo redondo con retroiluminación LED azul encendida sobre una alfombra",
+      "ilustrativa": false
     }
   ],
   "destacado": true,

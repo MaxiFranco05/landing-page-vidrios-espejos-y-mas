@@ -3,9 +3,9 @@
   "nombre": "Instalaciones y aberturas",
   "descripcion": "Aberturas de aluminio y mamparas para baño con colocación incluida. Escribinos por WhatsApp para asesorarte.",
   "imagen_portada": {
-    "src": "/images/categorias/instalaciones-y-aberturas.svg",
-    "alt": "Imagen ilustrativa de una abertura de aluminio instalada",
-    "ilustrativa": true
+    "src": "/images/categorias/instalaciones-y-aberturas.jpg",
+    "alt": "Abertura de aluminio blanco con paños de vidrio en el frente de un local",
+    "ilustrativa": false
   },
   "orden": 3
 }

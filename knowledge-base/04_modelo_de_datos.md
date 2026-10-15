@@ -40,9 +40,14 @@ DatosContacto (singleton: teléfono, WhatsApp, dirección, horarios, Maps URL)
 - Relaciones: pertenece a una Categoria (*—1).
 - Constraints: solo fotos reales o bocetos IA marcados como ilustrativos (RN-CN-01).
 
+### Testimonio (reseñas)
+- Atributos: `nombre` (string), `calificacion` (1–5), `comentario` (string), `fuente` (string, ej. "Google Maps").
+- Constraints: solo reseñas reales autorizadas; NUNCA inventar testimonios (PA-08).
+- Seed inicial: las 7 reseñas de 5★ provistas por el dueño (Noelia B., Irma T., Pedro V., Lorena B., Víctor H. F., Adrián P., Andrea B.).
+
 ### DatosContacto (singleton)
 - Atributos: `whatsapp` (string, formato internacional sin `+`), `telefono_visible` (string), `direccion` (string), `zona_atencion` (string), `maps_url` (url), `maps_embed_url` (url), `horarios` (string).
-- Seed inicial: whatsapp `5492625445223`, dirección "Estrada 912, Gral. Alvear, Mendoza", zona "Gral. Alvear y alrededores", horarios "Lun–Vie 8–19, Sáb 8–13, Dom cerrado" (respuesta 25a), maps_embed_url real de la ficha (respuesta 36a), maps_url derivada `https://www.google.com/maps/search/?api=1&query=Vidrios,+espejos+y+mas+Estrada+912+General+Alvear+Mendoza` (a verificar en C-07).
+- Seed inicial: whatsapp `5492625445223`, dirección "26 de Julio, M5620 Gral. Alvear, Mendoza", zona "Gral. Alvear y alrededores", horarios "Lun–Vie 8–19, Sáb 8–13, Dom cerrado" (respuesta 25a), maps_embed_url real de la ficha (respuesta 36a), maps_url derivada `https://www.google.com/maps/search/?api=1&query=Vidrios,+espejos+y+mas+26+de+Julio+General+Alvear+Mendoza` (a verificar en C-07).
 
 ## Seed data inicial
 

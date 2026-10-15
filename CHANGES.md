@@ -197,7 +197,7 @@ Paso │ Agente A (Contenido + Catálogo)   │ Agente B (Interacción + Galerí
 ### [C-07] `contacto-ubicacion-maps`
 - **Estado**: `[x]` archivado (2026-10-15)
 - **Scope**: Contacto y ubicación que cierran la visita (US-005 resto, US-006)
-  - `Header` (tel + WhatsApp) + `Footer` + secciones `/#contacto`, `/#ubicacion`: dirección "Estrada 912, Gral. Alvear, Mendoza", zona "Gral. Alvear y alrededores", horarios "Lun–Vie 8–19, Sáb 8–13, Dom cerrado"
+  - `Header` (tel + WhatsApp) + `Footer` + secciones `/#contacto`, `/#ubicacion`: dirección "26 de Julio, M5620 Gral. Alvear, Mendoza", zona "Gral. Alvear y alrededores", horarios "Lun–Vie 8–19, Sáb 8–13, Dom cerrado"
   - `MapEmbed.astro`: iframe de Maps en footer + botón "Cómo llegar" en home que abre Google Maps con el destino correcto
   - Progressive enhancement: si el embed se bloquea (adblock/offline), el link y la dirección en texto siguen funcionando
   - Menú mobile (isla JS mínima) con acceso a contacto/ubicación
@@ -227,3 +227,16 @@ Paso │ Agente A (Contenido + Catálogo)   │ Agente B (Interacción + Galerí
   - `knowledge-base/02_descripcion_general.md` §Hosting + CDN
   - `knowledge-base/09_decisiones_y_supuestos.md` §DD-02, §SU-02
   - `knowledge-base/10_preguntas_abiertas.md` §PA-01, §PA-06
+
+---
+
+## FASE 4 — Contenido real (fuera del plan inicial)
+
+### [C-10] `testimonios-clientes`
+- **Estado**: `[x]` archivado (2026-10-15)
+- **Scope**: Sección `/#opiniones` con las 7 reseñas reales de Google Maps (verbatim, 5★), grilla-en-carousel con puntos, teclado/swipe/`aria-live`, modo oscuro, sin agregados inventados.
+- **Dependencias**: C-02, C-03 (archivado). Bloquea: nada.
+- **Governance**: BAJO.
+- **Leer antes**:
+  - `knowledge-base/06_funcionalidades.md` §US-008
+  - `knowledge-base/04_modelo_de_datos.md` §Testimonio

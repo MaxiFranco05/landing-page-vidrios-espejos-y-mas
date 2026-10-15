@@ -69,7 +69,7 @@ Organizadas por **épica** y luego por **historia de usuario** (formato US-NNN).
 **Para** visitar el local
 
 **Criterios de aceptación**:
-- [ ] Dirección "Estrada 912, Gral. Alvear, Mendoza" + zona de atención (RN-CN-03)
+- [ ] Dirección "26 de Julio, M5620 Gral. Alvear, Mendoza" + zona de atención (RN-CN-03)
 - [ ] Maps embebido en footer + botón "cómo llegar" en home
 - [ ] El link abre Google Maps con el destino correcto
 - [ ] Horarios publicados: Lun–Vie 8–19, Sáb 8–13, Dom cerrado
@@ -87,3 +87,15 @@ Organizadas por **épica** y luego por **historia de usuario** (formato US-NNN).
 - [ ] El diseño no parece plantilla genérica (RN-DS-02)
 
 **Reglas relacionadas**: RN-DS-01, RN-DS-02
+
+## Épica 5: Testimonios de clientes
+
+### US-008 — Ver reseñas reales antes de contactar
+**Como** visitante
+**Quiero** ver opiniones reales de clientes (grilla dentro de carousel con puntos, sin flechas invasivas)
+**Para** confiar antes de consultar
+
+**Criterios de aceptación**:
+- [ ] 7 reseñas reales de Google Maps con nombre y comentario, sin inventar ninguna
+- [ ] Navegación por puntos + swipe + teclado, `aria-live` en el cambio
+- [ ] Sección entre destacados y contacto (`/#opiniones`)

@@ -1,0 +1,333 @@
+---
+/*
+ * Testimonios (C-10, D2/D3): sección SSR `/#opiniones` con las 7 reseñas
+ * verbatim + isla mínima (dots + teclado + swipe + caption) con el patrón
+ * Gallery/ThemeToggle: un <script> co-ubicado, sin framework cliente, sin
+ * client:*. Sin JS las 7 tarjetas quedan visibles (PE, spec: Sin JS).
+ *
+ * Contrato (specs/testimonios): 7 tarjetas (nombre + 5★ + verbatim +
+ * fuente "Google Maps"), grid-inside-carousel con dots solamente (sin
+ * flechas), caption aria-live, tokens @theme existentes sin config JS
+ * (R3), sin agregados (sin conteos/promedios/sellos), estrella individual
+ * por tarjeta con role="img".
+ */
+// Tipos estructurales (convención del repo, cf. Gallery): la página pasa
+// el array del loader y el componente solo exige esta forma.
+interface TestimonioVista {
+  nombre: string;
+  calificacion: 5;
+  comentario: string;
+  fuente: string;
+}
+
+interface Props {
+  testimonios: TestimonioVista[];
+}
+
+const { testimonios } = Astro.props;
+const total = testimonios.length;
+---
+
+<section id="opiniones" class="testimonios" aria-labelledby="opiniones-titulo">
+  <h2 id="opiniones-titulo">Lo que dicen los clientes</h2>
+  <p class="testimonios-sub">Opiniones de clientes en Google Maps.</p>
+
+  <ol class="testi-visor" data-testi-visor aria-label="Opiniones de clientes" tabindex="0">
+    {
+      testimonios.map((t, i) => (
+        <li>
+          <figure class="testi-card" aria-label={'Opinión ' + (i + 1) + ' de ' + total + ': ' + t.nombre}>
+            <span class="testi-estrellas" role="img" aria-label="Calificación: 5 de 5 estrellas">
+              ★★★★★
+            </span>
+            <blockquote>
+              <p>{t.comentario}</p>
+            </blockquote>
+            <figcaption>
+              <strong>{t.nombre}</strong>
+              <span>{t.fuente}</span>
+            </figcaption>
+          </figure>
+        </li>
+      ))
+    }
+  </ol>
+
+  <p class="testi-caption" data-testi-caption aria-live="polite">
+    Mostrando opinión 1 de {total}
+  </p>
+
+  <ol class="testi-dots" aria-label="Elegir opinión">
+    {
+      testimonios.map((_, i) => (
+        <li>
+          <button
+            type="button"
+            class="testi-dot"
+            data-testi={String(i)}
+            aria-pressed={i === 0 ? 'true' : 'false'}
+            aria-label={'Mostrar opinión ' + (i + 1) + ' de ' + total}
+          >
+            <span aria-hidden="true"></span>
+          </button>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .testimonios {
+    padding: 2rem 0;
+  }
+
+  .testimonios-sub {
+    margin: 0.5rem 0 1rem;
+  }
+
+  /* Visor combinado (mecánica de demos/demo.html, sin flechas): carrusel
+     con scroll-snap en móvil, grilla multicolumna en escritorio. */
+  .testi-visor {
+    display: grid;
+    gap: 0 1rem;
+    grid-auto-columns: 100%;
+    grid-auto-flow: column;
+    list-style: none;
+    margin: 1rem 0 0;
+    overflow-x: auto;
+    padding: 0 0 0.5rem;
+    scroll-snap-type: x mandatory;
+    /* El swipe horizontal cambia de opinión; el scroll vertical de la
+       página sigue intacto (spec: Swipe táctil, touch-action pan-y). */
+    touch-action: pan-y;
+  }
+
+  .testi-visor > li {
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  .testi-visor > li:nth-child(even) .testi-card {
+    background: var(--surface-calida);
+  }
+
+  @media (min-width: 720px) {
+    .testi-visor {
+      gap: 1rem;
+      grid-auto-flow: row;
+      grid-template-columns: repeat(3, 1fr);
+      overflow: visible;
+    }
+  }
+
+  .testi-card {
+    align-content: start;
+    background: var(--surface-elevada);
+    border: 1px solid var(--surface-borde);
+    border-radius: var(--radius-tarjeta);
+    color: var(--surface-text);
+    display: grid;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 1.25rem;
+  }
+
+  .testi-card blockquote {
+    margin: 0;
+  }
+
+  .testi-card blockquote p {
+    margin: 0;
+  }
+
+  .testi-card figcaption {
+    font-size: 0.85rem;
+  }
+
+  .testi-card figcaption strong {
+    display: block;
+  }
+
+  .testi-estrellas {
+    color: var(--surface-acento);
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+  }
+
+  .testi-caption {
+    font-size: 0.85rem;
+    margin: 0.75rem 0 0;
+  }
+
+  .testi-dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    list-style: none;
+    margin: 0.75rem 0 0;
+    padding: 0;
+  }
+
+  .testi-dot {
+    align-items: center;
+    background: transparent;
+    border: 2px solid var(--surface-borde);
+    border-radius: var(--radius-boton);
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0;
+  }
+
+  .testi-dot::before {
+    background: var(--surface-borde);
+    border-radius: 999px;
+    content: "";
+    height: 0.6rem;
+    width: 0.6rem;
+  }
+
+  .testi-dot[aria-pressed="true"] {
+    border-color: var(--surface-acento);
+  }
+
+  .testi-dot[aria-pressed="true"]::before {
+    background: var(--surface-acento);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .testimonios *,
+    .testimonios *::before,
+    .testimonios *::after {
+      animation: none;
+      transition: none;
+    }
+
+    .testi-visor {
+      scroll-snap-type: none;
+    }
+  }
+</style>
+
+<script>
+  // Isla C-10 (patrón Gallery/ThemeToggle): dots + teclado + swipe, sin
+  // flechas. Mecánica portada de demos/demo.html (umbral 40px, pan-y en
+  // CSS, listeners passive) + scroll libre que sincroniza dots y caption
+  // (spec: Carrusel de 1 visible en móvil).
+  (function () {
+    var seccion = document.getElementById('opiniones');
+    if (!seccion) return;
+    var visorEl = seccion.querySelector('[data-testi-visor]');
+    var captionEl = seccion.querySelector('[data-testi-caption]');
+    if (!(visorEl instanceof HTMLElement)) return;
+    // Alias con nulidad ya descartada (patrón Gallery: el narrowing no
+    // cruza a closures, la asignación sí conserva el tipo).
+    var visor = visorEl;
+    var caption = captionEl;
+    var dots = Array.from(seccion.querySelectorAll('[data-testi]'));
+    var items = Array.from(visor.querySelectorAll(':scope > li'));
+    if (!dots.length || !items.length) return;
+    var actual = 0;
+    // -1 = sin tacto en curso (evita el nulo que el checker no infiere).
+    var tactoX = -1;
+    var raf = 0;
+
+    function movimientoReducido() {
+      try {
+        return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function pintar() {
+      dots.forEach(function (d, i) {
+        d.setAttribute('aria-pressed', String(i === actual));
+      });
+      if (caption) caption.textContent = 'Mostrando opinión ' + (actual + 1) + ' de ' + items.length;
+    }
+
+    function mostrar(i = 0) {
+      if (!items.length) return;
+      actual = ((i % items.length) + items.length) % items.length;
+      var destino = items[actual];
+      if (!destino) return;
+      if (typeof destino.scrollIntoView === 'function') {
+        destino.scrollIntoView({
+          behavior: movimientoReducido() ? 'auto' : 'smooth',
+          block: 'nearest',
+          inline: 'start',
+        });
+      }
+      pintar();
+    }
+
+    dots.forEach(function (d) {
+      d.addEventListener('click', function () {
+        mostrar(parseInt(d.getAttribute('data-testi') || '0', 10));
+      });
+    });
+
+    visor.addEventListener('keydown', function (ev) {
+      if (!(ev instanceof KeyboardEvent)) return;
+      if (ev.key === 'ArrowRight') {
+        ev.preventDefault();
+        mostrar(actual + 1);
+      } else if (ev.key === 'ArrowLeft') {
+        ev.preventDefault();
+        mostrar(actual - 1);
+      }
+    });
+
+    // Ruleta táctil de la demo: swipe horizontal cambia de opinión.
+    visor.addEventListener(
+      'touchstart',
+      function (ev) {
+        if (typeof TouchEvent === 'undefined' || !(ev instanceof TouchEvent)) return;
+        var lista = ev.changedTouches;
+        var punto = lista.length > 0 ? lista[0] : null;
+        if (punto) tactoX = punto.clientX;
+      },
+      { passive: true },
+    );
+    visor.addEventListener(
+      'touchend',
+      function (ev) {
+        if (typeof TouchEvent === 'undefined' || !(ev instanceof TouchEvent)) return;
+        var lista = ev.changedTouches;
+        var punto = lista.length > 0 ? lista[0] : null;
+        if (tactoX < 0 || !punto) return;
+        var dx = punto.clientX - tactoX;
+        tactoX = -1;
+        if (Math.abs(dx) < 40) return;
+        if (dx < 0) mostrar(actual + 1);
+        else mostrar(actual - 1);
+      },
+      { passive: true },
+    );
+
+    // Scroll libre (móvil sin dots): actualiza dot activo y caption.
+    visor.addEventListener(
+      'scroll',
+      function () {
+        if (raf) return;
+        raf = window.requestAnimationFrame(function () {
+          raf = 0;
+          var ancho = visor.clientWidth || 1;
+          var indice = Math.round(visor.scrollLeft / ancho);
+          if (indice !== actual && indice >= 0 && indice < items.length) {
+            actual = indice;
+            pintar();
+          }
+        });
+      },
+      { passive: true },
+    );
+
+    pintar();
+  })();
+</script>

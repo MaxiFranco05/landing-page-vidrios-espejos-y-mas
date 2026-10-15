@@ -16,11 +16,11 @@ Ser la vidriera digital de la vidriería "Vidrios, espejos y mas" (Gral. Alvear,
 
 ## Alcance v1.0
 
-- Home: Hero con propuesta de valor + CTA a WhatsApp/llamada (+54 9 2625 44-5223), teaser “Lo que hacemos”, Trabajos destacados con carousel táctil, Contacto + Ubicación.
+- Home: Hero con propuesta de valor + CTA a WhatsApp/llamada (+54 9 2625 44-5223), teaser “Lo que hacemos”, Trabajos destacados con carousel táctil, sección “Lo que dicen los clientes” (7 reseñas reales de Google Maps), Contacto + Ubicación.
 - Catálogo en 4 categorías reales: Espejos, Muebles de Vidrio, Instalaciones y Aberturas, Servicios y Reparaciones — página Catálogo propia + páginas por categoría.
 - Galería de trabajos por categoría (fotos reales; bocetos con IA solo como último recurso).
 - Link de WhatsApp dinámico **por producto**, con mensaje predefinido (ej: *"Hola, me interesa el Espejo redondo con LED..."*).
-- Datos de contacto visibles + dirección (Estrada 912, Gral. Alvear, Mendoza).
+- Datos de contacto visibles + dirección (26 de Julio, M5620 Gral. Alvear, Mendoza).
 - Google Maps en el footer + acceso rápido en el home.
 - Tema claro + modo oscuro; identidad propia, nada de plantilla genérica (ver riesgo R1 en Discovery).
 - Sitio 100% estático, sin login, sin backend, todo público.

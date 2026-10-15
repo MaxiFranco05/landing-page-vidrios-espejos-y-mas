@@ -5,9 +5,9 @@
   "descripcion_corta": "Enmarcación de diplomas, medallas y recuerdos familiares con vidrio. Escribinos por WhatsApp.",
   "fotos": [
     {
-      "src": "/images/productos/enmarcacion-de-logros-y-recuerdos.svg",
-      "alt": "Imagen ilustrativa de una enmarcación de logros con vidrio",
-      "ilustrativa": true
+      "src": "/images/productos/enmarcacion-logros-recuerdos.jpg",
+      "alt": "Reconocimiento impreso en colores enmarcado en vidrio sobre una mesa",
+      "ilustrativa": false
     }
   ],
   "destacado": true,

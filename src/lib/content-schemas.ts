@@ -114,6 +114,36 @@ export type Trabajo = z.infer<typeof trabajoSchema>;
 export type DatosContacto = z.infer<typeof datosContactoSchema>;
 
 // ---------------------------------------------------------------------------
+// Testimonios (C-10, D1/D4)
+// ---------------------------------------------------------------------------
+
+/**
+ * Opinión real de cliente (fuente: Google Maps). `calificacion` es
+ * literal 5 y `fuente` literal "Google Maps": solo se exhiben reseñas
+ * 5★ verbatim (honestidad: sin agregados ni promedios).
+ *
+ * Sin gate de precio/medida sobre `comentario`: son citas verbatim de
+ * terceros — RN-CAT-02 rige PRODUCTOS, no citas — y dos mencionan
+ * "precio" en prosa ("muy buen precio", "precios súper económicos")
+ * sin cifras ni medidas. Rechazarlas o alterarlas rompería el verbatim
+ * (spec: Texto alterado rechazado). La intención R2 (sin cifras ni
+ * medidas publicadas) la cubre `tests/testimonios.test.mjs`.
+ */
+export const testimonioSchema = z
+  .object({
+    nombre: z.string().min(1),
+    calificacion: z.literal(5),
+    comentario: z.string().min(1),
+    fuente: z.literal('Google Maps'),
+  })
+  .strict();
+
+/** Exactamente las 7 reseñas reales provistas (spec: Siete tarjetas). */
+export const testimoniosSchema = z.array(testimonioSchema).length(7);
+
+export type Testimonio = z.infer<typeof testimonioSchema>;
+
+// ---------------------------------------------------------------------------
 // Copy deck SEO local (C-08, tasks 1.1/1.2)
 // ---------------------------------------------------------------------------
 

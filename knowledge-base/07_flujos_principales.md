@@ -21,7 +21,7 @@
 
 **Pasos**:
 1. Visitante toca "Cómo llegar" en home o baja al footer.
-2. Ve dirección (Estrada 912, Gral. Alvear, Mendoza) + mapa embebido.
+2. Ve dirección (26 de Julio, M5620 Gral. Alvear, Mendoza) + mapa embebido.
 3. Toca el mapa o el botón → se abre Google Maps con el destino.
 4. Opcional: llama antes con el `tel:` visible.
 

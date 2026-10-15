@@ -17,7 +17,7 @@
 
 1. Como vecino, quiero ver espejos y vidrios por categoría para consultar por WhatsApp sin tener que llamar a ciegas.
 2. Como comerciante, quiero ver estantes y trabajos realizados para pedir un presupuesto.
-3. Como visitante, quiero ubicar el local (Estrada 912, Gral. Alvear) y contactar en un clic.
+3. Como visitante, quiero ubicar el local (26 de Julio, Gral. Alvear) y contactar en un clic.
 4. Como dueño, quiero que cada producto tenga su propio link de WhatsApp con mensaje predefinido para recibir consultas calificadas.
 
 ## 4. Competidores / soluciones existentes
@@ -36,7 +36,7 @@
 - Catálogo por categorías: vidrios a medida/DVH, espejos, estantes comerciales, mesas ratoneras de vidrio.
 - Galería de trabajos por categoría (hay fotos reales + bocetos con IA).
 - Links dinámicos de WhatsApp **por producto**, con mensaje predefinido.
-- Contacto visible: WhatsApp/llamada + dirección (Estrada 912, Gral. Alvear, Mendoza).
+- Contacto visible: WhatsApp/llamada + dirección (26 de Julio, M5620 Gral. Alvear, Mendoza).
 - Google Maps en el footer + acceso rápido en el home.
 - Catálogo **estático** en v1 (productos en archivos del proyecto; cambios vía el desarrollador). Decisión 13a.
 

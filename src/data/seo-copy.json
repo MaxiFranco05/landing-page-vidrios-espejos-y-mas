@@ -1,7 +1,7 @@
 {
   "home": {
     "title": "Vidriería en Gral. Alvear | Espejos, vidrios y taller",
-    "description": "Vidriería de barrio en Gral. Alvear, Mendoza: espejos, muebles de vidrio, aberturas y reparaciones. Pasá por Estrada 912 o pedí presupuesto por WhatsApp.",
+    "description": "Vidriería de barrio en Gral. Alvear, Mendoza: espejos, muebles de vidrio, aberturas y reparaciones. Pasá por 26 de Julio o pedí presupuesto por WhatsApp.",
     "path": "/"
   },
   "catalogo": {
@@ -27,13 +27,13 @@
     },
     "servicios-y-reparaciones": {
       "title": "Reparación de vidrios en Gral. Alvear | Taller local",
-      "description": "Reparamos vidrios de ventanas y espejos de vehículos, y enmarcamos diplomas y recuerdos. Traé tu consulta al taller de Estrada 912 o escribinos por WhatsApp.",
+      "description": "Reparamos vidrios de ventanas y espejos de vehículos, y enmarcamos diplomas y recuerdos. Traé tu consulta al taller de 26 de Julio o escribinos por WhatsApp.",
       "path": "/categoria/servicios-y-reparaciones"
     }
   },
   "noEncontrada": {
     "title": "Página no encontrada | Vidriería en Gral. Alvear, Mendoza",
-    "description": "Esta página no existe, pero el taller sigue en Estrada 912, Gral. Alvear, Mendoza. Volvé al catálogo completo o escribinos por WhatsApp y te ayudamos.",
+    "description": "Esta página no existe, pero el taller sigue en 26 de Julio, M5620 Gral. Alvear, Mendoza. Volvé al catálogo completo o escribinos por WhatsApp y te ayudamos.",
     "path": "/404"
   }
 }

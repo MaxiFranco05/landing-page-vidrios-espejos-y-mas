@@ -79,7 +79,7 @@ El sistema SHALL exponer un singleton `datos-contacto` con `whatsapp` en formato
 #### Scenario: Valores canónicos del seed
 
 - **WHEN** se lee `datos-contacto`
-- **THEN** `whatsapp` es `5492625445223`, la dirección es "Estrada 912, Gral. Alvear, Mendoza" y los horarios son "Lun–Vie 8–19, Sáb 8–13, Dom cerrado"
+- **THEN** `whatsapp` es `5492625445223`, la dirección es "26 de Julio, M5620 Gral. Alvear, Mendoza" y los horarios son "Lun–Vie 8–19, Sáb 8–13, Dom cerrado"
 
 #### Scenario: Formato de whatsapp validado
 

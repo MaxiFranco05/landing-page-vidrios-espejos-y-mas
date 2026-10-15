@@ -8,7 +8,7 @@ Contacto y ubicación que cierran la visita: teléfono y WhatsApp siempre a mano
 
 ### Requirement: NAP consistente en todo el sitio
 
-El sistema SHALL mostrar el mismo nombre, dirección "Estrada 912, Gral. Alvear, Mendoza", zona "Gral. Alvear y alrededores" y horarios "Lun–Vie 8–19, Sáb 8–13, Dom cerrado" en header, `/#contacto`, `/#ubicacion` y footer (RN-CN-03, lente local-business para C-08).
+El sistema SHALL mostrar el mismo nombre, dirección "26 de Julio, M5620 Gral. Alvear, Mendoza", zona "Gral. Alvear y alrededores" y horarios "Lun–Vie 8–19, Sáb 8–13, Dom cerrado" en header, `/#contacto`, `/#ubicacion` y footer (RN-CN-03, lente local-business para C-08).
 
 #### Scenario: NAP idéntico en las cuatro superficies
 
@@ -64,7 +64,7 @@ El sistema SHALL renderizar `MapEmbed` con la `maps_embed_url` REAL de `datos-co
 
 ### Requirement: Botón Cómo llegar abre el destino correcto
 
-El sistema SHALL exponer un botón "Cómo llegar" en `/#ubicacion` (y link equivalente en footer) que abre `maps_url` en pestaña nueva con `rel="noopener"`, apuntando a la ficha "Vidrios, espejos y mas, Estrada 912".
+El sistema SHALL exponer un botón "Cómo llegar" en `/#ubicacion` (y link equivalente en footer) que abre `maps_url` en pestaña nueva con `rel="noopener"`, apuntando a la ficha "Vidrios, espejos y mas, 26 de Julio".
 
 #### Scenario: Link abre Google Maps con el destino correcto
 
@@ -74,7 +74,7 @@ El sistema SHALL exponer un botón "Cómo llegar" en `/#ubicacion` (y link equiv
 #### Scenario: Destino verificado en la task de implementación
 
 - **WHEN** se ejecuta la verificación manual de C-07
-- **THEN** el mapa abierto centra la ficha del negocio en Estrada 912, Gral. Alvear (no una búsqueda genérica ni otra ciudad)
+- **THEN** el mapa abierto centra la ficha del negocio en 26 de Julio, Gral. Alvear (no una búsqueda genérica ni otra ciudad)
 
 ### Requirement: Fuente única para número, dirección y mapas
 
@@ -88,7 +88,7 @@ El sistema SHALL resolver número, teléfono visible, dirección, zona, horarios
 #### Scenario: Literal hardcodeado es defecto
 
 - **WHEN** se inspecciona el código de este change
-- **THEN** no existe el literal `5492625445223`, `Estrada 912` ni `google.com/maps` fuera del seed, sus tests y los artifacts de planificación
+- **THEN** no existe el literal `5492625445223`, `26 de Julio` ni `google.com/maps` fuera del seed, sus tests y los artifacts de planificación
 
 ### Requirement: Menú mobile mínimo con acceso a contacto y ubicación
 
