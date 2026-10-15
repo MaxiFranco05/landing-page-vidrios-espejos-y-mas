@@ -1,0 +1,106 @@
+---
+/**
+ * Página por categoría (C-05, D1).
+ *
+ * `getStaticPaths` desde la colección `categorias` + `prerender = true`:
+ * las 4 rutas se generan como HTML estático, cero JS en runtime (R1).
+ * Productos filtrados por ref y ordenados por `orden`. Slug inexistente
+ * → 404 sin exponer contenido de otra categoría.
+ */
+
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { datosContacto } from '../../lib/datos-contacto.ts';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const categorias = await getCollection('categorias');
+  return categorias.map((categoria) => ({
+    params: { slug: categoria.data.slug },
+    props: { categoria },
+  }));
+}
+
+const { slug } = Astro.params;
+const categorias = await getCollection('categorias');
+const categoria = categorias.find((c) => c.data.slug === slug);
+
+if (!categoria) {
+  Astro.response.status = 404;
+}
+
+const productos =
+  categoria === undefined
+    ? []
+    : (await getCollection('productos'))
+        .filter((p) => p.data.categoria === categoria.data.slug)
+        .sort((a, b) => a.data.orden - b.data.orden);
+---
+
+{
+  categoria === undefined ? (
+    <BaseLayout title="Categoría no encontrada — Vidrios, espejos y mas">
+      <main>
+        <h1>Categoría no encontrada</h1>
+        <p>
+          Esa categoría no existe. Volvé al <a href="/catalogo">catálogo completo</a>.
+        </p>
+      </main>
+    </BaseLayout>
+  ) : (
+    <BaseLayout
+      title={`${categoria.data.nombre} — Vidrios, espejos y mas`}
+      description={categoria.data.descripcion}
+    >
+      <main>
+        <p>
+          <a href="/catalogo">Catálogo</a> / {categoria.data.nombre}
+        </p>
+        <h1>{categoria.data.nombre}</h1>
+        <img
+          src={categoria.data.imagen_portada.src}
+          alt={categoria.data.imagen_portada.alt}
+          loading="eager"
+          decoding="async"
+        />
+        <p>{categoria.data.descripcion}</p>
+        <h2>Productos</h2>
+        <div class="categoria-grilla">
+          {productos.map((producto) => (
+            <ProductCard
+              nombre={producto.data.nombre}
+              descripcion={producto.data.descripcion_corta}
+              foto={producto.data.fotos[0]}
+              numero={datosContacto.whatsapp}
+              categoria={categoria.data.slug}
+              tituloNivel="h2"
+            />
+          ))}
+        </div>
+      </main>
+    </BaseLayout>
+  )
+}
+
+<style>
+  .categoria-grilla {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+    margin: 1.25rem 0 2.5rem;
+  }
+
+  @media (min-width: 48rem) {
+    .categoria-grilla {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 72rem) {
+    .categoria-grilla {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+</style>

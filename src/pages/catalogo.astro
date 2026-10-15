@@ -1,0 +1,84 @@
+---
+/**
+ * Catálogo completo agrupado por categoría (C-05, D5).
+ *
+ * 100% estático (R1): categorías y productos se leen en frontmatter
+ * (build-time), ordenados por `orden`. Cada grupo lleva `id="{slug}"`
+ * para deep-links (`/catalogo#espejos`) y encabezado con link "Ver todo →"
+ * a su `/categoria/{slug}`. Sin islas, sin endpoints.
+ */
+
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { datosContacto } from '../lib/datos-contacto.ts';
+
+const categorias = (await getCollection('categorias')).sort((a, b) => a.data.orden - b.data.orden);
+const productos = await getCollection('productos');
+
+const grupos = categorias.map((categoria) => ({
+  categoria,
+  productos: productos
+    .filter((p) => p.data.categoria === categoria.data.slug)
+    .sort((a, b) => a.data.orden - b.data.orden),
+}));
+---
+
+<BaseLayout
+  title="Catálogo — Vidrios, espejos y mas"
+  description="Catálogo completo de Vidrios, espejos y mas: espejos, muebles de vidrio, instalaciones y reparaciones. Pedí presupuesto por WhatsApp."
+>
+  <main>
+    <h1>Catálogo</h1>
+    <p>
+      Todo lo que hace el taller, agrupado por categoría. Elegí un producto
+      para pedir presupuesto por WhatsApp.
+    </p>
+
+    {
+      grupos.map(({ categoria, productos }) => (
+        <section id={categoria.data.slug} aria-labelledby={`catalogo-${categoria.data.slug}`}>
+          <h2 id={`catalogo-${categoria.data.slug}`}>
+            {categoria.data.nombre}{' '}
+            <a href={`/categoria/${categoria.data.slug}`} aria-label={`Ver todo de ${categoria.data.nombre}`}>
+              Ver todo →
+            </a>
+          </h2>
+          <p>{categoria.data.descripcion}</p>
+          <div class="catalogo-grilla">
+            {productos.map((producto) => (
+              <ProductCard
+                nombre={producto.data.nombre}
+                descripcion={producto.data.descripcion_corta}
+                foto={producto.data.fotos[0]}
+                numero={datosContacto.whatsapp}
+                categoria={categoria.data.slug}
+              />
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </main>
+</BaseLayout>
+
+<style>
+  .catalogo-grilla {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+    margin: 1.25rem 0 2.5rem;
+  }
+
+  @media (min-width: 48rem) {
+    .catalogo-grilla {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 72rem) {
+    .catalogo-grilla {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+</style>

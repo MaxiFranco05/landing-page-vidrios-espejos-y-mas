@@ -1,0 +1,18 @@
+---
+/**
+ * 404 estático (C-05): Netlify sirve `dist/404.html` para rutas no
+ * generadas como `/categoria/no-existe`. Sin contenido de otra categoría.
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Página no encontrada — Vidrios, espejos y mas">
+  <main>
+    <h1>Página no encontrada</h1>
+    <p>
+      Eso no existe por acá. Volvé al <a href="/catalogo">catálogo completo</a> o a la{' '}
+      <a href="/">página principal</a>.
+    </p>
+  </main>
+</BaseLayout>

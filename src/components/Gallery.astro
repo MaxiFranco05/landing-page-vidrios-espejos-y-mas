@@ -1,0 +1,429 @@
+---
+/*
+ * Gallery (C-06, D1): galería SSR de trabajos por categoría + isla mínima
+ * (filtro + lightbox) con el patrón ThemeToggle: un <script> co-ubicado,
+ * sin framework cliente, sin client:*. Sin JS la grilla completa queda
+ * visible y cada miniatura enlaza a la imagen directa (PE, D2).
+ *
+ * Contrato (specs/galeria): 4 grupos reales con encabezado, filtro con
+ * aria-pressed, lightbox <dialog> con teclado + swipe + aria-live, badge
+ * "Imagen ilustrativa" (RN-CN-01), lazy + tamaño explícito (R5), tokens
+ * @theme existentes sin config JS (R3), sin importes de ningún tipo (R2).
+ */
+// Tipos estructurales (convención del repo, cf. CategoryCard): la página
+// pasa entries de colección y el componente solo exige esta forma.
+interface FotoVista {
+  src: string;
+  alt: string;
+  ilustrativa: boolean;
+}
+
+interface TrabajoVista {
+  data: {
+    titulo: string;
+    categoria: string;
+    fotos: FotoVista[];
+    descripcion?: string;
+  };
+}
+
+export interface GrupoGaleria {
+  slug: string;
+  nombre: string;
+  trabajos: TrabajoVista[];
+}
+
+interface Props {
+  grupos: GrupoGaleria[];
+}
+
+const { grupos } = Astro.props;
+
+// Una figura por foto (el seed trae una por trabajo): el índice global
+// identifica cada miniatura para el lightbox.
+let indice = 0;
+const gruposVista = grupos.map((g) => ({
+  slug: g.slug,
+  nombre: g.nombre,
+  figuras: g.trabajos.flatMap((t) =>
+    t.data.fotos.map((f) => ({
+      src: f.src,
+      alt: f.alt,
+      ilustrativa: f.ilustrativa,
+      titulo: t.data.titulo,
+      indice: indice++,
+    })),
+  ),
+}));
+const totalFotos = indice;
+---
+
+<section id="destacados" class="galeria" aria-labelledby="destacados-titulo">
+  <h2 id="destacados-titulo">Trabajos destacados</h2>
+  <p class="galeria-sub">
+    Una muestra de lo que hacemos en Gral. Alvear. Filtrá por categoría o
+    abrí cada foto para verla en grande.
+  </p>
+
+  <div class="galeria-filtro" role="group" aria-label="Filtrar trabajos por categoría">
+    <button type="button" data-filtro="todos" aria-pressed="true">Todos</button>
+    {
+      gruposVista.map((g) => (
+        <button type="button" data-filtro={g.slug} aria-pressed="false">
+          {g.nombre}
+        </button>
+      ))
+    }
+  </div>
+
+  {
+    gruposVista.map((g) => (
+      <div class="galeria-grupo" data-categoria={g.slug}>
+        <h3>{g.nombre}</h3>
+        <div class="galeria-grilla">
+          {g.figuras.map((fig) => (
+            <figure data-galeria-figura>
+              <a href={fig.src} data-galeria-origen={String(fig.indice)}>
+                <img
+                  src={fig.src}
+                  alt={fig.alt}
+                  loading="lazy"
+                  decoding="async"
+                  width="800"
+                  height="600"
+                />
+              </a>
+              <figcaption>
+                {fig.ilustrativa && <span class="galeria-badge">Imagen ilustrativa</span>}
+                <span>{fig.titulo}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    ))
+  }
+
+  <dialog class="galeria-dialogo" aria-labelledby="galeria-dialogo-titulo">
+    <div class="galeria-dialogo-marco" data-galeria-tactil>
+      <img data-galeria-imagen alt="" />
+      <p id="galeria-dialogo-titulo" data-galeria-titulo aria-live="polite"></p>
+      <p class="galeria-contador" data-galeria-contador></p>
+      <div class="galeria-dialogo-controles">
+        <button type="button" data-galeria-anterior aria-label="Foto anterior">‹</button>
+        <button type="button" data-galeria-cerrar aria-label="Cerrar vista ampliada">Cerrar</button>
+        <button type="button" data-galeria-siguiente aria-label="Foto siguiente">›</button>
+      </div>
+    </div>
+  </dialog>
+
+  <p class="galeria-total" aria-hidden="true">{totalFotos} fotos</p>
+</section>
+
+<style>
+  .galeria {
+    padding: 2rem 0;
+  }
+
+  .galeria-sub {
+    margin: 0.5rem 0 1rem;
+  }
+
+  .galeria-filtro {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .galeria-filtro button {
+    background: transparent;
+    border: 2px solid var(--surface-borde);
+    border-radius: var(--radius-boton);
+    color: var(--surface-text);
+    cursor: pointer;
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+  }
+
+  .galeria-filtro button[aria-pressed='true'] {
+    border-color: var(--surface-acento);
+    color: var(--surface-acento);
+    font-weight: 700;
+  }
+
+  .galeria-grupo {
+    margin-bottom: 2rem;
+  }
+
+  .galeria-grilla {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+  }
+
+  .galeria-grilla figure {
+    border: 1px solid var(--surface-borde);
+    border-radius: var(--radius-tarjeta);
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .galeria-grilla a {
+    display: block;
+  }
+
+  .galeria-grilla img {
+    aspect-ratio: 4 / 3;
+    display: block;
+    height: auto;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .galeria-grilla figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 0.75rem;
+  }
+
+  /* Badge invertido (texto/fondo del body al revés): contraste alto
+     garantizado en ambos temas sin tokens nuevos. */
+  .galeria-badge {
+    align-self: flex-start;
+    background: var(--surface-text);
+    border-radius: var(--radius-boton);
+    color: var(--surface-bg);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    padding: 0.25rem 0.625rem;
+  }
+
+  .galeria-dialogo {
+    background: var(--surface-bg);
+    border: 1px solid var(--surface-borde);
+    border-radius: var(--radius-tarjeta);
+    color: var(--surface-text);
+    max-width: min(92vw, 56rem);
+    padding: 1rem;
+    width: max-content;
+  }
+
+  .galeria-dialogo::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .galeria-dialogo-marco {
+    /* La demo usa pan-y: el swipe horizontal cambia de foto y el
+       scroll vertical de la página sigue intacto. */
+    touch-action: pan-y;
+  }
+
+  .galeria-dialogo img {
+    display: block;
+    margin: 0 auto;
+    max-height: 70vh;
+    max-width: 100%;
+  }
+
+  .galeria-dialogo-controles {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 0.75rem;
+  }
+
+  .galeria-dialogo-controles button {
+    background: transparent;
+    border: 2px solid var(--surface-borde);
+    border-radius: var(--radius-boton);
+    color: var(--surface-text);
+    cursor: pointer;
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.5rem 1rem;
+  }
+
+  .galeria-dialogo-controles button:hover {
+    border-color: var(--surface-acento);
+    color: var(--surface-acento);
+  }
+
+  .galeria-contador {
+    margin: 0.25rem 0 0;
+    text-align: center;
+  }
+
+  .galeria-total {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .galeria *,
+    .galeria *::before,
+    .galeria *::after {
+      animation: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Isla C-06 (patrón ThemeToggle): filtro + lightbox, ~90 líneas de DOM.
+  // Mecánica táctil portada de demos/demo.html (umbral 40px, pan-y en CSS,
+  // listeners passive). Sin concatenación con "$": el markup final queda
+  // libre de falsos positivos en la auditoría de texto (R2).
+  (function () {
+    var seccion = document.getElementById('destacados');
+    if (!seccion) return;
+    var dialogoEl = seccion.querySelector('dialog.galeria-dialogo');
+    if (!(dialogoEl instanceof HTMLDialogElement)) return;
+    var dialogo = dialogoEl;
+    var imagen = dialogo.querySelector('img');
+    var titulo = dialogo.querySelector('[data-galeria-titulo]');
+    var contador = dialogo.querySelector('[data-galeria-contador]');
+    var zonaTactil = dialogo.querySelector('[data-galeria-tactil]');
+    if (!imagen || !titulo) return;
+    // Alias con nulidad ya descartada: el narrowing no cruza a closures,
+    // la asignación sí conserva el tipo (no se reasignan jamás).
+    var fotoDestino = imagen;
+    var tituloDestino = titulo;
+    var botones = Array.from(seccion.querySelectorAll('[data-filtro]'));
+    var grupos = Array.from(seccion.querySelectorAll('[data-categoria]'));
+    var origenes = Array.from(seccion.querySelectorAll('[data-galeria-origen]'));
+
+    // Estado con tipos estables: el trigger arranca en la primera miniatura
+    // (abrir() lo pisa antes de cualquier uso; cerrar() solo corre con el
+    // diálogo abierto, es decir, después de abrir()).
+    var disparo = seccion.querySelector('[data-galeria-origen]');
+    var visibles = origenes.slice();
+    var actual = 0;
+    // -1 = sin tacto en curso (evita el nulo que el checker no infiere).
+    var tactoX = -1;
+
+    function refrescarVisibles() {
+      visibles = origenes.filter(function (a) {
+        var g = a.closest('[data-categoria]');
+        return !!g && !g.hasAttribute('hidden');
+      });
+    }
+
+    function pintar() {
+      var a = visibles[actual];
+      if (!a) return;
+      var img = a.querySelector('img');
+      if (!img) return;
+      fotoDestino.src = a.getAttribute('href') || '';
+      fotoDestino.alt = img.getAttribute('alt') || '';
+      var figura = a.closest('figure');
+      var texto = figura ? figura.querySelector('figcaption span:last-child') : null;
+      tituloDestino.textContent = texto && texto.textContent ? texto.textContent : '';
+      if (contador) contador.textContent = 'Foto ' + (actual + 1) + ' de ' + visibles.length;
+    }
+
+    function abrirIndice(i = 0) {
+      refrescarVisibles();
+      actual = i < 0 || i >= visibles.length ? 0 : i;
+      pintar();
+      dialogo.showModal();
+      var botonCerrar = dialogo.querySelector('[data-galeria-cerrar]');
+      if (botonCerrar instanceof HTMLElement) botonCerrar.focus();
+    }
+
+    function devolverFoco() {
+      // El foco vuelve al thumbnail que abrió (spec: Teclado completo).
+      if (disparo instanceof HTMLElement) disparo.focus();
+    }
+
+    function cerrar() {
+      if (dialogo.open) dialogo.close();
+      devolverFoco();
+    }
+
+    function paso(delta = 0) {
+      if (!visibles.length) return;
+      actual = (actual + delta + visibles.length) % visibles.length;
+      pintar();
+    }
+
+    botones.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var filtro = btn.getAttribute('data-filtro');
+        botones.forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b === btn));
+        });
+        grupos.forEach(function (g) {
+          g.toggleAttribute('hidden', !(filtro === 'todos' || g.getAttribute('data-categoria') === filtro));
+        });
+      });
+    });
+
+    origenes.forEach(function (a) {
+      a.addEventListener('click', function (ev) {
+        // Sin <dialog> nativo no se intercepta: PE abre la imagen directa.
+        if (typeof dialogo.showModal !== 'function') return;
+        ev.preventDefault();
+        refrescarVisibles();
+        var i = visibles.indexOf(a);
+        disparo = a;
+        abrirIndice(i < 0 ? 0 : i);
+      });
+    });
+
+    var previo = dialogo.querySelector('[data-galeria-anterior]');
+    var proximo = dialogo.querySelector('[data-galeria-siguiente]');
+    var cierre = dialogo.querySelector('[data-galeria-cerrar]');
+    if (previo) previo.addEventListener('click', function () { paso(-1); });
+    if (proximo) proximo.addEventListener('click', function () { paso(1); });
+    if (cierre) cierre.addEventListener('click', cerrar);
+
+    dialogo.addEventListener('click', function (ev) {
+      if (ev.target === dialogo) cerrar();
+    });
+    dialogo.addEventListener('close', devolverFoco);
+
+    dialogo.addEventListener('keydown', function (ev) {
+      if (!(ev instanceof KeyboardEvent)) return;
+      if (ev.key === 'ArrowRight') { ev.preventDefault(); paso(1); return; }
+      if (ev.key === 'ArrowLeft') { ev.preventDefault(); paso(-1); return; }
+      // Guarda de foco mínima: <dialog> ya es modal, esto cicla Tab.
+      if (ev.key === 'Tab') {
+        var focos = Array.from(dialogo.querySelectorAll('button'));
+        if (!focos.length) return;
+        var primero = focos[0];
+        var ultimo = focos[focos.length - 1];
+        if (!primero || !ultimo) return;
+        if (ev.shiftKey && document.activeElement === primero) { ev.preventDefault(); ultimo.focus(); }
+        else if (!ev.shiftKey && document.activeElement === ultimo) { ev.preventDefault(); primero.focus(); }
+      }
+    });
+
+    // Ruleta táctil de la demo: swipe horizontal cambia de foto.
+    // (Guarda en línea: el checker no infiere JSDoc en este <script>,
+    // pero los callbacks de addEventListener sí traen tipo contextual.)
+    if (zonaTactil) {
+      zonaTactil.addEventListener('touchstart', function (ev) {
+        if (typeof TouchEvent === 'undefined' || !(ev instanceof TouchEvent)) return;
+        var lista = ev.changedTouches;
+        var punto = lista.length > 0 ? lista[0] : null;
+        if (punto) tactoX = punto.clientX;
+      }, { passive: true });
+      zonaTactil.addEventListener('touchend', function (ev) {
+        if (typeof TouchEvent === 'undefined' || !(ev instanceof TouchEvent)) return;
+        var lista = ev.changedTouches;
+        var punto = lista.length > 0 ? lista[0] : null;
+        if (tactoX < 0 || !punto) return;
+        var dx = punto.clientX - tactoX;
+        tactoX = -1;
+        if (Math.abs(dx) < 40) return;
+        if (dx < 0) paso(1); else paso(-1);
+      }, { passive: true });
+    }
+  })();
+</script>

@@ -1,0 +1,83 @@
+---
+/**
+ * Tarjeta de categoría (C-05, D3/D6).
+ *
+ * Toda la tarjeta es un anchor NATIVO a `/categoria/{slug}` (portada +
+ * nombre + descripción): área táctil amplia sin JS, con semántica,
+ * teclado y menú contextual intactos (static-first, R1).
+ *
+ * `eager`: solo la primera portada del teaser (sobre el pliegue);
+ * el resto usa `loading="lazy"` (D4, R5).
+ */
+
+interface Props {
+  slug: string;
+  nombre: string;
+  descripcion: string;
+  imagen: { src: string; alt: string };
+  eager?: boolean;
+}
+
+const { slug, nombre, descripcion, imagen, eager = false } = Astro.props;
+---
+
+<a href={`/categoria/${slug}`} class="tarjeta-categoria">
+  <img
+    src={imagen.src}
+    alt={imagen.alt}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding="async"
+    class="tarjeta-categoria-portada"
+  />
+  <span class="tarjeta-categoria-cuerpo">
+    <span class="tarjeta-categoria-nombre">{nombre}</span>
+    <span class="tarjeta-categoria-descripcion">{descripcion}</span>
+  </span>
+</a>
+
+<style>
+  .tarjeta-categoria {
+    background-color: var(--surface-elevada);
+    border: 1px solid var(--surface-borde);
+    border-radius: var(--radius-tarjeta);
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    min-height: 48px;
+    overflow: hidden;
+    text-decoration: none;
+  }
+
+  .tarjeta-categoria:hover .tarjeta-categoria-nombre {
+    color: var(--surface-acento);
+  }
+
+  .tarjeta-categoria-portada {
+    aspect-ratio: 16 / 10;
+    display: block;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .tarjeta-categoria-cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1rem 1.1rem 1.2rem;
+  }
+
+  .tarjeta-categoria-nombre {
+    color: var(--surface-text);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .tarjeta-categoria-descripcion {
+    color: var(--surface-text);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    opacity: 0.85;
+  }
+</style>

@@ -1,0 +1,81 @@
+---
+/**
+ * Tarjeta de producto (C-05, D2/D3).
+ *
+ * `<article>` con foto, nombre y descripción corta + el `WhatsAppButton`
+ * de C-04 en variante `product` REUTILIZADO (mismo builder, mismo contrato:
+ * el mensaje cita solo el nombre). El número llega por prop desde
+ * `DatosContacto` resuelto por la página (R4): NUNCA hardcodeado aquí.
+ *
+ * `tituloNivel`: `h3` dentro de grupos con `h2` (catálogo); `h2` cuando la
+ * tarjeta cuelga directo del `h1` (página de categoría). Orden lógico
+ * de headings en ambos casos (WCAG 1.3.1/2.4.6).
+ */
+
+import WhatsAppButton from './WhatsAppButton.astro';
+
+interface Props {
+  nombre: string;
+  descripcion: string;
+  foto: { src: string; alt: string };
+  /** `datosContacto.whatsapp` resuelto por la página llamadora (R4). */
+  numero: string;
+  /** Ref de categoría, reservada (el mensaje cita solo el nombre, D2). */
+  categoria?: string;
+  tituloNivel?: 'h2' | 'h3';
+}
+
+const { nombre, descripcion, foto, numero, categoria, tituloNivel = 'h3' } = Astro.props;
+const Titulo = tituloNivel === 'h2' ? 'h2' : 'h3';
+---
+
+<article class="tarjeta-producto">
+  <img src={foto.src} alt={foto.alt} loading="lazy" decoding="async" class="tarjeta-producto-foto" />
+  <div class="tarjeta-producto-cuerpo">
+    <Titulo class="tarjeta-producto-nombre">{nombre}</Titulo>
+    <p class="tarjeta-producto-descripcion">{descripcion}</p>
+    <WhatsAppButton variant="product" numero={numero} productoNombre={nombre} categoria={categoria} />
+  </div>
+</article>
+
+<style>
+  .tarjeta-producto {
+    background-color: var(--surface-elevada);
+    border: 1px solid var(--surface-borde);
+    border-radius: var(--radius-tarjeta);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .tarjeta-producto-foto {
+    aspect-ratio: 4 / 3;
+    display: block;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .tarjeta-producto-cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1rem 1.1rem 1.2rem;
+  }
+
+  .tarjeta-producto-nombre {
+    color: var(--surface-text);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .tarjeta-producto-descripcion {
+    color: var(--surface-text);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 0;
+    opacity: 0.85;
+  }
+</style>

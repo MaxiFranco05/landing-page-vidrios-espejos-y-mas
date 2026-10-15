@@ -1,0 +1,89 @@
+---
+/**
+ * Mapa embebido real con progressive enhancement (C-07, D2).
+ *
+ * Presentacional: `embedUrl` + `mapsUrl` + `direccion` llegan por props
+ * resueltas del singleton `datosContacto` por el llamador (D5) — la
+ * `maps_embed_url` con su `pb=` largo se COPIA por prop, nunca se
+ * reescribe a mano (D7). Este componente NUNCA hardcodea URLs (R4).
+ *
+ * El fallback NO es `onerror` del iframe (poco fiable): la dirección en
+ * texto + el link "Abrir en Google Maps" están SIEMPRE en el DOM, así que
+ * con el iframe bloqueado (adblock/offline/JS deshabilitado) la
+ * ubicación sigue visible y funcional.
+ */
+
+interface Props {
+  /** `datosContacto.maps_embed_url` resuelto por el llamador. */
+  embedUrl: string;
+  /** `datosContacto.maps_url` resuelto por el llamador. */
+  mapsUrl: string;
+  /** `datosContacto.direccion` resuelto por el llamador. */
+  direccion: string;
+}
+
+const { embedUrl, mapsUrl, direccion } = Astro.props;
+
+for (const [nombre, valor] of Object.entries({ embedUrl, mapsUrl, direccion })) {
+  if (valor.trim().length === 0) {
+    throw new Error('MapEmbed: la prop ' + nombre + ' no puede estar vacía (viene de datosContacto)');
+  }
+}
+---
+
+<div class="map-embed">
+  <address class="map-embed-direccion">{direccion}</address>
+  <iframe
+    class="map-embed-frame"
+    src={embedUrl}
+    title={'Mapa de Vidrios, espejos y mas en ' + direccion}
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    allowfullscreen
+  ></iframe>
+  <p class="map-embed-fallback">
+    <a
+      class="map-embed-link"
+      href={mapsUrl}
+      target="_blank"
+      rel="noopener"
+      aria-label={'Abrir en Google Maps la ubicación de Vidrios, espejos y mas en ' + direccion}
+    >
+      Abrir en Google Maps
+    </a>
+  </p>
+</div>
+
+<style>
+  .map-embed {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .map-embed-direccion {
+    color: var(--surface-text);
+    font-style: normal;
+  }
+
+  .map-embed-frame {
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--surface-borde);
+    border-radius: var(--radius-tarjeta);
+    width: 100%;
+  }
+
+  .map-embed-fallback {
+    margin: 0;
+  }
+
+  .map-embed-link {
+    align-items: center;
+    color: var(--surface-acento);
+    display: inline-flex;
+    font-weight: 600;
+    min-height: 44px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+</style>

@@ -1,7 +1,27 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CategoryCard from '../components/CategoryCard.astro';
+import Gallery from '../components/Gallery.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
+import ContactInfo from '../components/ContactInfo.astro';
+import MapEmbed from '../components/MapEmbed.astro';
 import { datosContacto } from '../lib/datos-contacto.ts';
+
+const categorias = (await getCollection('categorias')).sort((a, b) => a.data.orden - b.data.orden);
+
+// C-06: grupos de galería por categoría en orden del catálogo (gate RN-CAT-04:
+// la categoría sin trabajos válidos no se emite y se advierte en build).
+const trabajos = await getCollection('trabajos');
+const grupos = [];
+for (const c of categorias) {
+  const items = trabajos.filter((t) => t.data.categoria === c.data.slug && t.data.fotos.length > 0);
+  if (items.length === 0) {
+    console.warn('[galeria] categoría sin trabajos válidos (RN-CAT-04): ' + c.data.slug);
+    continue;
+  }
+  grupos.push({ slug: c.data.slug, nombre: c.data.nombre, trabajos: items });
+}
 ---
 
 <BaseLayout>
@@ -12,14 +32,73 @@ import { datosContacto } from '../lib/datos-contacto.ts';
       inicial (C-01) — el home real lo construyen C-04/C-05/C-06/C-07.
     </p>
 
-    <section aria-labelledby="contacto-titulo">
+    <!-- C-05:Lo-que-hacemos -->
+    <section id="hacemos" aria-labelledby="hacemos-titulo">
+      <h2 id="hacemos-titulo">Lo que hacemos</h2>
+      <p>
+        Cuatro líneas de trabajo, un mismo taller. Elegí una categoría para
+        ver sus productos o recorré el catálogo completo.
+      </p>
+      <div class="hacemos-grilla">
+        {
+          categorias.map((categoria, i) => (
+            <CategoryCard
+              slug={categoria.data.slug}
+              nombre={categoria.data.nombre}
+              descripcion={categoria.data.descripcion}
+              imagen={categoria.data.imagen_portada}
+              eager={i === 0}
+            />
+          ))
+        }
+      </div>
+      <p>
+        <a href="/catalogo" class="hacemos-ver-todo">Ver catálogo completo →</a>
+      </p>
+    </section>
+    <!-- /C-05:Lo-que-hacemos -->
+
+    <!-- C-06: galeria-trabajos (/#destacados + alias /#trabajos). Zona propia. -->
+    <span id="trabajos" class="ancla-fantasma" aria-hidden="true"></span>
+    <Gallery grupos={grupos} />
+    <!-- /C-06 -->
+
+    <!-- C-07: contacto + ubicación (zona propia; C-05/C-06 tocan otros bloques). -->
+    <section id="contacto" class="scroll-mt-24" aria-labelledby="contacto-titulo">
       <h2 id="contacto-titulo">Contacto por WhatsApp</h2>
-      <WhatsAppButton
-        variant="generic"
-        numero={datosContacto.whatsapp}
-        mostrarTel
+      <ContactInfo
+        direccion={datosContacto.direccion}
+        zona={datosContacto.zona_atencion}
+        horarios={datosContacto.horarios}
+        whatsapp={datosContacto.whatsapp}
         telefonoVisible={datosContacto.telefono_visible}
       />
+    </section>
+
+    <section id="ubicacion" class="scroll-mt-24" aria-labelledby="ubicacion-titulo">
+      <h2 id="ubicacion-titulo">Ubicación</h2>
+      <ContactInfo
+        direccion={datosContacto.direccion}
+        zona={datosContacto.zona_atencion}
+        horarios={datosContacto.horarios}
+        whatsapp={datosContacto.whatsapp}
+        telefonoVisible={datosContacto.telefono_visible}
+      />
+      <MapEmbed
+        embedUrl={datosContacto.maps_embed_url}
+        mapsUrl={datosContacto.maps_url}
+        direccion={datosContacto.direccion}
+      />
+      <p>
+        <a
+          href={datosContacto.maps_url}
+          target="_blank"
+          rel="noopener"
+          aria-label={'Cómo llegar a Vidrios, espejos y mas en ' + datosContacto.direccion + ' en Google Maps'}
+        >
+          Cómo llegar
+        </a>
+      </p>
     </section>
   </main>
 
@@ -33,3 +112,45 @@ import { datosContacto } from '../lib/datos-contacto.ts';
     />
   </div>
 </BaseLayout>
+
+<style>
+  /* Teaser C-05 (D6 anti-genérico): grilla asimétrica anclada en fotos
+     reales — la primera portada va apaisada a doble ancho en desktop,
+     sin "hero + 3 cards idénticas". Tokens del sistema, sin colores nuevos. */
+  .hacemos-grilla {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+    margin: 1.5rem 0;
+  }
+
+  @media (min-width: 48rem) {
+    .hacemos-grilla {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hacemos-grilla > :first-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .hacemos-ver-todo {
+    align-items: center;
+    display: inline-flex;
+    font-weight: 600;
+    min-height: 48px;
+  }
+</style>
+
+<style>
+  /* C-06: alias fantasma #trabajos (D5) — ocupa lugar sin pintarse para
+     no romper enlaces al nombre de CHANGES.md. Bloque propio. */
+  .ancla-fantasma {
+    clip: rect(0 0 0 0);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+</style>

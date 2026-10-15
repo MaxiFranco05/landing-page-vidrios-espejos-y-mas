@@ -1,0 +1,91 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+
+/**
+ * Pieza única del NAP (C-07, D3): dirección + zona + horarios + CTA.
+ *
+ * `/#contacto`, `/#ubicacion` y el footer la instancian con las MISMAS
+ * props resueltas del singleton `datosContacto` por el llamador (D5):
+ * garantiza RN-CN-03 por construcción en vez de por revisión visual.
+ * Reutiliza `WhatsAppButton` genérico + su `tel:` (D1, RN-WA-04):
+ * este componente NUNCA hardcodea número, dirección ni URLs (R4).
+ */
+
+interface Props {
+  /** `datosContacto.direccion` resuelto por el llamador. */
+  direccion: string;
+  /** `datosContacto.zona_atencion` resuelto por el llamador. */
+  zona: string;
+  /** `datosContacto.horarios` resuelto por el llamador. */
+  horarios: string;
+  /** `datosContacto.whatsapp` resuelto por el llamador. */
+  whatsapp: string;
+  /** `datosContacto.telefono_visible` resuelto por el llamador. */
+  telefonoVisible: string;
+}
+
+const { direccion, zona, horarios, whatsapp, telefonoVisible } = Astro.props;
+
+for (const [nombre, valor] of Object.entries({ direccion, zona, horarios, whatsapp, telefonoVisible })) {
+  if (valor.trim().length === 0) {
+    throw new Error('ContactInfo: la prop ' + nombre + ' no puede estar vacía (viene de datosContacto)');
+  }
+}
+---
+
+<div class="contact-info">
+  <address class="contact-info-direccion">
+    <span class="contact-info-linea">{direccion}</span>
+    <span class="contact-info-linea contact-info-zona">{zona}</span>
+  </address>
+  <p class="contact-info-horarios">
+    <span class="contact-info-etiqueta">Horarios:</span>
+    <span>{horarios}</span>
+  </p>
+  <WhatsAppButton
+    variant="generic"
+    numero={whatsapp}
+    mostrarTel
+    telefonoVisible={telefonoVisible}
+  />
+</div>
+
+<style>
+  .contact-info {
+    background-color: var(--surface-elevada);
+    border: 1px solid var(--surface-borde);
+    border-radius: var(--radius-tarjeta);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.25rem;
+  }
+
+  .contact-info-direccion {
+    display: flex;
+    flex-direction: column;
+    font-style: normal;
+    gap: 0.25rem;
+  }
+
+  .contact-info-linea {
+    color: var(--surface-text);
+  }
+
+  .contact-info-zona {
+    font-size: 0.9rem;
+    opacity: 0.85;
+  }
+
+  .contact-info-horarios {
+    color: var(--surface-text);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin: 0;
+  }
+
+  .contact-info-etiqueta {
+    font-weight: 600;
+  }
+</style>

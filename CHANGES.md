@@ -163,14 +163,15 @@ Paso │ Agente A (Contenido + Catálogo)   │ Agente B (Interacción + Galerí
 > C-05, C-06 y C-07 pueden proponerse en paralelo una vez archivados C-02, C-03, C-04 y C-09.
 
 ### [C-05] `catalogo-categorias-productos`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` archivado (2026-10-15)
 - **Scope**: Catálogo navegable home + páginas por categoría (US-001, US-002)
   - `CategoryCard.astro` + `ProductCard.astro` (foto, nombre, descripción corta, botón WhatsApp por producto; sin precios ni medidas)
-  - `index.astro` §categorías: las 4 categorías con portada y descripción, cada una enlaza a `/categoria/{slug}`
+   - `index.astro` §Lo que hacemos: teaser con las 4 categorías (portada + línea + link a `/catalogo`)
+   - `catalogo.astro`: catálogo completo dividido por categorías, cada una enlaza a `/categoria/{slug}`
   - `categoria/[slug].astro` con `getStaticPaths` desde la colección, 404 para slug inexistente
   - Responsive mobile-first en tema claro y oscuro, `alt` descriptivo en cada imagen
   - Tests: slugs generan las 4 rutas, producto sin precio/medida en HTML, links `wa.me` con mensaje encodeado
-- **Dependencias**: C-02, C-03, C-04
+- **Dependencias**: C-02, C-03, C-04, C-09 (seed real)
 - **Governance**: BAJO
 - **Leer antes**:
   - `knowledge-base/06_funcionalidades.md` §US-001, §US-002
@@ -179,7 +180,7 @@ Paso │ Agente A (Contenido + Catálogo)   │ Agente B (Interacción + Galerí
   - `knowledge-base/03_actores_y_roles.md` §Rutas públicas
 
 ### [C-06] `galeria-trabajos`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` archivado (2026-10-15)
 - **Scope**: Galería de trabajos reales por categoría (US-004)
   - `Gallery.astro` (isla JS: filtro por categoría + lightbox con teclado y foco accesible), sección `/#trabajos` en home
   - Bocetos IA solo como último recurso y marcados "imagen ilustrativa"; fotos reales con prioridad
@@ -194,7 +195,7 @@ Paso │ Agente A (Contenido + Catálogo)   │ Agente B (Interacción + Galerí
   - `knowledge-base/08_arquitectura_propuesta.md` §Islas de interactividad
 
 ### [C-07] `contacto-ubicacion-maps`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` archivado (2026-10-15)
 - **Scope**: Contacto y ubicación que cierran la visita (US-005 resto, US-006)
   - `Header` (tel + WhatsApp) + `Footer` + secciones `/#contacto`, `/#ubicacion`: dirección "Estrada 912, Gral. Alvear, Mendoza", zona "Gral. Alvear y alrededores", horarios "Lun–Vie 8–19, Sáb 8–13, Dom cerrado"
   - `MapEmbed.astro`: iframe de Maps en footer + botón "Cómo llegar" en home que abre Google Maps con el destino correcto
