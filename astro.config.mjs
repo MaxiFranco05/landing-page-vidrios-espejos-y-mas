@@ -11,7 +11,7 @@ export default defineConfig({
   // se resuelva PA-01 (C-08 deja el valor final + sitemap/canonicals).
   // Migración PA-01 (1 commit): cambiar `site`, rebuild, re-verificar
   // canonicals + `sitemap.xml` + `robots.txt` (ver(Migration Plan, design C-08).
-  site: 'https://vidrios-espejos-y-mas.netlify.app',
+  site: 'https://vidriosespejosymas.netlify.app',
   // C-08: `sitemap.xml` generado en build desde `site:` + rutas
   // prerenderizadas (integración local: ver `src/integrations/sitemap-xml.ts`
   // para la desviación documentada de D2). El 404 nunca es indexable:
