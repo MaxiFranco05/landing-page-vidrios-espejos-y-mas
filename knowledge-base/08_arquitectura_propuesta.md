@@ -54,6 +54,7 @@ vidrios-espejos-y-mas/
 | `PUBLIC_ADDRESS` | Dirección del local | `Estrada 912, Gral. Alvear, Mendoza` | No |
 | `PUBLIC_MAPS_URL` | Link "cómo llegar" | `https://maps...` | No |
 | `PUBLIC_MAPS_EMBED_URL` | URL del iframe del mapa | `https://maps.../embed` | No |
+| `PUBLIC_UMAMI_WEBSITE_ID` | ID del sitio en Umami (cuenta del usuario; NUNCA commitear valores reales, solo la key en `.env.example`) | `xxxxxxxx-xxxx-...` | No |
 
 ## Identidad visual (criterio anti-genérico, RN-DS-01/02)
 

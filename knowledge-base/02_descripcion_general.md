@@ -40,6 +40,7 @@ Astro build (SSG) ──► HTML/CSS/JS estático ──► Netlify CDN
 | WhatsApp (`wa.me/<numero>?text=<mensaje>`) | Conversión principal; mensaje predefinido por producto | Deep link saliente |
 | Telefonía (`tel:+5492625445223`) | Llamada directa en un clic (mobile) | Link saliente |
 | Google Maps | Embed en footer + botón "cómo llegar" en home | Embed + link saliente |
+| Analítica | Umami Cloud Hobby (gratis, sin cookies; script + eventos, GA4 en otra versión) | Script + eventos (C-08); ID del sitio por env, cuenta del usuario |
 
 ## API REST (si aplica)
 

@@ -5,10 +5,11 @@
   - Conmutador de paletas 37A/37B/37C (default 37B) + claro/oscuro + vista actual/nueva.
   - Vista "actual": contenido demo previo, sin cambios.
   - Vista "nueva" (default): propuesta Casa Vigo / La Plata con 4 rubros reales, sin precios ni medidas (R2).
+  - Sección "Lo que dicen los clientes": 3 PLACEHOLDERS marcados "Texto de ejemplo" (no prueba social real).
   - NO es maqueta base: C-05+ parten de los tokens, no de este HTML.
   - NO se publica: `npm run build` no la incluye en `dist/`.
   - Links wa.me de ejemplo (sin `#`); imágenes = SVG inline ilustrativos con role="img".
-  - Sin prueba social inventada (sin reseñas ni estadísticas).
+  - Sin prueba social inventada (sin reseñas ni estadísticas reales).
 -->
 <html lang="es" data-paleta="37b" data-tema="claro" data-vista="nueva">
 <head>
@@ -178,9 +179,67 @@
   footer { background: var(--superficie); border-top: 2px solid var(--borde); padding: 2rem 0; }
   footer address { font-style: normal; }
 
+   /* Testimonios (solo vista nueva): 3 placeholders marcados "Texto de ejemplo".
+      Variante COMBINADA (grilla dentro de carrusel): un solo visor con las 3
+      tarjetas; en escritorio se ven las 3 lado a lado (grilla), en móvil 1
+      visible con swipe (carrusel). Navegación con flechas en los extremos +
+      dots centrados debajo del visor. Teclado (flechas sobre el visor) + swipe.
+      Colores solo con vars (dark mode automático), sin precios ni medidas (R2). */
+  .testimonios { padding: 2rem 0; }
+  .testimonios .aviso-demo {
+    background: var(--calido); border: 1px dashed var(--acento); border-radius: 0.7rem;
+    font-size: 0.85rem; margin: 0.75rem 0 0; padding: 0.6rem 0.9rem;
+  }
+  .badge-ejemplo {
+    background: var(--acento); border-radius: 999px; color: var(--sobre-acento);
+    display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+    padding: 0.2rem 0.7rem; text-transform: uppercase;
+  }
+  .testi-card {
+    background: var(--superficie); border: 1px solid var(--borde);
+    border-radius: 0.9rem; padding: 1.25rem; margin: 0;
+    display: grid; gap: 0.6rem; align-content: start;
+  }
+  .testi-card blockquote { margin: 0; font-size: 0.95rem; }
+  .testi-card figcaption { font-size: 0.85rem; }
+  .testi-card figcaption strong { display: block; }
+  .testi-estrellas { color: var(--acento); letter-spacing: 0.15em; font-size: 0.9rem; }
+  /* Visor combinado: carrusel con scroll-snap en móvil, grilla de 3 en escritorio. */
+  .testi-visor {
+    display: grid; grid-auto-flow: column; grid-auto-columns: 100%;
+    gap: 0 1rem; overflow-x: auto; scroll-snap-type: x mandatory;
+    list-style: none; margin: 1rem 0 0; padding: 0 0 0.5rem;
+    touch-action: pan-y;
+  }
+  .testi-visor > li { scroll-snap-align: start; min-width: 0; }
+  .testi-visor > li:nth-child(even) .testi-card { background: var(--calido); }
+  @media (min-width: 720px) {
+    .testi-visor { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); overflow: visible; gap: 1rem; }
+  }
+  .testi-caption { font-size: 0.85rem; margin: 0.75rem 0 0; }
+  /* Fila de navegación: flechas en los extremos, visor al centro, alineados verticalmente. */
+  .testi-nav { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.5rem; align-items: center; margin: 1rem 0 0; }
+  .testi-nav .testi-visor { margin: 0; min-width: 0; }
+  .testi-arrow {
+    background: var(--superficie); border: 2px solid var(--borde); border-radius: 999px;
+    color: var(--texto); cursor: pointer; font-size: 1.1rem; line-height: 1;
+    min-height: 44px; min-width: 44px; padding: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .testi-arrow:hover, .testi-arrow:focus-visible { border-color: var(--acento); color: var(--acento); }
+  .testi-dots { display: flex; gap: 0.5rem; justify-content: center; list-style: none; margin: 0.75rem 0 0; padding: 0; }
+  .testi-dot {
+    background: transparent; border: 2px solid var(--borde); border-radius: 999px;
+    cursor: pointer; min-height: 44px; min-width: 44px; padding: 0;
+    display: inline-flex; align-items: center; justify-content: center; color: inherit;
+  }
+  .testi-dot::before { content: ""; width: 0.6rem; height: 0.6rem; border-radius: 999px; background: var(--borde); }
+  .testi-dot[aria-pressed="true"] { border-color: var(--acento); }
+  .testi-dot[aria-pressed="true"]::before { background: var(--acento); }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
-    .galeria-tira, .carousel { scroll-snap-type: none; }
+    .galeria-tira, .carousel, .testi-visor { scroll-snap-type: none; }
   }
 </style>
 </head>
@@ -409,6 +468,49 @@
     </ul>
   </section>
 
+  <section class="testimonios" aria-labelledby="nueva-testimonios">
+    <h2 id="nueva-testimonios">Lo que dicen los clientes</h2>
+    <p class="aviso-demo"><span class="badge-ejemplo">Demo</span> Textos de ejemplo para evaluar el diseño combinado (grilla en escritorio, carrusel en móvil). No son opiniones reales.</p>
+    <div class="testi-combinado">
+      <div class="testi-nav">
+      <button type="button" class="testi-arrow" id="testi-prev" aria-label="Anterior: mostrar texto de ejemplo previo"><span aria-hidden="true">‹</span></button>
+      <ol class="testi-visor" id="testi-visor" aria-label="Testimonios de ejemplo" tabindex="0">
+        <li>
+          <figure class="testi-card" aria-label="Texto de ejemplo 1 de 3, no es una opinión real">
+            <span class="badge-ejemplo">Texto de ejemplo</span>
+            <span class="testi-estrellas" role="img" aria-label="Valoración de ejemplo: 5 de 5 estrellas">★★★★★</span>
+            <blockquote><p>“Texto de ejemplo: muy buena atención y el espejo del baño quedó impecable. Vinieron en el día acordado.”</p></blockquote>
+            <figcaption><strong>Marta G. — Centro</strong><span>Gral. Alvear (nombre y texto de ejemplo)</span></figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="testi-card" aria-label="Texto de ejemplo 2 de 3, no es una opinión real">
+            <span class="badge-ejemplo">Texto de ejemplo</span>
+            <span class="testi-estrellas" role="img" aria-label="Valoración de ejemplo: 5 de 5 estrellas">★★★★★</span>
+            <blockquote><p>“Texto de ejemplo: nos armaron la vitrina del local y quedó muy prolija. Explicaron todo con paciencia.”</p></blockquote>
+            <figcaption><strong>Carlos R. — Barrio San Pedro</strong><span>Gral. Alvear (nombre y texto de ejemplo)</span></figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="testi-card" aria-label="Texto de ejemplo 3 de 3, no es una opinión real">
+            <span class="badge-ejemplo">Texto de ejemplo</span>
+            <span class="testi-estrellas" role="img" aria-label="Valoración de ejemplo: 5 de 5 estrellas">★★★★★</span>
+            <blockquote><p>“Texto de ejemplo: reemplazaron el vidrio de la ventana rapidísimo y dejaron todo limpio. Recomendables.”</p></blockquote>
+            <figcaption><strong>Lucía F. — Barrio Jardín</strong><span>Gral. Alvear (nombre y texto de ejemplo)</span></figcaption>
+          </figure>
+        </li>
+      </ol>
+      <button type="button" class="testi-arrow" id="testi-next" aria-label="Siguiente: mostrar texto de ejemplo siguiente"><span aria-hidden="true">›</span></button>
+      </div>
+      <p class="testi-caption" id="testi-caption" aria-live="polite">Mostrando texto de ejemplo 1 de 3</p>
+      <ol class="testi-dots" aria-label="Elegir testimonio de ejemplo">
+        <li><button type="button" class="testi-dot" data-testi="0" aria-pressed="true" aria-label="Mostrar texto de ejemplo 1"><span aria-hidden="true"></span></button></li>
+        <li><button type="button" class="testi-dot" data-testi="1" aria-pressed="false" aria-label="Mostrar texto de ejemplo 2"><span aria-hidden="true"></span></button></li>
+        <li><button type="button" class="testi-dot" data-testi="2" aria-pressed="false" aria-label="Mostrar texto de ejemplo 3"><span aria-hidden="true"></span></button></li>
+      </ol>
+    </div>
+  </section>
+
   <section class="contacto" aria-labelledby="nueva-contacto">
     <h2 id="nueva-contacto">Contacto y ubicación</h2>
     <div class="contacto-grid">
@@ -452,6 +554,7 @@
 <script>
   // Conmutadores vista/paleta/tema: cambian data-* en <html>, con persistencia local.
   // Galería nueva propuesta: las miniaturas cambian la imagen grande (click + teclado + swipe táctil).
+  // Testimonios combinados (grilla en escritorio, carrusel en móvil): dots + swipe + teclado.
   (function () {
     var root = document.documentElement;
 
@@ -480,6 +583,7 @@
     enlazar('vista', 'data-vista', 'demo-vista');
     enlazar('paleta', 'data-paleta', 'demo-paleta');
     enlazar('tema', 'data-tema', 'demo-tema');
+    try { window.localStorage.removeItem('demo-testimonios'); } catch (e) { /* limpieza del conmutador retirado */ }
 
     var trabajos = [
       {
@@ -555,6 +659,67 @@
         tactoX = null;
         if (Math.abs(dx) < 40) { return; }
         if (dx < 0) { avanzar(1); } else { avanzar(-1); }
+      }, { passive: true });
+    }
+    // Testimonios combinados (solo vista nueva): grilla de 3 en escritorio,
+    // carrusel de 1 visible con swipe en móvil. Navegación con flechas en los
+    // extremos + dots centrados; teclado (flechas sobre el visor) + swipe táctil;
+    // caption con aria-live.
+    // Reusa la mecánica del destacados: scroll al item, umbral táctil 40px, pan-y intacto.
+    var testiVisor = document.getElementById('testi-visor');
+    var testiCaption = document.getElementById('testi-caption');
+    var testiDots = document.querySelectorAll('.testi-dot');
+    var testiActual = 0;
+    var testiTactoX = null;
+
+    function testiMostrar(indice) {
+      if (!testiVisor) { return; }
+      var items = testiVisor.querySelectorAll(':scope > li');
+      if (!items.length) { return; }
+      testiActual = (indice + items.length) % items.length;
+      var destino = items[testiActual];
+      if (destino && typeof destino.scrollIntoView === 'function') {
+        var reduce = false;
+        try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { reduce = false; }
+        destino.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest', inline: 'start' });
+      }
+      testiDots.forEach(function (dot, i) {
+        dot.setAttribute('aria-pressed', i === testiActual ? 'true' : 'false');
+      });
+      if (testiCaption) { testiCaption.textContent = 'Mostrando texto de ejemplo ' + (testiActual + 1) + ' de ' + items.length; }
+    }
+
+    testiDots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        testiMostrar(parseInt(dot.getAttribute('data-testi'), 10));
+      });
+    });
+    var testiPrev = document.getElementById('testi-prev');
+    var testiNext = document.getElementById('testi-next');
+    if (testiPrev) {
+      testiPrev.addEventListener('click', function () {
+        testiMostrar(testiActual - 1);
+      });
+    }
+    if (testiNext) {
+      testiNext.addEventListener('click', function () {
+        testiMostrar(testiActual + 1);
+      });
+    }
+    if (testiVisor) {
+      testiVisor.addEventListener('keydown', function (ev) {
+        if (ev.key === 'ArrowRight') { ev.preventDefault(); testiMostrar(testiActual + 1); }
+        if (ev.key === 'ArrowLeft') { ev.preventDefault(); testiMostrar(testiActual - 1); }
+      });
+      testiVisor.addEventListener('touchstart', function (ev) {
+        if (ev.changedTouches && ev.changedTouches.length) { testiTactoX = ev.changedTouches[0].clientX; }
+      }, { passive: true });
+      testiVisor.addEventListener('touchend', function (ev) {
+        if (testiTactoX === null || !ev.changedTouches || !ev.changedTouches.length) { return; }
+        var dx = ev.changedTouches[0].clientX - testiTactoX;
+        testiTactoX = null;
+        if (Math.abs(dx) < 40) { return; }
+        if (dx < 0) { testiMostrar(testiActual + 1); } else { testiMostrar(testiActual - 1); }
       }, { passive: true });
     }
   })();
