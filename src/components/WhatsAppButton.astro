@@ -58,6 +58,10 @@ const etiquetaAccesible =
 const tel = mostrarTel
   ? buildTelLink({ whatsapp: numero, telefono_visible: telefonoVisible })
   : null;
+
+// C-08 (D4): medición por atributo — los `href` NO se tocan (C-04 intacto).
+// El listener delegado de `BaseLayout` registra `data-umami-event` + payload.
+const evento = variant === 'product' ? 'whatsapp-product-click' : 'whatsapp-generic-click';
 ---
 
 <div class="flex flex-col items-stretch gap-2">
@@ -66,6 +70,9 @@ const tel = mostrarTel
     target="_blank"
     rel="noopener"
     aria-label={etiquetaAccesible}
+    data-umami-event={evento}
+    data-umami-producto={variant === 'product' ? productoNombre : undefined}
+    data-umami-categoria={categoria}
     class="inline-flex min-h-[48px] items-center justify-center rounded-lg bg-green-600 px-6 py-3 text-base font-semibold text-white hover:bg-green-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-800"
   >
     {textoVisible}
@@ -75,6 +82,7 @@ const tel = mostrarTel
       <a
         href={tel.href}
         aria-label={`Llamar al ${tel.textoVisible} por teléfono`}
+        data-umami-event="tel-click"
         class="inline-flex min-h-[48px] items-center justify-center rounded-lg px-6 py-2 text-base font-medium underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
       >
         {tel.textoVisible}

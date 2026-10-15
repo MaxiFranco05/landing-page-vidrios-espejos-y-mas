@@ -114,6 +114,71 @@ export type Trabajo = z.infer<typeof trabajoSchema>;
 export type DatosContacto = z.infer<typeof datosContactoSchema>;
 
 // ---------------------------------------------------------------------------
+// Copy deck SEO local (C-08, tasks 1.1/1.2)
+// ---------------------------------------------------------------------------
+
+/**
+ * Contrato del copy deck (`src/data/seo-copy.json`, consumido vía
+ * `src/lib/seo-copy.ts` con el patrón D5 de `datos-contacto.ts`).
+ *
+ * Vive acá —y no en `seo-copy.ts`— para que `node:test` lo ejecute sin
+ * importar el JSON (los loaders con `import` de JSON solo corren en Astro).
+ * Longitudes en grafemas (`[...s]`), no en UTF-16.
+ */
+
+const LONGITUD = (s: string): number => [...s].length;
+
+const paginaSeoSchema = z
+  .object({
+    /** Único por página, 50–60 grafemas, keyword local al frente. */
+    title: z
+      .string()
+      .min(1)
+      .refine((s) => LONGITUD(s) >= 50 && LONGITUD(s) <= 60, 'title fuera de rango 50–60'),
+    /** Única por página, 150–160 grafemas, con CTA. */
+    description: z
+      .string()
+      .min(1)
+      .refine((s) => LONGITUD(s) >= 150 && LONGITUD(s) <= 160, 'description fuera de rango 150–160'),
+    path: z.string().min(1),
+  })
+  .strict()
+  .superRefine((pagina, ctx) => {
+    try {
+      assertSinPrecioNiMedida(pagina, 'seo-copy');
+    } catch (e) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: (e as Error).message });
+    }
+    for (const patron of [/placeholder/i, /lorem/i]) {
+      if (patron.test(pagina.title) || patron.test(pagina.description)) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: `texto provisorio (${patron}) en copy SEO` });
+      }
+    }
+  });
+
+export const seoCopySchema = z
+  .object({
+    home: paginaSeoSchema,
+    catalogo: paginaSeoSchema,
+    categorias: z.record(paginaSeoSchema),
+    noEncontrada: paginaSeoSchema,
+  })
+  .strict()
+  .superRefine((deck, ctx) => {
+    const slugs = Object.keys(deck.categorias).sort();
+    const esperados = [...CATEGORIA_SLUGS].sort();
+    if (JSON.stringify(slugs) !== JSON.stringify(esperados)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `categorias del deck (${slugs}) != slugs reales (${esperados})`,
+      });
+    }
+  });
+
+export type PaginaSeo = z.infer<typeof paginaSeoSchema>;
+export type SeoCopy = z.infer<typeof seoCopySchema>;
+
+// ---------------------------------------------------------------------------
 // Prohibición de precio/medida (RN-CAT-02, D4)
 // ---------------------------------------------------------------------------
 

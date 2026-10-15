@@ -5,9 +5,15 @@
  */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { seoCopy } from '../lib/seo-copy.ts';
 ---
 
-<BaseLayout title="Página no encontrada — Vidrios, espejos y mas">
+<BaseLayout
+  title={seoCopy.noEncontrada.title}
+  description={seoCopy.noEncontrada.description}
+  path={seoCopy.noEncontrada.path}
+  noindex
+>
   <main>
     <h1>Página no encontrada</h1>
     <p>

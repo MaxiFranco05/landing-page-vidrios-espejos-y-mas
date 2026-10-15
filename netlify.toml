@@ -1,7 +1,38 @@
-# Netlify — deploy declarativo (C-01).
+# Netlify — deploy declarativo (C-01, final C-08).
 # Sitio 100 % estático (R1): build Astro SSG → publicar `dist/` directo,
 # sin functions ni SSR (decisión D1: sin adapter en v1).
 # URL temporal `*.netlify.app` hasta resolver PA-01 (dominio definitivo, C-08).
+# Previews por PR: default de Netlify con deploys desde git (sin config:
+# cada PR genera su deploy preview sin tocar producción).
 [build]
   command = "npm run build"
   publish = "dist"
+
+# C-08 (D5): caché por patrón — assets Vite con hash (`/_astro/*`)
+# son inmutables un año; el HTML revalida para que cada deploy se
+# vea al instante (sin `immutable` en HTML).
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# C-08: HTTPS forzado en el dominio canónico.
+# TODO(PA-01): al migrar al dominio definitivo, actualizar `from`/`to`
+# con el dominio nuevo en el mismo commit que `site:` (1 commit).
+# (Los deploy previews `*.netlify.app` ya fuerzan HTTPS a nivel CDN
+# con el toggle "Force HTTPS" del dashboard; esta regla cubre la canónica.)
+[[redirects]]
+  from = "http://vidrios-espejos-y-mas.netlify.app/*"
+  to = "https://vidrios-espejos-y-mas.netlify.app/:splat"
+  status = 301
+  force = true

@@ -12,6 +12,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProductCard from '../components/ProductCard.astro';
 import { datosContacto } from '../lib/datos-contacto.ts';
+import { seoCopy } from '../lib/seo-copy.ts';
 
 const categorias = (await getCollection('categorias')).sort((a, b) => a.data.orden - b.data.orden);
 const productos = await getCollection('productos');
@@ -25,8 +26,9 @@ const grupos = categorias.map((categoria) => ({
 ---
 
 <BaseLayout
-  title="Catálogo — Vidrios, espejos y mas"
-  description="Catálogo completo de Vidrios, espejos y mas: espejos, muebles de vidrio, instalaciones y reparaciones. Pedí presupuesto por WhatsApp."
+  title={seoCopy.catalogo.title}
+  description={seoCopy.catalogo.description}
+  path={seoCopy.catalogo.path}
 >
   <main>
     <h1>Catálogo</h1>

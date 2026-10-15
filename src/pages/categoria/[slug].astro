@@ -12,6 +12,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import { datosContacto } from '../../lib/datos-contacto.ts';
+import { seoCopy } from '../../lib/seo-copy.ts';
 
 export const prerender = true;
 
@@ -37,11 +38,29 @@ const productos =
     : (await getCollection('productos'))
         .filter((p) => p.data.categoria === categoria.data.slug)
         .sort((a, b) => a.data.orden - b.data.orden);
+
+// C-08: copy deck local desde `src/data/seo-copy.json` (D5/R4 — la página
+// NUNCA hardcodea titles/descriptions). El loader valida en import que
+// cada slug real tiene su pareja única en rango; el fallback defensivo
+// solo cubriría un slug nuevo sin deck (hoy inalcanzable: getStaticPaths).
+const seoCategoria =
+  categoria === undefined
+    ? undefined
+    : (seoCopy.categorias[categoria.data.slug] ?? {
+        title: `${categoria.data.nombre} | Vidriería en Gral. Alvear`,
+        description: categoria.data.descripcion,
+        path: `/categoria/${categoria.data.slug}`,
+      });
 ---
 
 {
   categoria === undefined ? (
-    <BaseLayout title="Categoría no encontrada — Vidrios, espejos y mas">
+    <BaseLayout
+      title={seoCopy.noEncontrada.title}
+      description={seoCopy.noEncontrada.description}
+      path={seoCopy.noEncontrada.path}
+      noindex
+    >
       <main>
         <h1>Categoría no encontrada</h1>
         <p>
@@ -51,8 +70,10 @@ const productos =
     </BaseLayout>
   ) : (
     <BaseLayout
-      title={`${categoria.data.nombre} — Vidrios, espejos y mas`}
-      description={categoria.data.descripcion}
+      title={seoCategoria?.title}
+      description={seoCategoria?.description}
+      path={seoCategoria?.path ?? `/categoria/${categoria.data.slug}`}
+      image={categoria.data.imagen_portada.src}
     >
       <main>
         <p>
@@ -63,6 +84,7 @@ const productos =
           src={categoria.data.imagen_portada.src}
           alt={categoria.data.imagen_portada.alt}
           loading="eager"
+          fetchpriority="high"
           decoding="async"
         />
         <p>{categoria.data.descripcion}</p>

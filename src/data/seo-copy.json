@@ -1,0 +1,39 @@
+{
+  "home": {
+    "title": "Vidriería en Gral. Alvear | Espejos, vidrios y taller",
+    "description": "Vidriería de barrio en Gral. Alvear, Mendoza: espejos, muebles de vidrio, aberturas y reparaciones. Pasá por Estrada 912 o pedí presupuesto por WhatsApp.",
+    "path": "/"
+  },
+  "catalogo": {
+    "title": "Catálogo de vidriería en Gral. Alvear | Pedí presupuesto",
+    "description": "Todo lo que hace el taller, agrupado por categoría: espejos, muebles de vidrio, aberturas y reparaciones. Elegí un producto y pedí presupuesto por WhatsApp.",
+    "path": "/catalogo"
+  },
+  "categorias": {
+    "espejos": {
+      "title": "Espejos en Gral. Alvear | Redondos, nube y con LED",
+      "description": "Espejos rectangulares, redondos, nube, con LED y panorámicos, listos para colgar. Escribinos por WhatsApp y te decimos cuál conviene para tu ambiente.",
+      "path": "/categoria/espejos"
+    },
+    "muebles-de-vidrio": {
+      "title": "Muebles de vidrio en Gral. Alvear | Mesas y vitrinas",
+      "description": "Mesas ratoneras de cristal y vitrinas de vidrio para tu living, quincho o comercio, hechas en nuestro taller de Gral. Alvear. Pedí presupuesto por WhatsApp.",
+      "path": "/categoria/muebles-de-vidrio"
+    },
+    "instalaciones-y-aberturas": {
+      "title": "Aberturas y mamparas en Gral. Alvear | Con colocación",
+      "description": "Aberturas de aluminio y mamparas para baño con colocación incluida en Gral. Alvear y alrededores. Escribinos por WhatsApp y coordinamos la visita al taller.",
+      "path": "/categoria/instalaciones-y-aberturas"
+    },
+    "servicios-y-reparaciones": {
+      "title": "Reparación de vidrios en Gral. Alvear | Taller local",
+      "description": "Reparamos vidrios de ventanas y espejos de vehículos, y enmarcamos diplomas y recuerdos. Traé tu consulta al taller de Estrada 912 o escribinos por WhatsApp.",
+      "path": "/categoria/servicios-y-reparaciones"
+    }
+  },
+  "noEncontrada": {
+    "title": "Página no encontrada | Vidriería en Gral. Alvear, Mendoza",
+    "description": "Esta página no existe, pero el taller sigue en Estrada 912, Gral. Alvear, Mendoza. Volvé al catálogo completo o escribinos por WhatsApp y te ayudamos.",
+    "path": "/404"
+  }
+}

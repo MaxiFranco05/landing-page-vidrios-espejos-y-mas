@@ -1,0 +1,6 @@
+# robots.txt (C-08): permite el crawl y referencia al sitemap canónico.
+# URL temporal hasta PA-01 (dominio definitivo): al migrar, actualizar
+# `site:` en astro.config.mjs + esta línea en el mismo commit.
+User-agent: *
+Allow: /
+Sitemap: https://vidrios-espejos-y-mas.netlify.app/sitemap.xml

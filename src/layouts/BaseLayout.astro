@@ -6,16 +6,42 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 import ContactInfo from '../components/ContactInfo.astro';
 import MobileMenu from '../components/MobileMenu.astro';
 import { datosContacto } from '../lib/datos-contacto.ts';
+import { buildSeo, DEFAULT_SITE } from '../lib/seo.ts';
+import { seoCopy } from '../lib/seo-copy.ts';
 
 interface Props {
   title?: string;
   description?: string;
+  /** Pathname canónico de la página (por defecto `/`, la home). */
+  path?: string;
+  /** Imagen OG relativa a `public/` o absoluta (defecto: asset real C-08). */
+  image?: string;
+  type?: 'website' | 'article';
+  /** Solo 404: excluye de índice sin sacarla del build. */
+  noindex?: boolean;
 }
 
 const {
-  title = 'Vidrios, espejos y mas — Vidriería en Gral. Alvear',
-  description = 'Vidriería en General Alvear: vidrios, espejos y mas. (Placeholder C-01 — contenido real desde C-04.)',
+  // C-08: defaults = deck de home desde `src/data/seo-copy.json` (D5/R4:
+  // el layout NUNCA hardcodea copy; el texto provisorio de C-01 murió acá).
+  title = seoCopy.home.title,
+  description = seoCopy.home.description,
+  path = seoCopy.home.path,
+  image,
+  type,
+  noindex = false,
 } = Astro.props;
+
+// C-08 (D1/R4): `site` desde env con fallback temporal hasta PA-01.
+// NUNCA literal en otro módulo: `seo.ts` solo expone el default.
+const site = import.meta.env.PUBLIC_SITE_URL ?? DEFAULT_SITE;
+const seo = buildSeo({ title, description, path, image, type, site });
+
+// C-08 (D4/R4): Umami solo con ID por env — NUNCA literal (R4 extensivo).
+// Sin env: sin script, sin errores (scenario spec; `track` es no-op).
+const umamiId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID as string | undefined;
+const umamiSrc =
+  (import.meta.env.PUBLIC_UMAMI_SRC as string | undefined) ?? 'https://cloud.umami.is/script.js';
 ---
 
 <!doctype html>
@@ -25,6 +51,19 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={seo.canonical} />
+    <meta property="og:title" content={seo.ogTitle} />
+    <meta property="og:description" content={seo.ogDescription} />
+    <meta property="og:type" content={seo.ogType} />
+    <meta property="og:url" content={seo.ogUrl} />
+    <meta property="og:image" content={seo.ogImage} />
+    <meta property="og:locale" content={seo.ogLocale} />
+    <meta name="twitter:card" content={seo.twitterCard} />
+    <meta name="twitter:title" content={seo.twitterTitle} />
+    <meta name="twitter:description" content={seo.twitterDescription} />
+    <meta name="twitter:image" content={seo.twitterImage} />
+    {umamiId ? <script defer src={umamiSrc} data-website-id={umamiId}></script> : null}
     <!--
       Anti-flash (C-03, D4): primer script del <head>, antes de cualquier
       CSS, para que el primer pintado ya use el tema correcto. Lee
@@ -105,11 +144,37 @@ const {
           target="_blank"
           rel="noopener"
           aria-label={'Cómo llegar a Vidrios, espejos y mas en ' + datosContacto.direccion + ' en Google Maps'}
+          data-umami-event="maps-click"
         >
           Cómo llegar
         </a>
       </p>
     </footer>
+    <!--
+      C-08 (D4/SU-02): listener delegado de medición. Lee los atributos
+      `data-umami-event` de los CTAs existentes (hrefs intactos, C-04/C-07)
+      y registra el evento con su payload + `origen` (pathname). Sin
+      `window.umami` (sin env/adblock) `track` es no-op: cero errores.
+    -->
+    <script>
+      import { track, isAnalyticsEvent } from '../lib/analytics.ts';
+
+      document.addEventListener('click', (event) => {
+        const objetivo = event.target;
+        if (!(objetivo instanceof HTMLElement)) return;
+        const ancla = objetivo.closest('[data-umami-event]');
+        if (!(ancla instanceof HTMLAnchorElement)) return;
+        const nombre = ancla.getAttribute('data-umami-event');
+        if (nombre === null || !isAnalyticsEvent(nombre)) return;
+        const datos: Record<string, string> = { origen: location.pathname };
+        for (const attr of Array.from(ancla.attributes)) {
+          if (attr.name !== 'data-umami-event' && attr.name.startsWith('data-umami-')) {
+            datos[attr.name.slice('data-umami-'.length)] = attr.value;
+          }
+        }
+        track(nombre, datos);
+      });
+    </script>
   </body>
 </html>
 

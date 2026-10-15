@@ -214,7 +214,7 @@ Paso │ Agente A (Contenido + Catálogo)   │ Agente B (Interacción + Galerí
 ## FASE 3 — Producción
 
 ### [C-08] `seo-deploy-medicion`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` archivado (2026-10-15, con residuales post-deploy 6.2/8.2)
 - **Scope**: Puesta en producción medible y posicionable
   - SEO local: titles/metas por página y categoría ("vidriería en Gral. Alvear"), Open Graph, `sitemap.xml`, `robots.txt`, JSON-LD `LocalBusiness` con dirección, teléfono y horarios
   - `netlify.toml` final: headers de caché para assets, HTTPS, previews por PR; documentar pendiente PA-01 (dominio definitivo vs `*.netlify.app`)

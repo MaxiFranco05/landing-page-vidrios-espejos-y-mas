@@ -7,6 +7,21 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 import ContactInfo from '../components/ContactInfo.astro';
 import MapEmbed from '../components/MapEmbed.astro';
 import { datosContacto } from '../lib/datos-contacto.ts';
+import { seoCopy } from '../lib/seo-copy.ts';
+import { buildStoreJsonLd } from '../lib/jsonld.ts';
+import { DEFAULT_SITE } from '../lib/seo.ts';
+
+// C-08 (D3): JSON-LD `Store` SOLO en home, NAP exacto desde el
+// singleton (R4) — consistente con el NAP visible del header/footer.
+const siteCanonico = import.meta.env.PUBLIC_SITE_URL ?? DEFAULT_SITE;
+const jsonLd = buildStoreJsonLd(
+  {
+    direccion: datosContacto.direccion,
+    whatsapp: datosContacto.whatsapp,
+    horarios: datosContacto.horarios,
+  },
+  siteCanonico,
+);
 
 const categorias = (await getCollection('categorias')).sort((a, b) => a.data.orden - b.data.orden);
 
@@ -24,7 +39,12 @@ for (const c of categorias) {
 }
 ---
 
-<BaseLayout>
+<BaseLayout
+  title={seoCopy.home.title}
+  description={seoCopy.home.description}
+  path={seoCopy.home.path}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <main>
     <h1>Vidrios, espejos y mas</h1>
     <p>
@@ -95,6 +115,7 @@ for (const c of categorias) {
           target="_blank"
           rel="noopener"
           aria-label={'Cómo llegar a Vidrios, espejos y mas en ' + datosContacto.direccion + ' en Google Maps'}
+          data-umami-event="maps-click"
         >
           Cómo llegar
         </a>

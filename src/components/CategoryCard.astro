@@ -26,6 +26,7 @@ const { slug, nombre, descripcion, imagen, eager = false } = Astro.props;
     src={imagen.src}
     alt={imagen.alt}
     loading={eager ? 'eager' : 'lazy'}
+    fetchpriority={eager ? 'high' : undefined}
     decoding="async"
     class="tarjeta-categoria-portada"
   />
