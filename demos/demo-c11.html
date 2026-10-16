@@ -1,0 +1,320 @@
+<!doctype html>
+<!--
+  DEMO visual — c-11-pulido-home (mockup descartable, no se publica).
+  - Un solo archivo, CSS/JS inline, sin build: se abre con doble clic.
+  - Muestra el home DESPUÉS del change: contenedor 70rem + hero real + mapa compacto.
+  - Conmutador de paletas 37A/37B/37C (default 37B) + claro/oscuro, con localStorage
+    (mismo enfoque de CSS-vars que demos/demo.html para que se sienta consistente).
+  - Hero visual = SVG inline ILUSTRATIVO con concepto de la portada de categoría
+    espejos (marco rectangular); el sitio real usa public/images/categorias/espejos.jpg
+    (no se puede inlinear un JPG en una demo autocontenida).
+  - Mapa = gráfico SVG simulado pero plausible (no es el embed real de Google Maps).
+  - Links wa.me y Google Maps reales (sin "#"); sin precios ni medidas (R2).
+  - NO es maqueta base del apply: solo referencia visual para responder Q1/Q2.
+-->
+<html lang="es" data-paleta="37b" data-tema="claro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Demo c-11 — Pulido del home (Vidrios, espejos y mas)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,600&display=swap" rel="stylesheet" />
+<style>
+  /* Mismas 3 ternas que demos/demo.html (default 37B). Solo vars, sin colores nuevos. */
+  :root, html[data-paleta="37a"][data-tema="claro"] {
+    --fondo: #EDF3F0; --superficie: #D8E9E3; --borde: #A9CFC7;
+    --acento: #14676F; --texto: #123A3F; --calido: #F6F1E4;
+    --sobre-acento: #EDF3F0;
+  }
+  html[data-paleta="37a"][data-tema="oscuro"] {
+    --fondo: #0E2429; --superficie: #17363D; --borde: #17363D;
+    --acento: #82CCC6; --texto: #EAF4F0; --calido: #17363D;
+    --sobre-acento: #0E2429;
+  }
+  html[data-paleta="37b"][data-tema="claro"] {
+    --fondo: #EDF1F6; --superficie: #CDDBE8; --borde: #D9E8F5;
+    --acento: #1E5AA8; --texto: #152A42; --calido: #F4EFE3;
+    --sobre-acento: #EDF1F6;
+  }
+  html[data-paleta="37b"][data-tema="oscuro"] {
+    --fondo: #0F1E30; --superficie: #1A2F47; --borde: #1A2F47;
+    --acento: #8FB8E8; --texto: #E9F1F8; --calido: #1A2F47;
+    --sobre-acento: #0F1E30;
+  }
+  html[data-paleta="37c"][data-tema="claro"] {
+    --fondo: #FBF7EC; --superficie: #F3EAD5; --borde: #D9E6D9;
+    --acento: #2E7D64; --texto: #1F352C; --calido: #F3EAD5;
+    --sobre-acento: #FBF7EC;
+  }
+  html[data-paleta="37c"][data-tema="oscuro"] {
+    --fondo: #122419; --superficie: #1D352A; --borde: #1D352A;
+    --acento: #8FD0B4; --texto: #EDF5EE; --calido: #1D352A;
+    --sobre-acento: #122419;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--fondo); color: var(--texto);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    margin: 0; line-height: 1.6;
+  }
+  h1, h2, .marca-nombre {
+    font-family: "Fraunces", Georgia, "Times New Roman", serif;
+    font-weight: 600; line-height: 1.1; margin: 0 0 0.5rem;
+  }
+  a { color: var(--acento); }
+  :focus-visible { outline: 3px solid var(--acento); outline-offset: 2px; }
+
+  /* Barra de conmutadores: sticky, nativa, operable por teclado. */
+  .demo-bar {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--superficie); border-bottom: 2px solid var(--borde);
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center;
+    padding: 0.6rem 1.25rem;
+  }
+  .demo-bar fieldset { border: 0; margin: 0; padding: 0; display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
+  .demo-bar legend { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0; margin-right: 0.25rem; }
+  .demo-bar label {
+    border: 1px solid var(--borde); border-radius: 999px; cursor: pointer;
+    font-size: 0.85rem; padding: 0.3rem 0.8rem; min-height: 32px;
+    display: inline-flex; align-items: center;
+  }
+  .demo-bar input { accent-color: var(--acento); margin-right: 0.35rem; }
+  .demo-bar label:has(input:checked) { background: var(--acento); color: var(--sobre-acento); border-color: var(--acento); }
+  .demo-bar label:has(input:focus-visible) { outline: 3px solid var(--acento); outline-offset: 2px; }
+
+  /* D1 — contenedor propuesto: acotado y centrado, con padding lateral.
+     Header/footer van a sangre (fondos full-width intencionales); su contenido
+     interno usa la misma clase para alinear. */
+  .contenedor { max-width: 70rem; margin-inline: auto; padding-inline: 1.25rem; }
+
+  .nota-demo {
+    background: var(--calido); border: 1px dashed var(--acento); border-radius: 0.7rem;
+    font-size: 0.85rem; margin: 1.5rem 0 0; padding: 0.6rem 0.9rem;
+  }
+  .badge-demo {
+    background: var(--acento); border-radius: 999px; color: var(--sobre-acento);
+    display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+    padding: 0.2rem 0.7rem; text-transform: uppercase;
+  }
+
+  /* Header a sangre: el fondo ocupa todo el ancho, el contenido va acotado. */
+  .sitio-header { background: var(--superficie); border-bottom: 2px solid var(--borde); }
+  .sitio-header .contenedor {
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center;
+    justify-content: space-between; padding-top: 0.8rem; padding-bottom: 0.8rem;
+  }
+  .marca-nombre { font-size: 1.25rem; margin: 0; }
+  .marca-nombre em { color: var(--acento); font-style: italic; }
+  .header-cta {
+    color: var(--acento); font-size: 0.9rem; font-weight: 600; text-decoration: none;
+    border: 1px solid var(--acento); border-radius: 999px;
+    min-height: 44px; padding: 0.5rem 1.1rem;
+    display: inline-flex; align-items: center;
+  }
+  .header-cta:hover { background: var(--acento); color: var(--sobre-acento); }
+
+  /* D2/D6 — hero real: titular + filete + propuesta de valor + CTA + foto protagonista. */
+  .hero { display: grid; gap: 1.5rem; padding: 3rem 0 2.5rem; }
+  @media (min-width: 720px) { .hero { grid-template-columns: 1.1fr 0.9fr; align-items: center; } }
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
+  .hero h1 em { color: var(--acento); font-style: italic; }
+  .hero .zona { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 0.5rem; }
+  .hero .filete { background: var(--acento); height: 3px; width: 4.5rem; border-radius: 2px; margin: 1rem 0; }
+  .boton-whatsapp {
+    background: #0B7A43; border-radius: 999px; color: #fff;
+    display: inline-block; font-weight: 600; margin-top: 1rem;
+    min-height: 44px; padding: 0.7rem 1.6rem; text-decoration: none;
+  }
+  .boton-whatsapp:hover { background: #095C33; color: #fff; }
+  .foto-marco {
+    background: var(--superficie); border: 1px solid var(--borde);
+    border-radius: 0.9rem; overflow: hidden; margin: 0;
+  }
+  .foto-marco svg { display: block; width: 100%; height: auto; }
+  .foto-marco figcaption { font-size: 0.85rem; padding: 0.5rem 1rem 0.8rem; }
+
+  .sin-cambios {
+    border-top: 1px solid var(--borde); color: inherit;
+    font-size: 0.85rem; margin: 0; opacity: 0.85; padding: 1.5rem 0;
+    text-align: center;
+  }
+
+  /* D4 — contacto + ubicación juntos: dos tarjetas lado a lado en desktop, apiladas en móvil. */
+  .contacto { padding: 2rem 0 3rem; }
+  .contacto h2 { text-align: center; }
+  .contacto .bajada { text-align: center; margin: 0 0 1rem; }
+  .contacto-grid { display: grid; gap: 1rem; margin-top: 1rem; }
+  @media (min-width: 720px) { .contacto-grid { grid-template-columns: 1fr 1fr; } }
+  .contacto-card { background: var(--superficie); border: 1px solid var(--borde); border-radius: 0.9rem; padding: 1.25rem; }
+  .contacto-card:nth-child(2) { background: var(--calido); }
+  .contacto-card h3 { font-family: "Fraunces", Georgia, serif; font-size: 1.15rem; margin: 0 0 0.5rem; }
+  .contacto-card address { font-style: normal; }
+  .contacto-card ul { list-style: none; margin: 0.5rem 0 0; padding: 0; display: grid; gap: 0.35rem; }
+  .horarios { width: 100%; border-collapse: collapse; font-size: 0.92rem; margin-top: 0.5rem; }
+  .horarios th, .horarios td { text-align: left; padding: 0.3rem 0.5rem 0.3rem 0; border-top: 1px solid var(--borde); }
+  .horarios tr:first-child th, .horarios tr:first-child td { border-top: 0; }
+  .mapa-mini svg { display: block; width: 100%; height: auto; border-radius: 0.6rem; margin: 0.75rem 0; }
+
+  footer { background: var(--superficie); border-top: 2px solid var(--borde); padding: 2rem 0; }
+  footer address { font-style: normal; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-bar" role="group" aria-label="Conmutadores de la demo: paleta y tema">
+  <fieldset>
+    <legend>Paleta</legend>
+    <label><input type="radio" name="paleta" value="37a" /> 37A Vidrio Agua</label>
+    <label><input type="radio" name="paleta" value="37b" checked /> 37B Azul Taller</label>
+    <label><input type="radio" name="paleta" value="37c" /> 37C Costa</label>
+  </fieldset>
+  <fieldset>
+    <legend>Tema</legend>
+    <label><input type="radio" name="tema" value="claro" checked /> Claro</label>
+    <label><input type="radio" name="tema" value="oscuro" /> Oscuro</label>
+  </fieldset>
+</div>
+
+<header class="sitio-header">
+  <div class="contenedor">
+    <p class="marca-nombre">Vidrios, espejos <em>y mas</em></p>
+    <a class="header-cta" href="https://wa.me/5492625445223?text=Hola%20Vidrios%2C%20espejos%20y%20mas!%20Quiero%20hacer%20una%20consulta">WhatsApp: pedir presupuesto</a>
+  </div>
+</header>
+
+<main class="contenedor">
+  <p class="nota-demo"><span class="badge-demo">Nota demo</span> Mockup del look propuesto en <strong>c-11-pulido-home</strong> (no es el sitio real). Contenido acotado a un contenedor centrado de 70rem — header y footer siguen a sangre a propósito. A revisar con el dueño: Q1 imagen del hero, Q2 copy definitivo.</p>
+
+  <!-- Hero real (D2/D3/D6): reemplaza el placeholder C-01 -->
+  <section class="hero" aria-labelledby="c11-titulo">
+    <div>
+      <p class="zona">Vidriería · Gral. Alvear, Mendoza</p>
+      <h1 id="c11-titulo">Vidrios, espejos <em>y mas</em></h1>
+      <div class="filete" aria-hidden="true"></div>
+      <p>Espejos, muebles de vidrio, aberturas y reparaciones para casas y locales de la zona. Escribinos por WhatsApp y te asesoramos sin compromiso.</p>
+      <a class="boton-whatsapp" href="https://wa.me/5492625445223?text=Hola%20Vidrios%2C%20espejos%20y%20mas!%20Quiero%20hacer%20una%20consulta">WhatsApp: pedir presupuesto</a>
+    </div>
+    <figure class="foto-marco">
+      <svg viewBox="0 0 640 420" role="img" aria-label="Ilustración de muestra: espejo rectangular con marco oscuro instalado en un living">
+        <rect width="640" height="420" fill="#9db8c4"/>
+        <rect x="170" y="30" width="300" height="360" rx="8" fill="#dfe9ec" stroke="#3d5a66" stroke-width="10"/>
+        <rect x="200" y="60" width="240" height="180" fill="#b9d2da"/>
+        <rect x="200" y="260" width="240" height="100" fill="#c8d9df"/>
+        <rect x="500" y="120" width="90" height="200" fill="#7fa3b5"/>
+        <rect x="50" y="120" width="90" height="200" fill="#7fa3b5"/>
+      </svg>
+      <figcaption>Imagen ilustrativa (concepto portada categoría espejos) — el sitio real usa <code>public/images/categorias/espejos.jpg</code></figcaption>
+    </figure>
+  </section>
+
+  <p class="sin-cambios">… Lo que hacemos, trabajos destacados y opiniones quedan igual que hoy (c-11 no los toca) …</p>
+
+  <!-- Contacto + ubicación juntos (D4): una sección, dos tarjetas lado a lado en desktop, apiladas en móvil -->
+  <section class="contacto" id="contacto" aria-labelledby="c11-contacto">
+    <h2 id="c11-contacto">Contacto y ubicación</h2>
+    <p class="bajada">Pasá por el taller o escribinos antes de venir.</p>
+    <div class="contacto-grid">
+      <div class="contacto-card">
+        <h3>Escribinos</h3>
+        <address>
+          <ul>
+            <li>WhatsApp: <a href="https://wa.me/5492625445223?text=Hola%20Vidrios%2C%20espejos%20y%20mas!%20Quiero%20hacer%20una%20consulta">+54 9 2625 44-5223</a></li>
+            <li>Tel: <a href="tel:+5492625445223">+54 9 2625 44-5223</a></li>
+          </ul>
+        </address>
+        <table class="horarios">
+          <caption>Horarios de atención</caption>
+          <tbody>
+            <tr><th scope="row">Lun–Vie</th><td>8–19</td></tr>
+            <tr><th scope="row">Sáb</th><td>8–13</td></tr>
+            <tr><th scope="row">Dom</th><td>Cerrado</td></tr>
+          </tbody>
+        </table>
+        <p><a class="boton-whatsapp" href="https://wa.me/5492625445223?text=Hola%20Vidrios%2C%20espejos%20y%20mas!%20Quiero%20hacer%20una%20consulta">WhatsApp: pedir presupuesto</a></p>
+      </div>
+      <div class="contacto-card" id="ubicacion">
+        <h3>Cómo llegar</h3>
+        <address>26 de Julio, M5620 Gral. Alvear, Mendoza</address>
+        <div class="mapa-mini">
+        <svg viewBox="0 0 640 300" role="img" aria-label="Mapa ilustrativo: cuadrícula de calles de General Alvear con un pin sobre calle 26 de Julio">
+        <rect width="640" height="300" fill="#cfdde4"/>
+        <g stroke="#ffffff" stroke-width="10">
+          <line x1="0" y1="60" x2="640" y2="60"/>
+          <line x1="0" y1="150" x2="640" y2="150"/>
+          <line x1="0" y1="240" x2="640" y2="240"/>
+          <line x1="120" y1="0" x2="120" y2="300"/>
+          <line x1="300" y1="0" x2="300" y2="300"/>
+          <line x1="480" y1="0" x2="480" y2="300"/>
+        </g>
+        <g stroke="#8fa9b5" stroke-width="2">
+          <line x1="0" y1="105" x2="640" y2="105"/>
+          <line x1="0" y1="195" x2="640" y2="195"/>
+          <line x1="210" y1="0" x2="210" y2="300"/>
+          <line x1="390" y1="0" x2="390" y2="300"/>
+          <line x1="565" y1="0" x2="565" y2="300"/>
+        </g>
+        <line x1="0" y1="150" x2="640" y2="150" stroke="#5d7a87" stroke-width="14"/>
+        <text x="300" y="140" font-family="system-ui, sans-serif" font-size="14" fill="#2f3f47">26 de Julio</text>
+        <rect x="150" y="165" width="60" height="40" fill="#a9c9b8"/>
+        <rect x="420" y="75" width="50" height="55" fill="#a9c9b8"/>
+        <g transform="translate(300,195)">
+          <path d="M0,-52 C-22,-52 -36,-36 -36,-18 C-36,8 0,34 0,34 C0,34 36,8 36,-18 C36,-36 22,-52 0,-52 Z" fill="#0B7A43" stroke="#ffffff" stroke-width="4"/>
+          <circle cx="0" cy="-18" r="10" fill="#ffffff"/>
+        </g>
+      </svg>
+        </div>
+        <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Vidrios,+espejos+y+mas+26+de+Julio+General+Alvear+Mendoza">Cómo llegar</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="contenedor">
+    <p class="marca-nombre">Vidrios, espejos <em>y mas</em></p>
+    <address>
+      26 de Julio, M5620 Gral. Alvear, Mendoza · <a href="https://wa.me/5492625445223?text=Hola%20Vidrios%2C%20espejos%20y%20mas!%20Quiero%20hacer%20una%20consulta">WhatsApp: +54 9 2625 44-5223</a>
+    </address>
+  </div>
+</footer>
+
+<script>
+  // Conmutadores paleta/tema: cambian data-* en <html>, con persistencia local.
+  // Mismo enfoque de CSS-vars que demos/demo.html (claves propias demo-c11-*).
+  (function () {
+    var root = document.documentElement;
+
+    function recordar(clave, valor) {
+      try { window.localStorage.setItem(clave, valor); } catch (e) { /* sin almacenamiento: sigue funcionando */ }
+    }
+    function leer(clave) {
+      try { return window.localStorage.getItem(clave); } catch (e) { return null; }
+    }
+
+    function enlazar(nombre, attr, clave) {
+      var radios = document.querySelectorAll('input[name="' + nombre + '"]');
+      var guardado = leer(clave);
+      if (guardado) {
+        root.setAttribute(attr, guardado);
+        radios.forEach(function (r) { r.checked = (r.value === guardado); });
+      }
+      radios.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+          root.setAttribute(attr, radio.value);
+          recordar(clave, radio.value);
+        });
+      });
+    }
+
+    enlazar('paleta', 'data-paleta', 'demo-c11-paleta');
+    enlazar('tema', 'data-tema', 'demo-c11-tema');
+  })();
+</script>
+</body>
+</html>
