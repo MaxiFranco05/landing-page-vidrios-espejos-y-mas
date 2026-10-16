@@ -56,10 +56,16 @@ for (const [nombre, valor] of Object.entries({ embedUrl, mapsUrl, direccion })) 
 </div>
 
 <style>
+  /* C-11 (D4): mapa compacto centrado — solo presentación. Cota de ancho
+     + altura máxima en vez del 16/10 full-width sin cota. Props, validación
+     y fallback (dirección + "Abrir en Google Maps" en DOM) intactos. */
   .map-embed {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    margin-inline: auto;
+    max-width: 56rem;
+    width: 100%;
   }
 
   .map-embed-direccion {
@@ -68,9 +74,10 @@ for (const [nombre, valor] of Object.entries({ embedUrl, mapsUrl, direccion })) 
   }
 
   .map-embed-frame {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 9;
     border: 1px solid var(--surface-borde);
     border-radius: var(--radius-tarjeta);
+    max-height: 22rem;
     width: 100%;
   }
 

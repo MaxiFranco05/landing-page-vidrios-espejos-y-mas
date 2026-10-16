@@ -47,12 +47,39 @@ for (const c of categorias) {
   path={seoCopy.home.path}
 >
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-  <main>
-    <h1>Vidrios, espejos y mas</h1>
-    <p>
-      Vidriería en General Alvear. Página placeholder del scaffolding
-      inicial (C-01) — el home real lo construyen C-04/C-05/C-06/C-07.
-    </p>
+  <main class="contenedor">
+    <!-- C-11: hero real (reemplaza el placeholder C-01). Estático, sin isla:
+         titular + propuesta de valor + CTA genérico C-04 + foto protagonista.
+         Imagen override Q1 del dueño: espejo-redondo-led (taller real). -->
+    <section class="hero" aria-labelledby="hero-titulo">
+      <div class="hero-texto">
+        <p class="hero-zona">Vidriería · Gral. Alvear, Mendoza</p>
+        <h1 id="hero-titulo">Vidrios, espejos <em class="hero-mas">y mas</em></h1>
+        <div class="hero-filete" aria-hidden="true"></div>
+        <p class="hero-valor">
+          Espejos, muebles de vidrio, aberturas y reparaciones para casas y locales
+          de la zona. Escribinos por WhatsApp y te asesoramos sin compromiso.
+        </p>
+        <WhatsAppButton
+          variant="generic"
+          numero={datosContacto.whatsapp}
+          mostrarTel
+          telefonoVisible={datosContacto.telefono_visible}
+        />
+      </div>
+      <figure class="hero-foto">
+        <img
+          src="/images/productos/espejo-redondo-led.jpg"
+          alt="Espejo redondo con luz LED instalado en una casa, reflejando un ambiente con cortina"
+          width="1200"
+          height="1599"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="hero-foto-img"
+        />
+      </figure>
+    </section>
 
     <!-- C-05:Lo-que-hacemos -->
     <section id="hacemos" aria-labelledby="hacemos-titulo">
@@ -90,43 +117,50 @@ for (const c of categorias) {
     <Testimonios testimonios={testimonios} />
     <!-- /C-10 -->
 
-    <!-- C-07: contacto + ubicación (zona propia; C-05/C-06 tocan otros bloques). -->
+    <!-- C-07 + C-11: contacto y ubicación JUNTOS en una sola sección
+         (desvío registrado de C-07, que las tenía separadas: el ancla
+         #ubicacion vive ahora en la tarjeta de ubicación y ambos anclas
+         siguen funcionando). Dos tarjetas lado a lado en desktop,
+         apiladas en mobile. Contenido de ambas tarjetas intacto. -->
     <section id="contacto" class="scroll-mt-24" aria-labelledby="contacto-titulo">
-      <h2 id="contacto-titulo">Contacto por WhatsApp</h2>
-      <ContactInfo
-        direccion={datosContacto.direccion}
-        zona={datosContacto.zona_atencion}
-        horarios={datosContacto.horarios}
-        whatsapp={datosContacto.whatsapp}
-        telefonoVisible={datosContacto.telefono_visible}
-      />
-    </section>
-
-    <section id="ubicacion" class="scroll-mt-24" aria-labelledby="ubicacion-titulo">
-      <h2 id="ubicacion-titulo">Ubicación</h2>
-      <ContactInfo
-        direccion={datosContacto.direccion}
-        zona={datosContacto.zona_atencion}
-        horarios={datosContacto.horarios}
-        whatsapp={datosContacto.whatsapp}
-        telefonoVisible={datosContacto.telefono_visible}
-      />
-      <MapEmbed
-        embedUrl={datosContacto.maps_embed_url}
-        mapsUrl={datosContacto.maps_url}
-        direccion={datosContacto.direccion}
-      />
-      <p>
-        <a
-          href={datosContacto.maps_url}
-          target="_blank"
-          rel="noopener"
-          aria-label={'Cómo llegar a Vidrios, espejos y mas en ' + datosContacto.direccion + ' en Google Maps'}
-          data-umami-event="maps-click"
-        >
-          Cómo llegar
-        </a>
-      </p>
+      <h2 id="contacto-titulo">Contacto y ubicación</h2>
+      <p>Pasá por el taller o escribinos antes de venir.</p>
+      <div class="contacto-grid">
+        <div class="contacto-card">
+          <h3>Escribinos</h3>
+          <ContactInfo
+            direccion={datosContacto.direccion}
+            zona={datosContacto.zona_atencion}
+            horarios={datosContacto.horarios}
+            whatsapp={datosContacto.whatsapp}
+            telefonoVisible={datosContacto.telefono_visible}
+          />
+        </div>
+        <div id="ubicacion" class="contacto-card scroll-mt-24">
+          <h3>Cómo llegar</h3>
+          <p class="contacto-zona">{datosContacto.zona_atencion}</p>
+          <p class="contacto-horarios">
+            <span class="contacto-etiqueta">Horarios:</span>
+            <span>{datosContacto.horarios}</span>
+          </p>
+          <MapEmbed
+            embedUrl={datosContacto.maps_embed_url}
+            mapsUrl={datosContacto.maps_url}
+            direccion={datosContacto.direccion}
+          />
+          <p>
+            <a
+              href={datosContacto.maps_url}
+              target="_blank"
+              rel="noopener"
+              aria-label={'Cómo llegar a Vidrios, espejos y mas en ' + datosContacto.direccion + ' en Google Maps'}
+              data-umami-event="maps-click"
+            >
+              Cómo llegar
+            </a>
+          </p>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -140,6 +174,129 @@ for (const c of categorias) {
     />
   </div>
 </BaseLayout>
+
+<style>
+  /* C-11: hero real — apilado en mobile, asimétrico en desktop.
+     Idioma del Wordmark (C-03): Fraunces + filete de acento + zona.
+     Solo tokens del sistema, sin colores nuevos. */
+  .hero {
+    align-items: center;
+    display: grid;
+    gap: 1.5rem;
+    padding: 2.5rem 0 2rem;
+  }
+
+  @media (min-width: 48rem) {
+    .hero {
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+  }
+
+  .hero-zona {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    margin: 0 0 0.5rem;
+    opacity: 0.85;
+    text-transform: uppercase;
+  }
+
+  .hero-texto h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 600;
+    line-height: 1.1;
+    margin: 0 0 0.5rem;
+  }
+
+  .hero-mas {
+    color: var(--surface-acento);
+    font-style: italic;
+  }
+
+  .hero-filete {
+    background-color: var(--surface-acento);
+    border-radius: 2px;
+    height: 3px;
+    margin: 1rem 0;
+    width: 4.5rem;
+  }
+
+  .hero-valor {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0 0 1rem;
+  }
+
+  .hero-foto {
+    background-color: var(--surface-elevada);
+    border: 1px solid var(--surface-borde);
+    border-radius: var(--radius-tarjeta);
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .hero-foto-img {
+    aspect-ratio: 4 / 5;
+    display: block;
+    height: auto;
+    max-height: 24rem;
+    object-fit: cover;
+    object-position: center 20%;
+    width: 100%;
+  }
+
+  @media (min-width: 48rem) {
+    .hero-foto-img {
+      max-height: 30rem;
+    }
+  }
+
+  /* C-11: contacto + ubicación juntos — apiladas en mobile,
+     lado a lado en desktop. */
+  .contacto-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 48rem) {
+    .contacto-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .contacto-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+
+  .contacto-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    margin: 0;
+  }
+
+  .contacto-zona {
+    font-size: 0.9rem;
+    opacity: 0.85;
+  }
+
+  .contacto-horarios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .contacto-etiqueta {
+    font-weight: 600;
+  }
+
+  .contacto-card p {
+    margin: 0;
+  }
+</style>
 
 <style>
   /* Teaser C-05 (D6 anti-genérico): grilla asimétrica anclada en fotos

@@ -76,6 +76,16 @@ body {
   outline-offset: 2px;
 }
 
+/* C-11 (D1): contenedor centrado de ancho máximo para el contenido
+   principal. Header/footer van a sangre (fondos full-width
+   intencionales); su contenido interno reusa esta clase para alinear.
+   Solo espaciado existente, cero colores nuevos. */
+.contenedor {
+  margin-inline: auto;
+  max-width: 70rem;
+  padding-inline: 1.25rem;
+}
+
 /* Sin animaciones si el usuario las desactiva. */
 @media (prefers-reduced-motion: reduce) {
   *,
